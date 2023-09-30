@@ -14,6 +14,7 @@ const IndexPage: NextPage = () => {
   const [user, setUser] = useState('')
   const [pass, setPass] = useState('')
   const [mess, setMess] = useState('')
+  const [page, setPage] = useState('Balance Sheet')
   const router = useRouter();
   const callBackUrl = (router.query?.callBackUrl as string) ?? "/bs";
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -65,8 +66,17 @@ const IndexPage: NextPage = () => {
                     </div>
                 </div>
                 <div className="d-flex flex-column align-items-center">
-                    <input className="btn btn-primary w-75" type="submit" value="Sign In"></input>
-                    <label>Please Sign In</label>
+                    <input className="btn btn-primary w-75" type="submit" value={`Sign In to ${page}`}></input>
+                    <label className={styles.switch}>
+                    <input type="checkbox" onChange={() => {
+                      if (page === "Balance Sheet") {
+                        setPage('Mussel Entry')
+                      } else {
+                        setPage("Balance Sheet")
+                      }
+                    }}></input>
+                    <span className={`${styles.slider} ${styles.round}`}></span>
+                  </label>
                 </div>
             </form>
         </div>
