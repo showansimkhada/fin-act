@@ -3,7 +3,7 @@ import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 export async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
-  const protectedPaths = ["/bs", '/home'];
+  const protectedPaths = ["/bs", '/homeBS', '/homeMO', '/profile'];
   const isPathProtected = protectedPaths?.some((path) => pathname == path);
   const res = NextResponse.next();
   if (isPathProtected) {

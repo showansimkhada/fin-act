@@ -1,12 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import type { AppState, AppThunk } from './loginStore'
-import { fetchLogCred } from './loginAPI'
+import type { AppState } from './loginStore'
 
 export interface LoginState {
   value: {
     'username': '',
-    'password': ''
+    'page': ''
   }
   status: 'LOGIN_FAIL' | 'LOGIN_SUCCESS' | 'LOGIN'
 }
@@ -14,7 +13,7 @@ export interface LoginState {
 const initialState: LoginState = {
   value: {
     'username': '',
-    'password': ''
+    'page': ''
   },
   status: 'LOGIN',
 }
@@ -45,8 +44,8 @@ export const loginSlice = createSlice({
       // immutable state based off those changes
       state.value.username = actions.payload
     },
-    setPassword: (state, actions) => {
-      state.value.password = actions.payload
+    setHomePage: (state, actions) => {
+      state.value.page = actions.payload
     },
     // Use the PayloadAction type to declare the contents of `action.payload`
     // incrementByAmount: (state, action: PayloadAction<number>) => {
@@ -67,13 +66,13 @@ export const loginSlice = createSlice({
 //   },
 })
 
-export const { setUserName, setPassword } = loginSlice.actions
+export const { setUserName, setHomePage } = loginSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
-export const selectUserName = (state: AppState) => state.logCred.value.username
-export const selectPassword = (state: AppState) => state.logCred.value.password
+export const selectUserName = (state: AppState) => state.logCred
+export const selectHomePage = (state: AppState) => state.logCred
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

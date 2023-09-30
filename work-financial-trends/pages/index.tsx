@@ -16,7 +16,14 @@ const IndexPage: NextPage = () => {
   const [mess, setMess] = useState('')
   const [page, setPage] = useState('Balance Sheet')
   const router = useRouter();
-  const callBackUrl = (router.query?.callBackUrl as string) ?? "/bs";
+  var callBackUrl = '/';
+  if (page === "Balance Sheet") {
+    callBackUrl = (router.query?.callBackUrl as string) ?? "/homeBS";
+  } else if (page === "Mussel Entry") {
+    callBackUrl = (router.query?.callBackUrl as string) ?? "/homeMO";
+  } else {
+    callBackUrl = (router.query?.callBackUrl as string) ?? "/";
+  }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!user && !pass) {
