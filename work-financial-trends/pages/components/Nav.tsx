@@ -1,28 +1,27 @@
-/* Core */
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-
+'use client'
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { signOut } from 'next-auth/react'
 
 export const Nav = () => {
-  const pathname = usePathname()
+  const home = "/dashBS"
+  let val;
+  if (home === "/dashBS") {
+    val = 'Balance Sheet'
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div className='container-fluid'>
-        <h1 className='navbar-brand'>Welcome</h1>
-        <label>First name to uppercase</label>
+        <h1 className='navbar-brand'>WELCOME</h1>
         <button type="button" className='navbar-toggler' data-bs-toggle="collapse" data-bs-traget="#navbarCollapse">
           <span className='navbar-toggler-icon'></span>
         </button>
         <div className='collapse navbar-collapse' id='navbarCollapse'>
           <div className='navbar-nav'>
-            <a href='/home' id='home' className='nav-item nav-link'>Home</a>
-            <a href='/bs' id='balance' className='nav-item nav-link'>Balance Sheet</a>
-            <a href='/mo' id='muop' className='nav-item nav-link'>Mussel Opened</a>
+            <a href={home} id='home' className='nav-item nav-link'>Home</a>
+            <a href='/bs' id='balance' className='nav-item nav-link'>{val}</a>
             <a href='/profile' id='profile' className='nav-item nav-link'>Profile</a>
             <a id='signout' className='nav-item nav-link' onClick={() => signOut()}>Sign Out</a>
           </div>

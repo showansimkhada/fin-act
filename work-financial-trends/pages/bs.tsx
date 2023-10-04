@@ -1,15 +1,10 @@
-import { Nav } from '@/features/components/Nav'
+import { Nav } from '@/pages/components/Nav'
 
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { useSession } from 'next-auth/react'
 
 export default function BS() {
-    const { data: session, status } = useSession()
-    console.log(session)
-    if (status) {
-        console.log('true')
-    }
+    
     return (
         <div>
             <Nav/>

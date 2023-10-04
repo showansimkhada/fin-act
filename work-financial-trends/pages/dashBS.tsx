@@ -1,4 +1,4 @@
-import { Nav } from "@/features/components/Nav";
+import { Nav } from "@/pages/components/Nav";
 import { useEffect, useState } from "react";
 
 export default function HomeBS() {
@@ -7,7 +7,6 @@ export default function HomeBS() {
     const [serBal, setSerBal] = useState(0)
     const [total, setTotal] = useState(0)
     const [today, setToday] = useState(Date.now)
-
     const weeklySave = () => {
 
     }
@@ -106,7 +105,7 @@ export default function HomeBS() {
                                         }}></input>
                                     </td>
                                     <td>
-                                        <input id="total" className="w-100" value={total}></input>
+                                        <input id="total" className="w-100" value={total} readOnly></input>
                                     </td>
                                 </tr>
                             </tbody>

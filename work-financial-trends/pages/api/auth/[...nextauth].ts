@@ -1,8 +1,8 @@
 // [...nextauth].ts
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth, { NextAuthOptions } from "next-auth";
-import "@/lib/utils/mongoose";
-import Users from "@/lib/utils/models"
+import dbConnect from "@/lib/utils/mongoose";
+import Users from "@/lib/utils/userModel"
 import bcrypt from 'bcrypt'
 
 if (!process.env.NEXTAUTH_SECRET) {
@@ -10,7 +10,7 @@ if (!process.env.NEXTAUTH_SECRET) {
     "please provide process.env.NEXTAUTH_SECRET environment variable"
   );
 }
-export const authOption:  NextAuthOptions = ({
+export const authOptions:  NextAuthOptions = ({
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -20,6 +20,7 @@ export const authOption:  NextAuthOptions = ({
         password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
+        await dbConnect()
         const username = credentials?.username;
         const pass = credentials?.password;
         const findUser = await Users.findOne({username: username})
@@ -33,6 +34,9 @@ export const authOption:  NextAuthOptions = ({
   ],
   callbacks: {
     async signIn({ user }) {
+      if (user) {
+        return true
+      }
       return true
     }
   },
@@ -41,4 +45,4 @@ export const authOption:  NextAuthOptions = ({
   }
 });
 
-export default NextAuth(authOption)
+export default NextAuth(authOptions)

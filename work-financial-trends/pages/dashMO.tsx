@@ -1,4 +1,4 @@
-import { Nav } from "@/features/components/Nav";
+import { Nav } from "@/pages/components/Nav";
 
 export default function HomeMO() {
     return (

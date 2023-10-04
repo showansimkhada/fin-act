@@ -1,4 +1,4 @@
-import { model, Schema, Model, Document, models } from 'mongoose';
+import { model, Schema, Document, models } from 'mongoose';
 
 export interface IUSER extends Document {
     username: string,
