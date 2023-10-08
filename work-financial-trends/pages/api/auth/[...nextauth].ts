@@ -1,8 +1,8 @@
 // [...nextauth].ts
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth, { NextAuthOptions } from "next-auth";
-import dbConnect from "@/lib/utils/mongoose";
-import Users from "@/lib/utils/userModel"
+import dbConnect from "@/lib/utils/conn/mongoose";
+import Users from "@/lib/utils/models/userModel"
 import bcrypt from 'bcrypt'
 
 if (!process.env.NEXTAUTH_SECRET) {
@@ -18,6 +18,7 @@ export const authOptions:  NextAuthOptions = ({
       credentials: {
         username: { label: "username", type: "text" },
         password: { label: "password", type: "password" },
+        page: { label: "page", type: "text"}
       },
       async authorize(credentials) {
         await dbConnect()
@@ -25,7 +26,7 @@ export const authOptions:  NextAuthOptions = ({
         const pass = credentials?.password;
         const findUser = await Users.findOne({username: username})
         if (findUser && bcrypt.compareSync(pass || "", findUser.password)) {
-          return findUser
+          return findUser.username
         } else {
           throw new Error("Incorrect username and password!!")
         }
@@ -33,15 +34,28 @@ export const authOptions:  NextAuthOptions = ({
     }),
   ],
   callbacks: {
-    async signIn({ user }) {
+    async jwt({ token, user }) {
       if (user) {
-        return true
+        token.user = user
+        return token
       }
-      return true
-    }
+      return token
+    },
+    async session({ session, token }) {
+      return {
+        ...session,
+        user: {
+          ...token
+        }
+      }
+    },
   },
   session: {
     strategy: "jwt"
+  },
+  pages: {
+    signIn: '/',
+    signOut: '/'
   }
 });
 

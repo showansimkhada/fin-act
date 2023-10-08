@@ -1,12 +1,12 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
-import styles from '../styles/layout.module.css'
+import styles from '@/styles/layout.module.css'
 
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import { Login } from './login'
+import { Login } from './components/login'
 
 export const IndexPage: NextPage = () => {
   return (
@@ -15,7 +15,10 @@ export const IndexPage: NextPage = () => {
         <title>Trends</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Login/>
+      <header className={styles.header}>
+        <img src="/logo.svg" className={styles.logo} alt="logo" />
+        <Login/>
+      </header>
     </div>
   )
 }

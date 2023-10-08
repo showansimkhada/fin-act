@@ -1,6 +1,14 @@
+import { useSession } from "next-auth/react";
 import { Nav } from "./components/Nav";
+import { redirect } from "next/navigation";
 
 export default function Profile() {
+    const {data: session} = useSession({
+        required: true,
+        onUnauthenticated() {
+            redirect('/')
+        }
+    })
 
     return (
         <>
