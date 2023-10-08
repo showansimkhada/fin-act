@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import User, { IUSER } from '@/lib/utils/models/userModel'
-import { GetServerSideProps, NextApiRequest, NextApiResponse } from "next";
+import { GetServerSideProps } from "next";
 import dbConnect from "@/lib/utils/conn/mongoose";
 import { formatDate } from "@/lib/funcPage";
 import BS, { IBS } from "@/lib/utils/models/bsModel";
