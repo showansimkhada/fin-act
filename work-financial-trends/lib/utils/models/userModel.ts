@@ -6,7 +6,8 @@ export interface IUSER extends Document {
     firstname: string,
     lastname: string,
     sfirstname: string,
-    slastname: string
+    slastname: string,
+    account: Array<string>
 }
 
 const UserSchema = new Schema<IUSER> ({
@@ -29,7 +30,10 @@ const UserSchema = new Schema<IUSER> ({
     },
     slastname: {
         type: String
-    }
+    },
+    account: {
+        type: []
+    },
 });
 
 export default models.Users || model<IUSER>('Users', UserSchema)

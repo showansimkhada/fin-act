@@ -14,6 +14,7 @@ type Props = {
 
 export default function Profile({userData}: Props) {
     const [isClient, setIsClient] = useState(false)
+    const [accty, setAccTy] = useState('')
     useSession({
         required: true,
         onUnauthenticated() {
@@ -35,7 +36,7 @@ export default function Profile({userData}: Props) {
             <>
             <Navbars />
             <div className="d-flex flex-column align-items-start justify-content-center mt-5 pt3">
-                <form action="/profile/user" method="post" className="border border-5 w-100">
+                <form action="" method="" className="border border-5 w-100">
                     <div className="d-flex align-items-center justify-content-between align-conten-between w-100">
                         <div className="w-50">
                             <label>User Name</label>
@@ -48,7 +49,7 @@ export default function Profile({userData}: Props) {
                         </div>
                     </div>
                 </form>
-                <form action='/profile/details' method="post" className="border border-5 w-100">
+                <form action={`api/profile/?username=${username}&type=details`} method="post" className="border border-5 w-100">
                     <div className="d-flex flex-row">
                         <div className="d-flex flex-column justify-content-between align-content-between w-50">
                             <label className="mt-1">First Name</label>
@@ -62,26 +63,45 @@ export default function Profile({userData}: Props) {
                             <input type="text" id="sfirstname" className="w-75" name="sfirstname" autoCapitalize="none" value={dataUser[0].sfirstname}></input>
                             <input type="text" id="slastname" className="w-75" name="slastname" autoCapitalize="none" value={dataUser[0].slastname}></input>
                         </div>
-                        <div className="d-flex">
-                            <input type="submit" className="btn btn-primary" value="Update Profile"></input>
+                    </div>
+                    <div className="d-flex flex-column align-content-end w-100">
+                        <input type="submit" className="btn btn-primary" value="Update Profile"></input>
+                    </div>
+                </form>
+                <form action={`api/profile/?username=${username}&type=account&array=${accty}`} method="post" className="border border-5 w-100">
+                    <div className="d-flex flex-row">
+                        <div className="d-flex flex-column justify-content-between align-content-between w-50">
+                            <label>Account Types</label>
+                            <ol>
+                                {dataUser[0].account.map((x) => (
+                                    <li>{x}</li>
+                                ))}
+                            </ol>
+                        </div>
+                        <div className="d-flex flex-column align-items-center justify-content-between align-content-between w-50">
+                            <input type="text" className="w-75" onChange={(event) => {
+                                setAccTy(event.target.value)
+                            }}></input>
+                            <input type="submit" formMethod="post" className="btn btn-primary w-75" value="Add"></input>
+                            <input type="submit" formAction={`api/profile/?username=${username}&type=accountRem&array=${accty}`} className="btn btn-primary w-75" value="Remove"></input>
                         </div>
                     </div>
                 </form>
-                <form action='/profile/update-password' method="post" className="border border-5 w-100">
+                <form action={`api/profile/?username=${username}&type=password`} method="post" className="border border-5 w-100">
                     <div className="d-flex flex-row">
                         <div className="d-flex flex-column justify-content-between align-context-between w-50">
-                            <label>Old Password</label>
-                            <label>New Password</label>
-                            <label>Confirm Password</label>
+                            <label className="mt-1">Old Password</label>
+                            <label className="mt-1">New Password</label>
+                            <label className="mt-1">Confirm Password</label>
                         </div>
                         <div className="d-flex flex-column align-items-center justify-content-betweeen align-content-between w-50">
-                            <input type="password" id="oldpass" name="oldpass" className="mt-2 w-75"></input>
-                            <input type="password" id="newpass" name="newpass" className="mt-2 w-75"></input>
-                            <input type="password" id="confirmpass" name="confirmpass" className="mt-2 w-75"></input>
+                            <input type="password" id="oldpass" name="oldpass" autoComplete="current-password" className="mt-2 w-75"></input>
+                            <input type="password" id="newpass" name="newpass" autoComplete="new-password" className="mt-2 w-75"></input>
+                            <input type="password" id="confirmpass" name="confirmpass" autoComplete="new-password" className="mt-2 w-75"></input>
                         </div>
-                        <div className="d-flex">
-                            <input type="submit" id="passup" className="btn btn-primary" value="Update Password"></input>
-                        </div>
+                    </div>
+                    <div className="d-flex flex-column align-content-end w-100">
+                        <input type="submit" id="passup" className="btn btn-primary" value="Update Password"></input>
                     </div>
                 </form>
             </div>
