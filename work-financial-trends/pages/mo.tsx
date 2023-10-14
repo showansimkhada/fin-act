@@ -1,4 +1,4 @@
-import { Nav } from '@/pages/components/Nav'
+import { Navbars } from '@/pages/components/Nav'
 
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -8,29 +8,39 @@ import { GetServerSideProps } from "next";
 import dbConnect from "@/lib/utils/conn/mongoose";
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import { Fragment } from 'react';
 import { formatDate } from '@/lib/funcPage';
+import { useSelector } from 'react-redux';
+import { lsUser } from '@/lib/redux';
+import { useEffect, useState } from 'react';
+import { Table } from 'react-bootstrap';
 
 type Props = {
     moData: IMO[] 
 }
 
 export default function MOpage( {moData}: Props) {
-    const { data: session } = useSession({
+    const [isClient, setIsClient] = useState(false)
+    useSession({
         required: true,
         onUnauthenticated() {
             redirect('/')
         }
     })
-    const username = session?.user?.data?.username
+    const username = String(useSelector(lsUser))
     const data = moData.filter((x) => {
         return x.username === username
     })
-    return (
-        <div>
-            <Nav/>
-            <div className="table-responsive-sm" style={{marginTop: "60px"}}>
-                <table id="bsOutput" className="table table-bordered table-hover">
+
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
+
+    if (isClient) {
+        return (
+            <>
+            <Navbars/>
+            <div style={{marginTop: "60px"}}>
+                <Table striped bordered hover id="bsOutput" >
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -44,36 +54,42 @@ export default function MOpage( {moData}: Props) {
                     </thead>
                     <thead>
                         {data.map((x) => (
-                            <Fragment key={x.date}>
-                                <tr key={formatDate(x.date)}>
-                                    <th style={{fontWeight: "normal"}}>{x.date}</th>
-                                    <th style={{fontWeight: "normal"}}>{x.weekday}</th>
-                                    <th style={{fontWeight: "normal"}}>{x.spot.toString()}</th>
-                                    <th style={{fontWeight: "normal"}}>{x.fShift.toString()}</th>
-                                    <th style={{fontWeight: "normal"}}>{x.sShift.toString()}</th>
-                                    <th style={{fontWeight: "normal"}}>{x.tShift.toString()}</th>
-                                    <th style={{fontWeight: "normal"}}>{x.total.toString()}</th>
-                                </tr>
-                            </Fragment>
+                            <tr key={formatDate(x.date)}>
+                                <td>{x.date}</td>
+                                <td>{x.weekday}</td>
+                                <td>{x.spot.toString()}</td>
+                                <td>{x.fShift.toString()}</td>
+                                <td>{x.sShift.toString()}</td>
+                                <td>{x.tShift.toString()}</td>
+                                <td>{x.total.toString()}</td>
+                            </tr>
                         ))}
                     </thead>
-                </table>
+                </Table>
             </div>
-        </div>
-    )
+            </>
+        )
+    } else {
+        return (
+            <></>
+        )
+    }
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
     await dbConnect()
-  
     /* find all the data in our database */
-    const result = await BS.find({})
+    const findMO = await MO.find({});
+    const data = findMO.sort((a, b) => {
+        return new Date(a.date).getTime() - new Date(b.date).getTime()
+    });
+
   
     /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-    const bsData = result.map((doc) => {
-      const pet = JSON.parse(JSON.stringify(doc))
-      return pet
+    const moData = data.map((doc) => {
+      const moData = JSON.parse(JSON.stringify(doc))
+      return moData
     })
   
-    return { props: { bsData: bsData } }
+    return { props: { moData: moData } }
 }

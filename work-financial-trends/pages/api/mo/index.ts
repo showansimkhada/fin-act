@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '@/lib/utils/conn/mongoose'
-import BS from '@/lib/utils/models/bsModel'
+import MO from '@/lib/utils/models/moModel'
 import { redirect } from 'next/navigation'
 
 export default async function handler(
@@ -14,7 +14,7 @@ export default async function handler(
   switch (method) {
     case 'GET':
       try {
-        const data = await BS.find({}) /* find all the data in our database */
+        const data = await MO.find({}) /* find all the data in our database */
         res.status(200).json({ success: true, data: data })
       } catch (error) {
         res.status(400).json({ success: false })
@@ -23,48 +23,45 @@ export default async function handler(
     case 'POST':
       try {
         let username = req.query.username;
-        let date = req.body.bsDate;
-        let fWI = req.body.fWI;
-        let sWI = req.body.sWI;
-        let ret = req.body.ret;
-        let oB = req.body.oB;
-        let cB = req.body.cB;
-        let wSp = req.body.wSp;
-        let wSa = req.body.wSa;
-        const data = new BS({
+        let date = req.body.moDate;
+        let weekday = req.body.weekday;
+        let spot = req.body.spot;
+        let fShift = req.body.fShift;
+        let sShift = req.body.sShift;
+        let tShift = req.body.tShift;
+        let total = req.body.total;
+        const data = new MO({
             username: username,
             date: date,
-            fWE: fWI,
-            sWE: sWI,
-            return: ret,
-            openingBalance: oB,
-            closingBalance: cB,
-            weeklySpent: wSp,
-            weeklySave: wSa
+            weekday: weekday,
+            spot: spot,
+            fShift: fShift,
+            sShift: sShift,
+            tShift: tShift,
+            total: total
         })
-        const oldData = await BS.findOne({username: username, date: date});
+        const oldData = await MO.findOne({username: username, date: date});
         if (!oldData) {
             const result = await data.save()
             if (result) {
               console.log('Saved data')
-              redirect('/homeBS')
+              redirect('/homeMO')
             } else {
               console.log('Error on saving old data')
             }
         } else {
             oldData.username = username
             oldData.date = date
-            oldData.fWI = fWI
-            oldData.sWI = sWI
-            oldData.ret = ret
-            oldData.oB = oB
-            oldData.cB = cB
-            oldData.wSp = wSp
-            oldData.wSa = wSa
+            oldData.weekday = weekday
+            oldData.spot = spot
+            oldData.fShift = fShift
+            oldData.sShift = sShift
+            oldData.tShift = tShift
+            oldData.total = total
             const result = await oldData.save()
             if (result) {
               console.log('Saved data')
-              redirect('/homeBS')
+              redirect('/homeMO')
             } else {
               console.log('Error on saving old data')
             }

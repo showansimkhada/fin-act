@@ -46,4 +46,4 @@ const MusselOpened = new Schema<IMO> ({
     }
 });
 
-export default models.MO || model<IMO>('MO', MusselOpened)
+export default models.MusselOpeneds || model<IMO>('MusselOpeneds', MusselOpened)

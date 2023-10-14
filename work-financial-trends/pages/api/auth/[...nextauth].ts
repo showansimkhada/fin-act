@@ -2,7 +2,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import dbConnect from "@/lib/utils/conn/mongoose";
-import Users from "@/lib/utils/models/userModel"
+import Users, { IUSER } from "@/lib/utils/models/userModel"
 import bcrypt from 'bcrypt'
 
 if (!process.env.NEXTAUTH_SECRET) {
@@ -10,6 +10,7 @@ if (!process.env.NEXTAUTH_SECRET) {
     "please provide process.env.NEXTAUTH_SECRET environment variable"
   );
 }
+
 export const authOptions:  NextAuthOptions = ({
   providers: [
     CredentialsProvider({
@@ -26,7 +27,7 @@ export const authOptions:  NextAuthOptions = ({
         const pass = credentials?.password;
         const findUser = await Users.findOne({username: username})
         if (findUser && bcrypt.compareSync(pass || "", findUser.password)) {
-          return findUser.username
+          return findUser
         } else {
           throw new Error("Incorrect username and password!!")
         }
@@ -36,7 +37,7 @@ export const authOptions:  NextAuthOptions = ({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.user = user
+        token.data = user
         return token
       }
       return token
@@ -48,14 +49,13 @@ export const authOptions:  NextAuthOptions = ({
           ...token
         }
       }
-    },
+    }
   },
   session: {
     strategy: "jwt"
   },
   pages: {
     signIn: '/',
-    signOut: '/'
   }
 });
 

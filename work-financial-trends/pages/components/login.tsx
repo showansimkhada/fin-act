@@ -1,20 +1,17 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { signIn, useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import styles from '@/styles/layout.module.css'
-import { Nav } from './Nav'
+import { dataSlice } from '@/lib/redux'
+import { useDispatch } from 'react-redux'
 
-type Props = {
-  page: string
-}
-
-export const Login = () => {
+export function Login() {
   const [user, setUser] = useState('')
   const [pass, setPass] = useState('')
   const [mess, setMess] = useState('')
-  const [page, setPage] = useState('Balance Sheet')
+  const [page, setPage] = useState('Mussel Entry')
   const router = useRouter();
-  const session = useSession()
+  const dispatch = useDispatch()
   var callBackUrl = '/';
   if (page === "Balance Sheet") {
       callBackUrl = (router.query?.callBackUrl as string) ?? "/dashBS";
@@ -36,12 +33,13 @@ export const Login = () => {
     } else {
       const result = await signIn("credentials", {
         username: user,
-        password: pass,
-        page: page
+        password: pass
       });
       if (result?.error) {
         setMess(result.error)
       } else {
+        dispatch(dataSlice.actions.setUserName(user))
+        dispatch(dataSlice.actions.setLogPag(page))
         router.push(callBackUrl);
       }
     }
@@ -57,7 +55,7 @@ export const Login = () => {
              <label className="my-auto mt-2">Password</label>
           </div>
           <div className="d-flex flex-column justify-content-center p-2">
-            <input className="my-auto mt-2" type="text" id="username" name="username" onChange={(event)=> {
+            <input className="my-auto mt-2" type="text" id="username" name="username" autoCapitalize='none' onChange={(event)=> {
               setUser(event.target.value)
             }}></input>
             <input className="my-auto mt-2" type="password" id="password" name="password" onChange={(event) => {
@@ -77,13 +75,6 @@ export const Login = () => {
             }}></input>
             <span className={`${styles.slider} ${styles.round}`}></span>
           </label>
-          <input type="checkbox" onChange={() => {
-            if (page === "Balance Sheet") {
-              setPage('Mussel Entry')
-            } else {
-              setPage("Balance Sheet")
-            }
-          }}></input>
         </div>
       </form>
     </div>

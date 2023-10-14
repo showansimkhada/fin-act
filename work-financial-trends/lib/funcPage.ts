@@ -13,10 +13,15 @@ export function formatDate(date: string) {
       return [year, month, day].join('-');
 }
 
-function getWeekNumber(date: string) {
+export function getWeekNumber(date: string) {
   let cD = new Date(date);
   let sD = new Date(cD.getFullYear(), 0, 1);
   var days = Math.floor((cD.getTime() - sD.getTime()) / (24 * 60 * 60 * 1000));
   var num = Math.ceil(days / 7);
   return num;
+}
+
+export function getWeekday(date: string) {
+  let weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  return weekDays[new Date(date).getDay()];
 }

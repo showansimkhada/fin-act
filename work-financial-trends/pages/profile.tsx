@@ -1,9 +1,9 @@
 import { useSession } from "next-auth/react";
-import { Nav } from "./components/Nav";
+import { Navbars } from "./components/Nav";
 import { redirect } from "next/navigation";
 
 export default function Profile() {
-    const {data: session} = useSession({
+    useSession({
         required: true,
         onUnauthenticated() {
             redirect('/')
@@ -12,7 +12,7 @@ export default function Profile() {
 
     return (
         <>
-        <Nav />
+        <Navbars />
         <div className="d-flex flex-column align-items-start justify-content-center mt-5 pt3">
             <form action="/profile/user" method="post" className="border border-5 w-100">
                 <div className="d-flex align-items-center justify-content-between align-conten-between w-100">
@@ -64,19 +64,6 @@ export default function Profile() {
                 </div>
             </form>
         </div>
-            {/*
-        form(action='/profile/update-password' method='post' class='border border-5 w-100')
-            div(class='d-flex flex-row')
-                div(class='d-flex flex-column justify-content-between align-content-between w-50')
-                    label Old Password
-                    label New Password
-                    label Confirm Password
-                div(class='d-flex flex-column align-items-center justify-content-between align-content-between w-50')
-                    input(type='password' id='oldpass' class='w-75' name='oldpass' class='mt-2')
-                    input(type='password' id='newpass' class='w-75' name='newpass' class='mt-2')
-                    input(type='password' id='confirmpass' class='w-75' name='confirmpass' class='mt-2')
-                div(class='d-flex')
-                    input(type='submit' id='passup' class='btn btn-primary' value='Update Password' disabled) */}
         </>
     )
 }
