@@ -5,7 +5,7 @@ import styles from '@/styles/layout.module.css'
 import { dataSlice } from '@/lib/redux'
 import { useDispatch } from 'react-redux'
 
-export function Login() {
+export default function SignIn() {
   const [user, setUser] = useState('')
   const [pass, setPass] = useState('')
   const [mess, setMess] = useState('')

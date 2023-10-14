@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import { Navbars } from "./components/Nav";
+import Navbars from "./components/navBar"
 import { redirect } from "next/navigation";
 
 export default function Profile() {

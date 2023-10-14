@@ -1,7 +1,7 @@
-import { Navbars } from '@/pages/components/Nav'
-
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
+
+import Navbars from "./components/navBar"
 
 import MO, { IMO } from '@/lib/utils/models/moModel'
 import { GetServerSideProps } from "next";

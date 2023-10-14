@@ -1,5 +1,5 @@
 'use client'
-import { Navbars } from "@/pages/components/Nav";
+import Navbars from "@/pages/components/navBar";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";

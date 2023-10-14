@@ -3,7 +3,7 @@ import { formatDate, getWeekday } from "@/lib/funcPage";
 import { lsUser } from "@/lib/redux";
 import dbConnect from "@/lib/utils/conn/mongoose";
 import MO, { IMO } from "@/lib/utils/models/moModel";
-import { Navbars } from "@/pages/components/Nav";
+import Navbars from "./components/navBar"
 import { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";

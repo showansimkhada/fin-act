@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { Container, Navbar, Nav} from 'react-bootstrap'
 
-export const Navbars = () => {
+export default function Navbars() {
   const [isClient, setIsClient] = useState(false)
   const dispatch = useDispatch()
   const username = String(useSelector(lsUser)).toUpperCase()

@@ -1,7 +1,7 @@
-import { Navbars } from '@/pages/components/Nav'
-
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
+
+import Navbars from "./components/navBar"
 
 import BS, { IBS } from '@/lib/utils/models/bsModel'
 import User, { IUSER } from '@/lib/utils/models/userModel'

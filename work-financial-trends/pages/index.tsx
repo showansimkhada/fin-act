@@ -6,7 +6,7 @@ import styles from '@/styles/layout.module.css'
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import { Login } from './components/login'
+import SignIn from './components/signIn'
 
 export const IndexPage: NextPage = () => {
   return (
@@ -17,7 +17,7 @@ export const IndexPage: NextPage = () => {
       </Head>
       <header className={styles.header}>
         <img src="/logo.svg" className={styles.logo} alt="logo" />
-        <Login/>
+        <SignIn/>
       </header>
     </div>
   )
