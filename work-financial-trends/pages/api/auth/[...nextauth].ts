@@ -2,7 +2,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import dbConnect from "@/lib/utils/conn/mongoose";
-import Users, { IUSER } from "@/lib/utils/models/userModel"
+import Users from "@/lib/utils/models/userModel"
 import bcrypt from 'bcrypt'
 
 if (!process.env.NEXTAUTH_SECRET) {

@@ -69,7 +69,6 @@ export default function HomeBS({ userData, bsData }: Props ) {
 
     function weeklySave() {
         let a = (parseFloat(String(cB)) - oB - parseFloat(String(ret))).toFixed(2)
-        console.log(a)
         setWSA(parseFloat(a))
     }
 

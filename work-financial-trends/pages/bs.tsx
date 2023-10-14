@@ -13,6 +13,7 @@ import { formatDate } from '@/lib/funcPage';
 import { useSelector } from 'react-redux';
 import { lsUser } from '@/lib/redux';
 import { useEffect, useState } from 'react';
+import { Table } from 'react-bootstrap';
 
 type Props = {
     bsData: IBS[] ,
@@ -41,7 +42,7 @@ export default function BSpage( {bsData, userData}: Props) {
         <div>
             <Navbars/>
             <div className="table-responsive-sm" style={{marginTop: "60px"}}>
-                <table id="bsOutput" className="table table-bordered table-hover">
+                <Table id="bsOutput" responsive="sm" className="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -68,7 +69,7 @@ export default function BSpage( {bsData, userData}: Props) {
                             </tr>
                         )): ''}
                     </thead>
-                </table>
+                </Table>
             </div>
         </div>
     )

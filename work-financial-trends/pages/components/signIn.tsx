@@ -4,12 +4,22 @@ import { signIn } from 'next-auth/react'
 import styles from '@/styles/layout.module.css'
 import { dataSlice } from '@/lib/redux'
 import { useDispatch } from 'react-redux'
+import { formatDate, getWeekday } from '@/lib/funcPage'
 
 export default function SignIn() {
   const [user, setUser] = useState('')
+  const [dateState, setDateState] = useState(true)
   const [pass, setPass] = useState('')
   const [mess, setMess] = useState('')
+  const [cD, setCD] = useState(formatDate(Date()))
+  const weekDay = getWeekday(cD)
   const [page, setPage] = useState('Mussel Entry')
+  if (dateState) {
+    if ( weekDay === 'Saturday' || weekDay === 'Sunday') {
+      setDateState(false)
+      setPage('Balance Sheet')
+    }
+  }
   const router = useRouter();
   const dispatch = useDispatch()
   var callBackUrl = '/';
@@ -20,6 +30,7 @@ export default function SignIn() {
   } else {
       callBackUrl = (router.query?.callBackUrl as string) ?? "/";
   }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!user && !pass) {
@@ -44,6 +55,7 @@ export default function SignIn() {
       }
     }
   }
+
   return (
     <>
     <div className="d-flex flex-column align-items-center mt-2">
