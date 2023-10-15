@@ -58,10 +58,10 @@ export default function Profile({userData}: Props) {
                             <label className="mt-1">Partner's Last Name</label>
                         </div>
                         <div className="d-flex flex-column align-items-center justify-content-between align-content-between w-50">
-                            <input type="text" id="firstname" className="w-75" name="firstname" autoCapitalize="none" value={dataUser[0].firstname}></input>
-                            <input type="text" id="lastname" className="w-75" name="lastname" autoCapitalize="none" value={dataUser[0].lastname}></input>
-                            <input type="text" id="sfirstname" className="w-75" name="sfirstname" autoCapitalize="none" value={dataUser[0].sfirstname}></input>
-                            <input type="text" id="slastname" className="w-75" name="slastname" autoCapitalize="none" value={dataUser[0].slastname}></input>
+                            <input type="text" id="firstname" className="w-75" name="firstname" required={true} placeholder={dataUser[0].firstname}></input>
+                            <input type="text" id="lastname" className="w-75" name="lastname" required={true} placeholder={dataUser[0].lastname}></input>
+                            <input type="text" id="sfirstname" className="w-75" name="sfirstname" required={true} placeholder={dataUser[0].sfirstname}></input>
+                            <input type="text" id="slastname" className="w-75" name="slastname" required={true} placeholder={dataUser[0].slastname}></input>
                         </div>
                     </div>
                     <div className="d-flex flex-column align-content-end w-100">
@@ -74,12 +74,12 @@ export default function Profile({userData}: Props) {
                             <label>Account Types</label>
                             <ol>
                                 {dataUser[0].account.map((x) => (
-                                    <li>{x}</li>
+                                    <li key={x}>{x}</li>
                                 ))}
                             </ol>
                         </div>
                         <div className="d-flex flex-column align-items-center justify-content-between align-content-between w-50">
-                            <input type="text" className="w-75" onChange={(event) => {
+                            <input type="text" className="w-75" required={true} onChange={(event) => {
                                 setAccTy(event.target.value)
                             }}></input>
                             <input type="submit" className="btn btn-primary w-75" value="Add"></input>
@@ -95,9 +95,9 @@ export default function Profile({userData}: Props) {
                             <label className="mt-1">Confirm Password</label>
                         </div>
                         <div className="d-flex flex-column align-items-center justify-content-betweeen align-content-between w-50">
-                            <input type="password" id="oldpass" name="oldpass" autoComplete="current-password" className="mt-2 w-75"></input>
-                            <input type="password" id="newpass" name="newpass" autoComplete="new-password" className="mt-2 w-75"></input>
-                            <input type="password" id="confirmpass" name="confirmpass" autoComplete="new-password" className="mt-2 w-75"></input>
+                            <input type="password" id="oldpass" name="oldpass" autoComplete="current-password" required={true} className="mt-2 w-75"></input>
+                            <input type="password" id="newpass" name="newpass" autoComplete="new-password" required={true} className="mt-2 w-75"></input>
+                            <input type="password" id="confirmpass" name="confirmpass" autoComplete="new-password" required={true} className="mt-2 w-75"></input>
                         </div>
                     </div>
                     <div className="d-flex flex-column align-content-end w-100">

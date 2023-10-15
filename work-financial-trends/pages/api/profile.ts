@@ -77,19 +77,17 @@ export default async function handler(
               if (data) {
                 res.redirect('/')
               } else {
-                console.log('Error saving password')
+                res.send('Error saving password')
               }
             } else {
-              console.log(`Didn't match both password`)
+              res.send(`Didn't match both password`)
             }
           }
         }
       } catch (error) {
-        console.log(error)
+        res.send(error)
       }
       break
-    case "DELETE": 
-      console.log(method)
     default:
       console.log(method)
       res.status(400).json({ success: false })

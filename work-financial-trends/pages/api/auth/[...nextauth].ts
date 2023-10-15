@@ -20,8 +20,7 @@ export const authOptions:  NextAuthOptions = ({
         password: { label: "password", type: "password" }
       },
       async authorize(credentials) {
-        dbConnect()
-
+        await dbConnect()
         const username = credentials?.username;
         const pass = credentials?.password;
         const findUser = await Users.findOne({username: username})

@@ -1,6 +1,5 @@
 // middleware.ts
 import { getToken } from "next-auth/jwt";
-import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 export async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
