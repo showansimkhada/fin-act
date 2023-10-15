@@ -44,8 +44,9 @@ export default function SignIn() {
     } else {
       const result = await signIn("credentials", {
         username: user,
-        password: pass
-      });
+        password: pass,
+        redirect: false
+      })
       if (result?.error) {
         setMess(result.error)
       } else {

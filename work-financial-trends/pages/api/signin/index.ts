@@ -14,6 +14,7 @@ export default async function handler(
   switch (method) {
     case 'POST':
       try {
+        console.log(req.query)
         let username = req.query.username;
         let type = req.query.type;
         const user = await User.findOne({username: username})
@@ -88,10 +89,7 @@ export default async function handler(
         console.log(error)
       }
       break
-    case "DELETE": 
-      console.log(method)
     default:
-      console.log(method)
       res.status(400).json({ success: false })
       break
   }

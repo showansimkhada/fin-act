@@ -82,7 +82,7 @@ export default function Profile({userData}: Props) {
                             <input type="text" className="w-75" onChange={(event) => {
                                 setAccTy(event.target.value)
                             }}></input>
-                            <input type="submit" formMethod="post" className="btn btn-primary w-75" value="Add"></input>
+                            <input type="submit" className="btn btn-primary w-75" value="Add"></input>
                             <input type="submit" formAction={`api/profile/?username=${username}&type=accountRem&array=${accty}`} className="btn btn-primary w-75" value="Remove"></input>
                         </div>
                     </div>
