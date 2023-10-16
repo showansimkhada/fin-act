@@ -25,3 +25,13 @@ export function getWeekday(date: string) {
   let weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   return weekDays[new Date(date).getDay()];
 }
+
+export function getStartDate(d: string) {
+  const date = new Date(d);
+  const day = date.getDay(); // 👉️ get day of week
+
+  // 👇️ day of month - day of week (-6 if Sunday), otherwise +1
+  const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+  const startDate = formatDate(String(new Date(date.setDate(diff))));
+  return startDate;
+}

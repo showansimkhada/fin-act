@@ -33,12 +33,6 @@ export const authOptions:  NextAuthOptions = ({
     }),
   ],
   callbacks: {
-    async signIn({ user }) {
-      if (user) {
-        return true
-      }
-      return false
-    },
     async jwt({ token, user }) {
       if (user) {
         token.data = user

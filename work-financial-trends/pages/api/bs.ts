@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '@/lib/utils/conn/mongoose'
 import BS from '@/lib/utils/models/bsModel'
-import { redirect } from 'next/navigation'
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,14 +11,6 @@ export default async function handler(
   await dbConnect()
 
   switch (method) {
-    case 'GET':
-      try {
-        const data = await BS.find({}) /* find all the data in our database */
-        res.status(200).json({ success: true, data: data })
-      } catch (error) {
-        res.status(400).json({ success: false })
-      }
-      break
     case 'POST':
       try {
         let username = req.query.username;
@@ -46,10 +37,9 @@ export default async function handler(
         if (!oldData) {
             const result = await data.save()
             if (result) {
-              console.log('Saved data')
-              redirect('/homeBS')
+              res.redirect('/dashBS')
             } else {
-              console.log('Error on saving old data')
+              res.send('Error on saving old data')
             }
         } else {
             oldData.username = username
@@ -63,14 +53,13 @@ export default async function handler(
             oldData.wSa = wSa
             const result = await oldData.save()
             if (result) {
-              console.log('Saved data')
-              redirect('/homeBS')
+              res.redirect('/dashBS')
             } else {
-              console.log('Error on saving old data')
+              res.send('Error on saving old data')
             }
         }
       } catch (error) {
-        console.log(error)
+        res.send(error)
       }
       break
     default:

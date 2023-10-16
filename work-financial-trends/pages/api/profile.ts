@@ -18,7 +18,19 @@ export default async function handler(
         let type = req.query.type;
         const user = await User.findOne({username: username})
         if (type === 'username') {
-
+          let newUsername = req.body.newUsername;
+          const exist = await User.findOne({username: newUsername})
+          if (exist) {
+            res.send('Username Exists Please Choose another')
+          } else {
+            user.usernmae = newUsername
+            const data = await user.save();
+            if (data) {
+              res.redirect('/profile')
+            } else {
+              res.send('Error saving data')
+            }
+          }
         } else if (type === 'details') {
           let firstname = req.body.firstname;
           let lastname = req.body.lastname;
@@ -32,13 +44,13 @@ export default async function handler(
           if (data) {
             res.redirect('/profile')
           } else {
-            console.log('Error updating profile details')
+            res.send('Error updating profile details')
           }
         } else if (type === 'account') {
           let array = user.account
           let accType = req.query.array
           if (array.includes(accType)) {
-            console.log('Type already exists')
+            res.send('Type already exists')
           } else {
             array.push(accType)
             user.account = array
@@ -46,7 +58,7 @@ export default async function handler(
             if (data) {
               res.redirect('/profile')
             } else {
-              console.log('Error saving data')
+              res.send('Error saving data')
             }
           }
         } else if (type === 'accountRem') {
@@ -60,10 +72,10 @@ export default async function handler(
             if (data) {
               res.redirect('/profile')
             } else {
-              console.log('Error removing acount type')
+              res.send('Error removing acount type')
             }
           } else {
-            console.log(`Couldn't found account type`)
+            res.send(`Couldn't found account type`)
           }
         } else if (type === 'password') {
           let oldpass = req.body.oldpass
@@ -75,7 +87,7 @@ export default async function handler(
               user.password = hasPass
               const data = await user.save()
               if (data) {
-                res.redirect('/')
+                res.redirect('/profile')
               } else {
                 res.send('Error saving password')
               }

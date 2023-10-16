@@ -54,40 +54,38 @@ export default function HomeBS({ userData, bsData }: Props ) {
 
     useEffect(() => {
         setIsClient(true)
-        setOB(parseFloat(String(closingBalance)))
-        sumBS()
-        if (loadData) {
-            handleDate()
-            setLoadData(false)
-        }
-    }, [username, goBal, onBal, serBal, fWI, sWI, ret, wSP, wSA, today])
+        handleDate()
+    }, [username, goBal, onBal, serBal, fWI, sWI, ret, wSP, wSA, today, cB, oB])
 
     function weeklySpent() {
-        let a = (parseFloat(String(fWI)) + parseFloat(String(sWI)) + parseFloat(String(ret)) + oB - parseFloat(String(cB))).toFixed(2)
+        let a = (parseFloat(String(fWI)) + parseFloat(String(sWI)) + parseFloat(String(ret)) + parseFloat(String(oB)) - parseFloat(String(cB))).toFixed(2)
         setWSP(parseFloat(a))
     }
 
     function weeklySave() {
-        let a = (parseFloat(String(cB)) - oB - parseFloat(String(ret))).toFixed(2)
+        let a = (parseFloat(String(cB)) - parseFloat(String(oB)) - parseFloat(String(ret))).toFixed(2)
         setWSA(parseFloat(a))
     }
 
     function sumBS() {
         let x = (parseFloat(String(goBal)) + parseFloat(String(onBal)) + parseFloat(String(serBal))).toFixed(2)
         setTotal(parseFloat(x))
-        setCB(total)
+        if (!loadData) {
+            setCB(parseFloat(x))
+        }
         weeklySpent()
         weeklySave()
     }
 
     function handleDate() {
+        setLoadData(true)
         const data = bsData.find((x) => {
             if (x.date === today) {
-                setLoadData(true)
                 return x
             }
         })
         if (data && loadData) {
+            setLoadData(false)
             setFWI((data.fWE.toString()))
             setSWI((data.sWE.toString()))
             setRET((data.return.toString()))
@@ -95,8 +93,8 @@ export default function HomeBS({ userData, bsData }: Props ) {
             setCB(parseFloat(data.closingBalance.toString()))
             setWSA(parseFloat(data.weeklySave.toString()))
             setWSP(parseFloat(data.weeklySpent.toString()))   
-        } else {
-            console.log('when false', loadData)
+        } else if (!data && !loadData){
+            setLoadData(true)
             setFWI('0')
             setSWI('0')
             setRET('0')
@@ -142,13 +140,12 @@ export default function HomeBS({ userData, bsData }: Props ) {
                                         <td>
                                             <input type="date" name="bsDate" id="bsDate" className="w-100" value={today} onChange={(event) => {
                                                 setToday(formatDate(event.target.value))
-                                                setLoadData(true)
                                             }}></input>
                                         </td>
                                         <td>
                                             <input name="fWI" id="fWI" className="w-100" value={fWI} onChange={(event) => {
                                                 let input = event.target.value
-                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
+                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
                                                     input = '0'
                                                 }
                                                 setFWI(input)
@@ -157,7 +154,7 @@ export default function HomeBS({ userData, bsData }: Props ) {
                                         <td>
                                             <input name="sWI" id="sWI" className="w-100" value={sWI} onChange={(event) => {
                                                 let input = event.target.value
-                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
+                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
                                                     input = '0'
                                                 }
                                                 setSWI(input)
@@ -166,7 +163,7 @@ export default function HomeBS({ userData, bsData }: Props ) {
                                         <td>
                                             <input name="ret" id="ret" className="w-100" value={ret} onChange={(event) => {
                                                 let input = event.target.value
-                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
+                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
                                                     input = '0'
                                                 }
                                                 setRET(input)
@@ -203,7 +200,7 @@ export default function HomeBS({ userData, bsData }: Props ) {
                                         <td>
                                             <input id="go" className="w-100" value={goBal} onChange={(event) => {
                                                 let input = event.target.value
-                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
+                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
                                                     input = '0'
                                                 }
                                                 setGoBal(input)
@@ -213,7 +210,7 @@ export default function HomeBS({ userData, bsData }: Props ) {
                                         <td>
                                             <input id="online" className="w-100" value={onBal} onChange={(event) => {
                                                 let input = event.target.value
-                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
+                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
                                                     input = '0'
                                                 }
                                                 setOnBal(input)
@@ -223,7 +220,7 @@ export default function HomeBS({ userData, bsData }: Props ) {
                                         <td>
                                             <input id="serious" className="w-100" value={serBal} onChange={(event) => {
                                                 let input = event.target.value
-                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
+                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
                                                     input = '0'
                                                 }
                                                 setSerBal(input)

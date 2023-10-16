@@ -1,5 +1,5 @@
 'use client'
-import { formatDate, getWeekday } from "@/lib/funcPage";
+import { formatDate, getStartDate, getWeekNumber, getWeekday } from "@/lib/funcPage";
 import { lsUser } from "@/lib/redux";
 import dbConnect from "@/lib/utils/conn/mongoose";
 import MO, { IMO } from "@/lib/utils/models/moModel";
@@ -24,10 +24,21 @@ export default function HomeMO({moData }: Props ) {
     const [tS, setTS] = useState('0')
     const [total, setTotal] = useState(0)
     const [weekTotal, setWeekTotal] = useState(0)
+    const [cwn, setCWN] = useState(-1)
+    const [pwn, setPWN] = useState(0)
     const dataMO = moData.filter((x) => {
         return x.username === username
     })
-    var filtData = dataMO.reverse().slice(0, 5).reverse()
+    // var filtData = dataMO.reverse().slice(0, 5).reverse()
+    var filtData = dataMO
+    // let twn = getWeekNumber(Date())
+    // if (cwn === -1) {
+    //     setCWN(getWeekNumber(filtData[filtData.length-1].date))
+    // }
+    // setPWN(getWeekNumber(filtData[filtData.length-1].date))
+    // if (pwn === cwn) {
+
+    // }
 
     useEffect(() => {
         setIsClient(true)
@@ -42,6 +53,7 @@ export default function HomeMO({moData }: Props ) {
     }
 
     function handleDate() {
+        setLoadData(true)
         const data = dataMO.find((x) => {
             if (x.date === today) {
                 return x
@@ -172,14 +184,14 @@ export default function HomeMO({moData }: Props ) {
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
     await dbConnect()
     /* find all the data in our database */
-    const findMO = await MO.find({});
-    const data = findMO.sort((a, b) => {
-        return new Date(a.date).getTime() - new Date(b.date).getTime()
-    });
+    const cd = Date()
+    let cWSD = getStartDate(cd)
+    const findMO = await MO.find().where({date: {
+        $gte: cWSD
+    }})
 
-  
     /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-    const moData = data.map((doc) => {
+    const moData = findMO.map((doc) => {
       const moData = JSON.parse(JSON.stringify(doc))
       return moData
     })
