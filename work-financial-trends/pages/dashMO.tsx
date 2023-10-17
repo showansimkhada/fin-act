@@ -5,7 +5,7 @@ import dbConnect from "@/lib/utils/conn/mongoose";
 import MO, { IMO } from "@/lib/utils/models/moModel";
 import Navbars from "./components/navBar"
 import { GetServerSideProps } from "next";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 type Props = {
@@ -18,60 +18,55 @@ export default function HomeMO({moData }: Props ) {
     const username = String(useSelector(lsUser))
     const [today, setToday] = useState(formatDate(Date()))
     const [weekDay, setWeekDay] = useState('')
-    const [spot, setSpot] = useState('0')
-    const [fS, setFS] = useState('0')
-    const [sS, setSS] = useState('0')
-    const [tS, setTS] = useState('0')
+    const [spot, setSpot] = useState(0)
+    const [fS, setFS] = useState(0)
+    const [sS, setSS] = useState(0)
+    const [tS, setTS] = useState(0)
     const [total, setTotal] = useState(0)
     const [weekTotal, setWeekTotal] = useState(0)
-    const [cwn, setCWN] = useState(-1)
-    const [pwn, setPWN] = useState(0)
+    const [isHandleDate, setIsHandelDate] = useState(false)
     const dataMO = moData.filter((x) => {
         return x.username === username
     })
-    // var filtData = dataMO.reverse().slice(0, 5).reverse()
-    var filtData = dataMO
-    // let twn = getWeekNumber(Date())
-    // if (cwn === -1) {
-    //     setCWN(getWeekNumber(filtData[filtData.length-1].date))
-    // }
-    // setPWN(getWeekNumber(filtData[filtData.length-1].date))
-    // if (pwn === cwn) {
-
-    // }
 
     useEffect(() => {
         setIsClient(true)
         sumMO()
-        handleDate()
-        setWeekTotal(Object.values(filtData).reduce((t, {total}) => t + parseInt(total.toString()), 0))
-    }, [username, today, weekDay, spot, fS, sS, tS, total])
+        setWeekTotal(Object.values(dataMO).reduce((t, {total}) => Number(t) + Number(total), 0))
+    }, [today, spot, fS, sS, tS, total, weekTotal, isHandleDate, loadData])
 
     function sumMO() {
-        let x = parseInt(fS) + parseInt(sS) + parseInt(tS)
+        let x = Number(fS) + Number(sS) + Number(tS)
         setTotal(x)
     }
 
+    if (loadData) {
+        handleDate()
+        setLoadData(false)
+        sumMO()
+    }
+
     function handleDate() {
-        setLoadData(true)
         const data = dataMO.find((x) => {
             if (x.date === today) {
                 return x
             }
         })
-        if (data && loadData) {
-            setLoadData(false)
-            setSpot((data.spot.toString()))
-            setWeekDay(data.weekday)
-            setFS((data.fShift.toString()))
-            setSS((data.sShift.toString()))
-            setTS((data.tShift.toString()))
-        } else if (!data && !loadData) {
+        if (data) {
             setLoadData(true)
-            setSpot('0')
-            setFS('0')
-            setSS('0')
-            setTS('0')
+            if (loadData) {
+                setLoadData(false)
+                setSpot(Number(data.spot))
+                setWeekDay(data.weekday)
+                setFS(Number((data.fShift)))
+                setSS(Number((data.sShift)))
+                setTS(Number((data.tShift)))
+            }
+        } else {
+            setSpot(0)
+            setFS(0)
+            setSS(0)
+            setTS(0)
             sumMO()
         }
     }
@@ -94,7 +89,7 @@ export default function HomeMO({moData }: Props ) {
                             </tr>
                         </thead>
                         <tbody>
-                            {filtData.map((x) => (
+                            {dataMO.map((x) => (
                                 <tr key={formatDate(x.date)}>
                                     <td>{x.date}</td>
                                     <td>{x.spot.toString()}</td>
@@ -110,6 +105,8 @@ export default function HomeMO({moData }: Props ) {
                                 <td>
                                     <input type="date" name="moDate" id="moDate" className="w-100" value={today} onChange={(event) => {
                                         setToday(formatDate(event.target.value))
+                                        setLoadData(true)
+                                        setIsHandelDate(true)
                                         handleDate()
                                     }}/>
                                 </td>
@@ -119,37 +116,33 @@ export default function HomeMO({moData }: Props ) {
                                 <td>
                                     <input name="spot" id="spot" className="w-100" value={spot} onChange={(event) => {
                                         let input = event.target.value
-                                        if (!input.match(/[0-9]/)) {
-                                            input = '0'
+                                        if (input.match(/^\d{1,2}$/)) {
+                                            setSpot(Number(input))
                                         }
-                                        setSpot(input)
                                     }}/>
                                 </td>
                                 <td>
                                     <input name="fShift" id="fShift" className="w-100" value={fS} onChange={(event) => {
                                         let input = event.target.value
-                                        if (!input.match(/[0-9]/)) {
-                                            input = '0'
+                                        if (input.match(/^\d{1,2}$/)) {
+                                            setFS(Number(input))
                                         }
-                                        setFS(input)
                                     }}/>
                                 </td>
                                 <td>
                                     <input name="sShift" id="sShift" className="w-100" value={sS} onChange={(event) => {
                                         let input = event.target.value
-                                        if (!input.match(/[0-9]/)) {
-                                            input = '0'
+                                        if (input.match(/^\d{1,2}$/)) {
+                                            setSS(Number(input))
                                         }
-                                        setSS(input)
                                     }}/>
                                 </td>
                                 <td>
                                     <input name="tShift" id="tShift" className="w-100" value={tS} onChange={(event) => {
                                         let input = event.target.value
-                                        if (!input.match(/[0-9]/)) {
-                                            input = '0'
+                                        if (input.match(/^\d{1,2}$/)) {
+                                            setTS(Number(input))
                                         }
-                                        setTS(input)
                                     }}/>
                                 </td>
                                 <td>
