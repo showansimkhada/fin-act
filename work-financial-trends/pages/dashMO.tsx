@@ -5,8 +5,10 @@ import dbConnect from "@/lib/utils/conn/mongoose";
 import MO, { IMO } from "@/lib/utils/models/moModel";
 import Navbars from "./components/navBar"
 import { GetServerSideProps } from "next";
-import { ReactElement, useEffect, useState } from "react";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useSession } from "next-auth/react";
 
 type Props = {
     moData: IMO[]
@@ -15,6 +17,12 @@ type Props = {
 export default function HomeMO({moData }: Props ) {
     const [isClient, setIsClient] = useState(false)
     const [loadData, setLoadData] = useState(true)
+    useSession({
+        required: true,
+        onUnauthenticated() {
+            redirect('/')
+        }
+    })
     const username = String(useSelector(lsUser))
     const [today, setToday] = useState(formatDate(Date()))
     const [weekDay, setWeekDay] = useState('')
