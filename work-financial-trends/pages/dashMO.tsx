@@ -132,7 +132,7 @@ export default function HomeMO({moData }: Props ) {
                                 <td>
                                     <input name="fShift" id="fShift" className="w-100" value={fS} onChange={(event) => {
                                         let input = event.target.value
-                                        if (input.match(/^\d{1,2}$/)) {
+                                        if (input.match(/^\d{1,4}$/)) {
                                             setFS(Number(input))
                                         }
                                     }}/>
@@ -140,7 +140,7 @@ export default function HomeMO({moData }: Props ) {
                                 <td>
                                     <input name="sShift" id="sShift" className="w-100" value={sS} onChange={(event) => {
                                         let input = event.target.value
-                                        if (input.match(/^\d{1,2}$/)) {
+                                        if (input.match(/^\d{1,4}$/)) {
                                             setSS(Number(input))
                                         }
                                     }}/>
@@ -148,7 +148,7 @@ export default function HomeMO({moData }: Props ) {
                                 <td>
                                     <input name="tShift" id="tShift" className="w-100" value={tS} onChange={(event) => {
                                         let input = event.target.value
-                                        if (input.match(/^\d{1,2}$/)) {
+                                        if (input.match(/^\d{1,4}$/)) {
                                             setTS(Number(input))
                                         }
                                     }}/>
