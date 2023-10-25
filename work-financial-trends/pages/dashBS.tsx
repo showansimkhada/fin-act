@@ -19,7 +19,7 @@ type Props = {
 
 export default function HomeBS({ userData, bsData }: Props ) {
     const [isClient, setIsClient] = useState(false)
-    const [loadData, setLoadData] = useState(false)
+    const [isHandle, setIsHandle] = useState(false)
     useSession({
         required: true,
         onUnauthenticated() {
@@ -29,17 +29,17 @@ export default function HomeBS({ userData, bsData }: Props ) {
     const [goBal, setGoBal] = useState('0')
     const [onBal, setOnBal] = useState('0')
     const [serBal, setSerBal] = useState('0')
-    const [total, setTotal] = useState(0)
+    const [total, setTotal] = useState('0')
     const [today, setToday] = useState(formatDate(Date()))
     const [fWI, setFWI] = useState('0')
     const [sWI, setSWI] = useState('0')
     const [ret, setRET] = useState('0')
-    const [cB, setCB] = useState(0)
-    const [wSP, setWSP] = useState(0)
-    const [wSA, setWSA] = useState(0)
-    const [oB, setOB] = useState(0)
+    const [cB, setCB] = useState('0')
+    const [wSP, setWSP] = useState('0')
+    const [wSA, setWSA] = useState('0')
+    const [oB, setOB] = useState('0')
     
-  const username = String(useSelector(lsUser))
+    const username = String(useSelector(lsUser))
     const dataUser = userData.filter((x) => {
         return x.username === username
     })
@@ -54,50 +54,62 @@ export default function HomeBS({ userData, bsData }: Props ) {
 
     useEffect(() => {
         setIsClient(true)
-        handleDate()
-    }, [username, goBal, onBal, serBal, fWI, sWI, ret, wSP, wSA, today, cB, oB])
+        if (!isHandle) {
+            setOB(String(closingBalance))
+            handleDate()
+            sumBS()
+        } else {
+            weeklySpent()
+            weeklySave()
+        }
+    }, [username, goBal, onBal, serBal, fWI, sWI, ret, wSP, wSA, today, cB, oB, isHandle])
 
     function weeklySpent() {
         let a = (parseFloat(String(fWI)) + parseFloat(String(sWI)) + parseFloat(String(ret)) + parseFloat(String(oB)) - parseFloat(String(cB))).toFixed(2)
-        setWSP(parseFloat(a))
+        setWSP(String(parseFloat(a)))
     }
 
     function weeklySave() {
         let a = (parseFloat(String(cB)) - parseFloat(String(oB)) - parseFloat(String(ret))).toFixed(2)
-        setWSA(parseFloat(a))
+        setWSA(String(parseFloat(a)))
     }
 
     function sumBS() {
         let x = (parseFloat(String(goBal)) + parseFloat(String(onBal)) + parseFloat(String(serBal))).toFixed(2)
-        setTotal(parseFloat(x))
-        if (!loadData) {
-            setCB(parseFloat(x))
+        setTotal(String(parseFloat(x)))
+        if (isHandle) {
+            setCB(String(parseFloat(x)))
         }
         weeklySpent()
         weeklySave()
     }
 
     function handleDate() {
-        setLoadData(true)
         const data = bsData.find((x) => {
             if (x.date === today) {
                 return x
             }
         })
-        if (data && loadData) {
-            setLoadData(false)
+        if (data) {
+            setIsHandle(true)
             setFWI((data.fWE.toString()))
             setSWI((data.sWE.toString()))
             setRET((data.return.toString()))
-            setOB(parseFloat(data.openingBalance.toString()))
-            setCB(parseFloat(data.closingBalance.toString()))
-            setWSA(parseFloat(data.weeklySave.toString()))
-            setWSP(parseFloat(data.weeklySpent.toString()))   
-        } else if (!data && !loadData){
-            setLoadData(true)
+            setOB(String(parseFloat(data.openingBalance.toString())))
+            setCB(String(parseFloat(data.closingBalance.toString())))
+            setWSA(String(parseFloat(data.weeklySave.toString())))
+            setWSP(String(parseFloat(data.weeklySpent.toString())))
+        } 
+        if (isHandle) {
             setFWI('0')
             setSWI('0')
             setRET('0')
+            setOB(String(closingBalance))
+            sumBS()
+            weeklySpent()
+            weeklySave()
+            sumBS()
+            setIsHandle(false)
         }
     }
 
@@ -105,138 +117,137 @@ export default function HomeBS({ userData, bsData }: Props ) {
         return (
             <>
             <Navbars/>
-                <div id="bs" className="d-flex mt-5 pt-3">
-                    <form action={`api/bs/?username=${username}`} method="POST">
-                        <div className="d-flex">
-                            <Table striped bordered id="bsOutput" responsive="sm">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>{dataUser[0]?.firstname}'s WI</th>
-                                        <th>{dataUser[0]?.sfirstname}'s WI</th>
-                                        <th>Return</th>
-                                        <th>Opening Balance</th>
-                                        <th>Closing Balance</th>
-                                        <th>Weekly Spent</th>
-                                        <th>Weekly Save</th>
+            <div id="bs" className="d-flex mt-5 pt-3">
+                <form action={`api/bs/?username=${username}`} method="POST">
+                    <div className="d-flex">
+                        <Table striped bordered id="bsOutput" responsive="sm">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>{dataUser[0]?.firstname}'s WI</th>
+                                    <th>{dataUser[0]?.sfirstname}'s WI</th>
+                                    <th>Return</th>
+                                    <th>Opening Balance</th>
+                                    <th>Closing Balance</th>
+                                    <th>Weekly Spent</th>
+                                    <th>Weekly Save</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filtData.map((x) => (
+                                    <tr key={formatDate(x.date)}>
+                                        <td>{x.date}</td>
+                                        <td>{x.fWE.toString()}</td>
+                                        <td>{x.sWE.toString()}</td>
+                                        <td>{x.return.toString()}</td>
+                                        <td>{x.openingBalance.toString()}</td>
+                                        <td>{x.closingBalance.toString()}</td>
+                                        <td>{x.weeklySpent.toString()}</td>
+                                        <td>{x.weeklySave.toString()}</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    {filtData.map((x) => (
-                                        <tr key={formatDate(x.date)}>
-                                            <td>{x.date}</td>
-                                            <td>{x.fWE.toString()}</td>
-                                            <td>{x.sWE.toString()}</td>
-                                            <td>{x.return.toString()}</td>
-                                            <td>{x.openingBalance.toString()}</td>
-                                            <td>{x.closingBalance.toString()}</td>
-                                            <td>{x.weeklySpent.toString()}</td>
-                                            <td>{x.weeklySave.toString()}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td>
-                                            <input type="date" name="bsDate" id="bsDate" className="w-100" value={today} onChange={(event) => {
-                                                setToday(formatDate(event.target.value))
-                                            }}></input>
-                                        </td>
-                                        <td>
-                                            <input name="fWI" id="fWI" className="w-100" value={fWI} onChange={(event) => {
-                                                let input = event.target.value
-                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
-                                                    input = '0'
-                                                }
+                                ))}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        <input type="date" name="bsDate" id="bsDate" className="w-100" value={today} onChange={(event) => {
+                                            setToday(formatDate(event.target.value))
+                                            handleDate()
+                                        }}></input>
+                                    </td>
+                                    <td>
+                                        <input name="fWI" id="fWI" className="w-100" value={fWI} onChange={(event) => {
+                                            let input = event.target.value
+                                            if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
                                                 setFWI(input)
-                                            }}></input>
-                                        </td>
-                                        <td>
-                                            <input name="sWI" id="sWI" className="w-100" value={sWI} onChange={(event) => {
-                                                let input = event.target.value
-                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
-                                                    input = '0'
-                                                }
+                                            }
+                                        }}></input>
+                                    </td>
+                                    <td>
+                                        <input name="sWI" id="sWI" className="w-100" value={sWI} onChange={(event) => {
+                                            let input = event.target.value
+                                            if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
                                                 setSWI(input)
-                                            }}></input>
-                                        </td>
-                                        <td>
-                                            <input name="ret" id="ret" className="w-100" value={ret} onChange={(event) => {
-                                                let input = event.target.value
-                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
-                                                    input = '0'
-                                                }
+                                            }
+                                        }}></input>
+                                    </td>
+                                    <td>
+                                        <input name="ret" id="ret" className="w-100" value={ret} onChange={(event) => {
+                                            let input = event.target.value
+                                            if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
                                                 setRET(input)
-                                            }}></input>
-                                        </td>
-                                        <td>
-                                            <input name="oB" id="oB" className="w-100" value={oB} readOnly></input>
-                                        </td>
-                                        <td>
-                                            <input name="cB" id="cB" className="w-100" value={cB} readOnly></input>
-                                        </td>
-                                        <td>
-                                            <input name="wSp" id="wSp" className="w-100" value={wSP} readOnly></input>
-                                        </td>
-                                        <td>
-                                            <input name="wSa" id="wSa" className="w-100" value={wSA} readOnly></input>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </Table>
-                        </div>
-                        <div className="d-flex">
-                            <table className="table table-bordered w-75">
-                                <thead>
-                                    <tr>
-                                        <th>Go</th>
-                                        <th>Online</th>
-                                        <th>Serious</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <input id="go" className="w-100" value={goBal} onChange={(event) => {
-                                                let input = event.target.value
-                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
-                                                    input = '0'
-                                                }
+                                            }
+                                        }}></input>
+                                    </td>
+                                    <td>
+                                        <input name="oB" id="oB" className="w-100" value={oB} readOnly></input>
+                                    </td>
+                                    <td>
+                                        <input name="cB" id="cB" className="w-100" value={cB} readOnly></input>
+                                    </td>
+                                    <td>
+                                        <input name="wSp" id="wSp" className="w-100" value={wSP} readOnly></input>
+                                    </td>
+                                    <td>
+                                        <input name="wSa" id="wSa" className="w-100" value={wSA} readOnly></input>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </Table>
+                    </div>
+                    <div className="d-flex">
+                        <table className="table table-bordered w-75">
+                            <thead>
+                                <tr>
+                                    <th>Go</th>
+                                    <th>Online</th>
+                                    <th>Serious</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input id="go" className="w-100" value={goBal} onChange={(event) => {
+                                            let input = event.target.value
+                                            if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
+                                                input = '0'
+                                            }
+                                            else {
                                                 setGoBal(input)
-                                                sumBS()
-                                            }}></input>
-                                        </td>
-                                        <td>
-                                            <input id="online" className="w-100" value={onBal} onChange={(event) => {
-                                                let input = event.target.value
-                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
-                                                    input = '0'
-                                                }
+                                            }
+                                        }}></input>
+                                    </td>
+                                    <td>
+                                        <input id="online" className="w-100" value={onBal} onChange={(event) => {
+                                            let input = event.target.value
+                                            if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
+                                                input = '0'
+                                            } else {
                                                 setOnBal(input)
-                                                sumBS()
-                                            }}></input>
-                                        </td>
-                                        <td>
-                                            <input id="serious" className="w-100" value={serBal} onChange={(event) => {
-                                                let input = event.target.value
-                                                if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
-                                                    input = '0'
-                                                }
+                                            }
+                                        }}></input>
+                                    </td>
+                                    <td>
+                                        <input id="serious" className="w-100" value={serBal} onChange={(event) => {
+                                            let input = event.target.value
+                                            if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
+                                                input = '0'
+                                            } else {
                                                 setSerBal(input)
-                                                sumBS()
-                                            }}></input>
-                                        </td>
-                                        <td>
-                                            <input id="total" className="w-100" value={total} readOnly></input>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <input className="table btn btn-primary w-25" type="submit" value="Submit"></input>
-                        </div>
-                    </form>
-                </div>
+                                            }
+                                        }}></input>
+                                    </td>
+                                    <td>
+                                        <input id="total" className="w-100" value={total} readOnly></input>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <input className="table btn btn-primary w-25" type="submit" value="Submit"></input>
+                    </div>
+                </form>
+            </div>
             </>
         )
     } else {
