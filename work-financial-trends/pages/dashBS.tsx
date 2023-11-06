@@ -19,7 +19,6 @@ type Props = {
 
 export default function HomeBS({ userData, bsData }: Props ) {
     const [isClient, setIsClient] = useState(false)
-    const [isHandle, setIsHandle] = useState(false)
     useSession({
         required: true,
         onUnauthenticated() {
@@ -54,15 +53,9 @@ export default function HomeBS({ userData, bsData }: Props ) {
 
     useEffect(() => {
         setIsClient(true)
-        if (!isHandle) {
-            setOB(String(closingBalance))
-            handleDate()
-            sumBS()
-        } else {
-            weeklySpent()
-            weeklySave()
-        }
-    }, [username, goBal, onBal, serBal, fWI, sWI, ret, wSP, wSA, today, cB, oB, isHandle])
+        setOB(String(closingBalance))
+        sumBS()
+    }, [username, goBal, onBal, serBal, fWI, sWI, ret, wSP, wSA, today, cB, oB])
 
     function weeklySpent() {
         let a = (parseFloat(String(fWI)) + parseFloat(String(sWI)) + parseFloat(String(ret)) + parseFloat(String(oB)) - parseFloat(String(cB))).toFixed(2)
@@ -77,40 +70,9 @@ export default function HomeBS({ userData, bsData }: Props ) {
     function sumBS() {
         let x = (parseFloat(String(goBal)) + parseFloat(String(onBal)) + parseFloat(String(serBal))).toFixed(2)
         setTotal(String(parseFloat(x)))
-        if (isHandle) {
-            setCB(String(parseFloat(x)))
-        }
+        setCB(String(parseFloat(x)))
         weeklySpent()
         weeklySave()
-    }
-
-    function handleDate() {
-        const data = bsData.find((x) => {
-            if (x.date === today) {
-                return x
-            }
-        })
-        if (data) {
-            setIsHandle(true)
-            setFWI((data.fWE.toString()))
-            setSWI((data.sWE.toString()))
-            setRET((data.return.toString()))
-            setOB(String(parseFloat(data.openingBalance.toString())))
-            setCB(String(parseFloat(data.closingBalance.toString())))
-            setWSA(String(parseFloat(data.weeklySave.toString())))
-            setWSP(String(parseFloat(data.weeklySpent.toString())))
-        } 
-        if (isHandle) {
-            setFWI('0')
-            setSWI('0')
-            setRET('0')
-            setOB(String(closingBalance))
-            sumBS()
-            weeklySpent()
-            weeklySave()
-            sumBS()
-            setIsHandle(false)
-        }
     }
 
     if (isClient) {
@@ -122,7 +84,7 @@ export default function HomeBS({ userData, bsData }: Props ) {
                     <div className="d-flex">
                         <Table striped bordered id="bsOutput" responsive="sm">
                             <thead>
-                                <tr>
+                                <tr> 
                                     <th>Date</th>
                                     <th>{dataUser[0]?.firstname}'s WI</th>
                                     <th>{dataUser[0]?.sfirstname}'s WI</th>
@@ -152,7 +114,6 @@ export default function HomeBS({ userData, bsData }: Props ) {
                                     <td>
                                         <input type="date" name="bsDate" id="bsDate" className="w-100" value={today} onChange={(event) => {
                                             setToday(formatDate(event.target.value))
-                                            handleDate()
                                         }}></input>
                                     </td>
                                     <td>
@@ -210,6 +171,9 @@ export default function HomeBS({ userData, bsData }: Props ) {
                                     <td>
                                         <input id="go" className="w-100" value={goBal} onChange={(event) => {
                                             let input = event.target.value
+                                            if (!input) {
+                                                event.target.select()
+                                            }
                                             if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
                                                 input = '0'
                                             }
