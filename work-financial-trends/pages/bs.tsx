@@ -35,6 +35,10 @@ export default function BSpage( {bsData, userData}: Props) {
     const dataUser = userData.filter((x) => {
         return x.username === username
     })
+    const fweTotal = dataBS.reduce((c, x) => c + Number(x.fWE), 0).toFixed(2);
+    const sweTotal = dataBS.reduce((c, x) => c + Number(x.sWE), 0).toFixed(2)
+    const wspTotal = dataBS.reduce((c, x) => c + Number(x.weeklySpent), 0).toFixed(2)
+    const wsaTotal = dataBS.reduce((c, x) => c + Number(x.weeklySave), 0).toFixed(2)
     useEffect (() => {
         setIsClient(true)
     }, [])
@@ -55,7 +59,7 @@ export default function BSpage( {bsData, userData}: Props) {
                             <th>Weekly Save</th>
                         </tr>
                     </thead>
-                    <thead id='data'>
+                    <tbody id='data'>
                         {isClient? dataBS.map((x) => (
                             <tr key={formatDate(x.date)}>
                                 <td>{x.date}</td>
@@ -68,7 +72,22 @@ export default function BSpage( {bsData, userData}: Props) {
                                 <td>{x.weeklySave.toString()}</td>
                             </tr>
                         )): ''}
-                    </thead>
+                    </tbody>
+                    <tfoot id='total'>
+
+                        {isClient ? 
+                        <tr>
+                            <td>{'Total'}</td>
+                            <td>{fweTotal}</td>
+                            <td>{sweTotal}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{wspTotal}</td>
+                            <td>{wsaTotal}</td>
+                        </tr>
+                        : ''}
+                    </tfoot>
                 </Table>
             </div>
         </div>
