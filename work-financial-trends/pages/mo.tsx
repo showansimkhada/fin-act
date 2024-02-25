@@ -46,9 +46,9 @@ export default function MOpage( {moData}: Props) {
                             <th>Date</th>
                             <th>Weekdays</th>
                             <th>Spot</th>
-                            <th>First Shift</th>
-                            <th>Second Shift</th>
-                            <th>Third Shift</th>
+                            <th>D1</th>
+                            <th>D2</th>
+                            <th>D3</th>
                             <th>Total</th>
                         </tr>
                     </thead>
