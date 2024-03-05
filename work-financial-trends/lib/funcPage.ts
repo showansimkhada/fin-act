@@ -35,3 +35,8 @@ export function getStartDate(d: string) {
   const startDate = formatDate(String(new Date(date.setDate(diff))));
   return startDate;
 }
+
+export function getYear(date: string) {
+  let x = date.split('-');
+  return x[0]
+}
