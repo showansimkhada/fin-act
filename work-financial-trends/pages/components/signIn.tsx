@@ -22,14 +22,14 @@ export default function SignIn() {
   }
   const router = useRouter();
   const dispatch = useDispatch()
-  var callBackUrl = '/';
-  if (page === "Balance Sheet") {
-      callBackUrl = (router.query?.callBackUrl as string) ?? "/dashBS";
-  } else if (page === "Mussel Entry") {
-      callBackUrl = (router.query?.callBackUrl as string) ?? "/dashMO";
-  } else {
-      callBackUrl = (router.query?.callBackUrl as string) ?? "/";
-  }
+  var callBackUrl = '/dash';
+  // if (page === "Balance Sheet") {
+  //     callBackUrl = (router.query?.callBackUrl as string) ?? "/dashBS";
+  // } else if (page === "Mussel Entry") {
+  //     callBackUrl = (router.query?.callBackUrl as string) ?? "/dashMO";
+  // } else {
+  //     callBackUrl = (router.query?.callBackUrl as string) ?? "/";
+  // }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -51,7 +51,7 @@ export default function SignIn() {
         setMess(result.error)
       } else {
         dispatch(dataSlice.actions.setUserName(user))
-        dispatch(dataSlice.actions.setLogPag(page))
+        // dispatch(dataSlice.actions.setLogPag(page))
         router.push(callBackUrl);
       }
     }

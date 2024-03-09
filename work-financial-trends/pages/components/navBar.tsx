@@ -42,6 +42,7 @@ export default function Navbars() {
               <Nav.Link href="/dash">Home</Nav.Link>
               <Nav.Link href="/bs">Balance Data</Nav.Link>
               <Nav.Link href="/mo">Mussel Data</Nav.Link>
+              <Nav.Link href="/report">Report</Nav.Link>
               <Nav.Link href='/profile'>Profile</Nav.Link>
               <Nav.Link onClick={handleSignOut}>Sign Out</Nav.Link>
             </Nav>
