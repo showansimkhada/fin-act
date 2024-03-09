@@ -77,8 +77,8 @@ export default function SignIn() {
           </div>
         </div>
         <div className="d-flex flex-column align-items-center">
-          <input className="btn btn-primary w-75" type="submit" value={`Sign In to ${page}`}></input>
-          <label className={styles.switch}>
+          <input className="btn btn-primary w-75" type="submit" value={`Sign In`}></input>
+          {/* <label className={styles.switch}>
             <input type="checkbox" onChange={() => {
               if(page === "Balance Sheet") {
                 setPage('Mussel Entry')
@@ -87,7 +87,7 @@ export default function SignIn() {
               }
             }}></input>
             <span className={`${styles.slider} ${styles.round}`}></span>
-          </label>
+          </label> */}
         </div>
       </form>
     </div>

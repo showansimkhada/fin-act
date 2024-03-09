@@ -39,8 +39,9 @@ export default function Navbars() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href={home}>Home</Nav.Link>
-              <Nav.Link href={dP}>{getPage}</Nav.Link>
+              <Nav.Link href="/dash">Home</Nav.Link>
+              <Nav.Link href="/bs">Balance Data</Nav.Link>
+              <Nav.Link href="/mo">Mussel Data</Nav.Link>
               <Nav.Link href='/profile'>Profile</Nav.Link>
               <Nav.Link onClick={handleSignOut}>Sign Out</Nav.Link>
             </Nav>
