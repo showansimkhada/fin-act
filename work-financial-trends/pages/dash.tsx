@@ -19,24 +19,58 @@ type Props = {
     moData: IMO[]
 }
 
-export default function HomeBS({ userData, bsData, moData }: Props ) {
+export default function Home({ userData, bsData, moData }: Props ) {
+    // clean up the codes
     const username = String(useSelector(lsUser))
+    const [isClicked, setClicked] = useState(false)
     const [isClient, setIsClient] = useState(false)
+    const [dateState, setDateState] = useState(0)
+    const [cD, setCD] = useState(formatDate(Date()))
+    const WD = getWeekday(cD)
+    const [page, setPage] = useState('Mussel Entry')
+    const [bP, setBP] = useState('btn-primary')
+    const [bS, setBS] = useState('btn-secondary')
+    // default for bs is true
+    const [tF, setTF] = useState(true)
+
     useSession({
         required: true,
         onUnauthenticated() {
             redirect('/')
         }
     })
-    // Change data to either mussel or balance
-    function changeData(str: String) {
-        if ( str === "Balance Entry") {
-            return setData(0)
+
+    // Change page to either mussel or balance by auto
+    function autoSet() {
+        if ( WD === 'Saturday' || WD === 'Sunday') {
+            setPage('Balance Sheet')
+            setBP('btn-secondary')
+            setBS('btn-primary')
+            setTF(true)
+            setDateState(1)
         } else {
-            return setData(1)
+            setBS('btn-secondary')
+            setBP('btn-primary')
+            setDateState(0)
+            setTF(false)
         }
     }
 
+    function changePage(str: String) {
+        setClicked(true)
+        if ( str === "Balance Entry") {
+            setBP('btn-secondary')
+            setBS('btn-primary')
+            setDateState(1)
+        } else {
+            setBS('btn-secondary')
+            setBP('btn-primary')
+            setDateState(0)
+            setTF(false)
+        }
+    }
+
+    
     // For balance data entry
     const [goBal, setGoBal] = useState('0')
     const [onBal, setOnBal] = useState('0')
@@ -50,11 +84,8 @@ export default function HomeBS({ userData, bsData, moData }: Props ) {
     const [wSP, setWSP] = useState('0')
     const [wSA, setWSA] = useState('0')
     const [oB, setOB] = useState('0')
-    const [data, setData] = useState(0)
 
     // For mussel data entry
-    // const username = String(useSelector(lsUser))
-    // const [today, setToday] = useState(formatDate(Date()))
     const [loadData, setLoadData] = useState(true)
     const [weekDay, setWeekDay] = useState('')
     const [spot, setSpot] = useState(0)
@@ -64,11 +95,7 @@ export default function HomeBS({ userData, bsData, moData }: Props ) {
     const [totalM, setTotalM] = useState(0)
     const [weekTotal, setWeekTotal] = useState(0)
     const [isHandleDate, setIsHandelDate] = useState(false)
-    if (!data) {
 
-    } else {
-
-    }
     const dataMO = moData.filter((x) => {
         return x.username === username
     })
@@ -87,14 +114,20 @@ export default function HomeBS({ userData, bsData, moData }: Props ) {
 
     useEffect(() => {
         setIsClient(true)
+        if (!isClicked) {
+            autoSet()
+        }
+    }, [today])
+
+    useEffect(() => {
         setOB(String(closingBalance))
         sumBS()
-        // Mussel Data
-        if (data) {
-            sumMO()
-            setWeekTotal(Object.values(dataMO).reduce((t, {total}) => Number(t) + Number(total), 0))
-        }
-    }, [username, goBal, onBal, serBal, fWI, sWI, ret, wSP, wSA, today, cB, oB, data, today, spot, fS, sS, tS, total, weekTotal, isHandleDate])
+    }, [goBal, onBal, serBal, fWI, sWI, ret, wSP, wSA, cB, oB])
+
+    useEffect(() => {
+        sumMO()
+        setWeekTotal(Object.values(dataMO).reduce((t, {total}) => Number(t) + Number(total), 0))
+    },  [spot, fS, sS, tS, total, weekTotal])
 
     // For balance data
     function weeklySpent() {
@@ -116,7 +149,6 @@ export default function HomeBS({ userData, bsData, moData }: Props ) {
     }
 
     // For mussel data
-
     if (loadData) {
         handleDate()
         setLoadData(false)
@@ -157,20 +189,22 @@ export default function HomeBS({ userData, bsData, moData }: Props ) {
         return (
             <>
                 <Navbars/>
-                <div className="d-flex mt-5 pt-2">
+                <div className="d-flex mt-5 pt-2 justify-content-between">
                     <div>
-                        <input type="button" value={"Balance Entry"} onClick={(event) => {
-                            changeData(event.currentTarget.value)
+                        <input type="button" className={`btn ${bP}`} value={"Balance Entry"} disabled={tF} onClick={(event) => {
+                            changePage(event.currentTarget.value)
+                            setTF(!tF)
                         }}></input>
                     </div>
                     <div>
-                        <input type="button" value={"Mussel Entry"} onClick={(event) => {
-                            changeData(event.currentTarget.value)
+                        <input type="button" className={`btn ${bS}`} value={"Mussel Entry"} disabled={!tF} onClick={(event) => {
+                            changePage(event.currentTarget.value)
+                            setTF(!tF)
                         }}></input>
                     </div>
                 </div>
                 {/* Change the dashboard according to the button clicked */}
-                {!data ?
+                {dateState ?
                     // balance data
                     <div id="bs" className="d-flex">
                         <form action={`api/bs/?username=${username}`} method="POST">
@@ -234,16 +268,16 @@ export default function HomeBS({ userData, bsData, moData }: Props ) {
                                                 }}></input>
                                             </td>
                                             <td>
-                                                <input name="oB" id="oB" className="w-100" value={oB} readOnly></input>
+                                                <input name="oB" id="oB" className="w-100 border-0 p-0" value={oB} readOnly></input>
                                             </td>
                                             <td>
-                                                <input name="cB" id="cB" className="w-100" value={cB} readOnly></input>
+                                                <input name="cB" id="cB" className="w-100 border-0 p-0" value={cB} readOnly></input>
                                             </td>
                                             <td>
-                                                <input name="wSp" id="wSp" className="w-100" value={wSP} readOnly></input>
+                                                <input name="wSp" id="wSp" className="w-100 border-0 p-0" value={wSP} readOnly></input>
                                             </td>
                                             <td>
-                                                <input name="wSa" id="wSa" className="w-100" value={wSA} readOnly></input>
+                                                <input name="wSa" id="wSa" className="w-100 border-0 p-0" value={wSA} readOnly></input>
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -296,7 +330,7 @@ export default function HomeBS({ userData, bsData, moData }: Props ) {
                                                 }}></input>
                                             </td>
                                             <td>
-                                                <input id="total" className="w-100" value={total} readOnly></input>
+                                                <label id="total">{total}</label>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -378,7 +412,7 @@ export default function HomeBS({ userData, bsData, moData }: Props ) {
                                         }}/>
                                     </td>
                                     <td>
-                                        <input name="total" id="total" className="w-100" value={totalM} readOnly/>
+                                        <input name="total" id="total" className="w-100 border-0 p-0" value={total} readOnly/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -389,7 +423,7 @@ export default function HomeBS({ userData, bsData, moData }: Props ) {
                                         <label>Week Total</label>
                                     </td>
                                     <td>
-                                        <input type="int" id="weekTotal" className="w-100" value={weekTotal} readOnly/>
+                                        <label id="weekTotal">{weekTotal}</label>
                                     </td>
                                 </tr>
                             </tfoot>
