@@ -22,14 +22,14 @@ export default function SignIn() {
   }
   const router = useRouter();
   const dispatch = useDispatch()
-  var callBackUrl = '/';
-  if (page === "Balance Sheet") {
-      callBackUrl = (router.query?.callBackUrl as string) ?? "/dashBS";
-  } else if (page === "Mussel Entry") {
-      callBackUrl = (router.query?.callBackUrl as string) ?? "/dashMO";
-  } else {
-      callBackUrl = (router.query?.callBackUrl as string) ?? "/";
-  }
+  var callBackUrl = '/dash';
+  // if (page === "Balance Sheet") {
+  //     callBackUrl = (router.query?.callBackUrl as string) ?? "/dashBS";
+  // } else if (page === "Mussel Entry") {
+  //     callBackUrl = (router.query?.callBackUrl as string) ?? "/dashMO";
+  // } else {
+  //     callBackUrl = (router.query?.callBackUrl as string) ?? "/";
+  // }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -51,7 +51,7 @@ export default function SignIn() {
         setMess(result.error)
       } else {
         dispatch(dataSlice.actions.setUserName(user))
-        dispatch(dataSlice.actions.setLogPag(page))
+        // dispatch(dataSlice.actions.setLogPag(page))
         router.push(callBackUrl);
       }
     }
@@ -77,8 +77,8 @@ export default function SignIn() {
           </div>
         </div>
         <div className="d-flex flex-column align-items-center">
-          <input className="btn btn-primary w-75" type="submit" value={`Sign In to ${page}`}></input>
-          <label className={styles.switch}>
+          <input className="btn btn-primary w-75" type="submit" value={`Sign In`}></input>
+          {/* <label className={styles.switch}>
             <input type="checkbox" onChange={() => {
               if(page === "Balance Sheet") {
                 setPage('Mussel Entry')
@@ -87,7 +87,7 @@ export default function SignIn() {
               }
             }}></input>
             <span className={`${styles.slider} ${styles.round}`}></span>
-          </label>
+          </label> */}
         </div>
       </form>
     </div>

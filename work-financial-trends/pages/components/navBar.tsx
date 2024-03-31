@@ -3,24 +3,25 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { signOut } from 'next-auth/react'
-import { dataSlice, lsPage, lsUser } from '@/lib/redux'
+import { dataSlice, lsUser } from '@/lib/redux'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { Container, Navbar, Nav} from 'react-bootstrap'
+import { redirect } from 'next/dist/server/api-utils'
 
 export default function Navbars() {
   const [isClient, setIsClient] = useState(false)
   const dispatch = useDispatch()
   const username = String(useSelector(lsUser)).toUpperCase()
-  const getPage = String(useSelector(lsPage))
-  var home = '', dP = '';
-  if (getPage === "Balance Sheet") {
-    home = "/dashBS"
-    dP = '/bs'
-  } else {
-    home = "/dashMO"
-    dP = '/mo'
-  }
+  // const getPage = String(useSelector(lsPage))
+  // var home = '', dP = '';
+  // if (getPage === "Balance Sheet") {
+  //   home = "/dashBS"
+  //   dP = '/bs'
+  // } else {
+  //   home = "/dashMO"
+  //   dP = '/mo'
+  // }
   useEffect(() => {
     setIsClient(true)
   }, [])
@@ -39,8 +40,10 @@ export default function Navbars() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href={home}>Home</Nav.Link>
-              <Nav.Link href={dP}>{getPage}</Nav.Link>
+              <Nav.Link href="/dash">Home</Nav.Link>
+              <Nav.Link href="/bs">Balance Data</Nav.Link>
+              <Nav.Link href="/mo">Mussel Data</Nav.Link>
+              <Nav.Link href="/report">Report</Nav.Link>
               <Nav.Link href='/profile'>Profile</Nav.Link>
               <Nav.Link onClick={handleSignOut}>Sign Out</Nav.Link>
             </Nav>
