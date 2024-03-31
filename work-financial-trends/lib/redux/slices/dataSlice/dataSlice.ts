@@ -2,13 +2,13 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: DataSliceState = {
   username: '',
-  loginpage: '',
+  // loginpage: '',
   status: 'signedOut'
 }
 
 export interface DataSliceState {
   username: string,
-  loginpage: string,
+  // loginpage: string,
   status: 'signedOut' | 'signedIn'
 }
 
@@ -21,11 +21,11 @@ export const dataSlice = createSlice({
       state.username = action.payload
       localStorage.setItem('username', action.payload)
     },
-    setLogPag: (state, action: PayloadAction<string>) => {
-      state.status = 'signedIn'
-      state.loginpage = action.payload
-      localStorage.setItem('userpage', action.payload)
-    },
+    // setLogPag: (state, action: PayloadAction<string>) => {
+    //   state.status = 'signedIn'
+    //   state.loginpage = action.payload
+    //   localStorage.setItem('userpage', action.payload)
+    // },
     clearLS: (state) => {
       state.status = 'signedOut'
       localStorage.clear()
