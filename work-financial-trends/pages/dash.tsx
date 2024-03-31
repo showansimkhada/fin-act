@@ -19,7 +19,7 @@ type Props = {
     moData: IMO[]
 }
 
-export default function Home({ userData, bsData, moData }: Props ) {
+export default function HomeDash({ userData, bsData, moData }: Props ) {
     // clean up the codes
     const username = String(useSelector(lsUser))
     const [isClicked, setClicked] = useState(false)
