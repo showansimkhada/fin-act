@@ -20,7 +20,7 @@ export default async function handler(
         let fShift = req.body.fShift;
         let sShift = req.body.sShift;
         let tShift = req.body.tShift;
-        let total = req.body.total;
+        let total = req.body.totalM;
         const data = new MO({
             username: username,
             date: date,
@@ -35,7 +35,7 @@ export default async function handler(
         if (!oldData) {
             const result = await data.save()
             if (result) {
-              res.redirect('/dashMO')
+              res.redirect('/dash')
             } else {
               res.send('Error on saving old data')
             }
@@ -50,7 +50,7 @@ export default async function handler(
             oldData.total = total
             const result = await oldData.save()
             if (result) {
-              res.redirect('/dashMO')
+              res.redirect('/dash')
             } else {
               res.send('Error on saving old data')
             }

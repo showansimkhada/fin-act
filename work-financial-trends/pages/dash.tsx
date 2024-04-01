@@ -127,7 +127,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
     useEffect(() => {
         sumMO()
         setWeekTotal(Object.values(dataMO).reduce((t, {total}) => Number(t) + Number(total), 0))
-    },  [spot, fS, sS, tS, total, weekTotal])
+    },  [spot, fS, sS, tS, totalM, weekTotal])
 
     // For balance data
     function weeklySpent() {
@@ -412,7 +412,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                                         }}/>
                                     </td>
                                     <td>
-                                        <input name="total" id="total" className="w-100 border-0 p-0" value={total} readOnly/>
+                                        <input name="totalM" id="totalM" className="w-100 border-0 p-0" value={totalM} readOnly/>
                                     </td>
                                 </tr>
                                 <tr>

@@ -37,7 +37,7 @@ export default async function handler(
         if (!oldData) {
             const result = await data.save()
             if (result) {
-              res.redirect('/dashBS')
+              res.redirect('/dash')
             } else {
               res.send('Error on saving old data')
             }
@@ -53,7 +53,7 @@ export default async function handler(
             oldData.wSa = wSa
             const result = await oldData.save()
             if (result) {
-              res.redirect('/dashBS')
+              res.redirect('/dash')
             } else {
               res.send('Error on saving old data')
             }
