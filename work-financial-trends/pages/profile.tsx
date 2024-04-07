@@ -68,25 +68,6 @@ export default function Profile({userData}: Props) {
                         <input type="submit" className="btn btn-primary" value="Update Profile"></input>
                     </div>
                 </form>
-                <form action={`api/profile/?username=${username}&type=account&array=${accty}`} method="post" className="border border-5 w-100">
-                    <div className="d-flex flex-row">
-                        <div className="d-flex flex-column justify-content-between align-content-between w-50">
-                            <label>Account Types</label>
-                            <ol>
-                                {dataUser[0].account.map((x) => (
-                                    <li key={x}>{x}</li>
-                                ))}
-                            </ol>
-                        </div>
-                        <div className="d-flex flex-column align-items-center justify-content-between align-content-between w-50">
-                            <input type="text" className="w-75" required={true} onChange={(event) => {
-                                setAccTy(event.target.value)
-                            }}></input>
-                            <input type="submit" className="btn btn-primary w-75" value="Add"></input>
-                            <input type="submit" formAction={`api/profile/?username=${username}&type=accountRem&array=${accty}`} className="btn btn-primary w-75" value="Remove"></input>
-                        </div>
-                    </div>
-                </form>
                 <form action={`api/profile/?username=${username}&type=password`} method="post" className="border border-5 w-100">
                     <div className="d-flex flex-row">
                         <div className="d-flex flex-column justify-content-between align-context-between w-50">

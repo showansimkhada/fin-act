@@ -189,7 +189,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
         return (
             <>
                 <Navbars/>
-                <div className="d-flex mt-5 pt-2 justify-content-between">
+                <div className="container d-flex mt-5 pt-2 justify-content-between">
                     <div>
                         <input type="button" className={`btn ${bP}`} value={"Balance Entry"} disabled={tF} onClick={(event) => {
                             changePage(event.currentTarget.value)
@@ -205,8 +205,8 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                 </div>
                 {/* Change the dashboard according to the button clicked */}
                 {dateState ?
-                    // balance data
-                    <div id="bs" className="d-flex">
+                    // Balance Sheet 
+                    <div id="bs">
                         <form action={`api/bs/?username=${username}`} method="POST">
                             <div className="d-flex">
                                 <Table striped bordered id="bsOutput" responsive="sm">
@@ -283,20 +283,19 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                                     </tfoot>
                                 </Table>
                             </div>
-                            <div className="d-flex">
-                                <table className="table table-bordered w-75">
+                            <div className="d-flex pl-5 pr-5">
+                                <table className="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Go</th>
-                                            <th>Online</th>
-                                            <th>Serious</th>
+                                            <th>Amount</th>
+                                            <th>Add</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <input id="go" className="w-100" value={goBal} onChange={(event) => {
+                                                <input id="go" value={goBal} onChange={(event) => {
                                                     let input = event.target.value
                                                     if (!input) {
                                                         event.target.select()
@@ -309,7 +308,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                                                     }
                                                 }}></input>
                                             </td>
-                                            <td>
+                                            {/* <td>
                                                 <input id="online" className="w-100" value={onBal} onChange={(event) => {
                                                     let input = event.target.value
                                                     if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
@@ -328,6 +327,9 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                                                         setSerBal(input)
                                                     }
                                                 }}></input>
+                                            </td> */}
+                                            <td>
+                                                <input type="button" className="btn btn-danger" value="ADD"></input>
                                             </td>
                                             <td>
                                                 <label id="total">{total}</label>
@@ -416,7 +418,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colSpan={2}>
+                                    <td colSpan={2} rowSpan={2}>
                                         <input type="submit" value="Submit" className="btn btn-primary w-100"/>
                                     </td>
                                     <td colSpan={3} className="text-end">
@@ -424,6 +426,14 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                                     </td>
                                     <td>
                                         <label id="weekTotal">{weekTotal}</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colSpan={3} className="text-end">
+                                        <label>Expected Income</label>
+                                    </td>
+                                    <td>
+                                        <label>{weekTotal*0.02}</label>
                                     </td>
                                 </tr>
                             </tfoot>
