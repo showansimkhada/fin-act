@@ -5,9 +5,10 @@ export interface IUSER extends Document {
     password: string,
     firstname: string,
     lastname: string,
+    mu: Boolean,
     sfirstname: string,
     slastname: string,
-    account: Array<string>
+    pMu: Boolean
 }
 
 const UserSchema = new Schema<IUSER> ({
@@ -25,15 +26,18 @@ const UserSchema = new Schema<IUSER> ({
     lastname: {
         type: String
     },
+    mu: {
+        type: Boolean
+    },
     sfirstname: {
         type: String
     },
     slastname: {
         type: String
     },
-    account: {
-        type: []
-    },
+    pMu: {
+        type: Boolean
+    }
 });
 
 export default models.Users || model<IUSER>('Users', UserSchema)

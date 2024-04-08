@@ -54,14 +54,18 @@ export default function Profile({userData}: Props) {
                         <div className="d-flex flex-column justify-content-between align-content-between w-50">
                             <label className="mt-1">First Name</label>
                             <label className="mt-1">Last Name</label>
+                            <label>Mussel Opener</label>
                             <label className="mt-1">Partner's First Name</label>
                             <label className="mt-1">Partner's Last Name</label>
+                            <label>Mussel Opener</label>
                         </div>
                         <div className="d-flex flex-column align-items-center justify-content-between align-content-between w-50">
                             <input type="text" id="firstname" className="w-75" name="firstname" required={true} placeholder={dataUser[0].firstname}></input>
                             <input type="text" id="lastname" className="w-75" name="lastname" required={true} placeholder={dataUser[0].lastname}></input>
+                            <input type="text" id="mus" className="w-75" name="mu" required={true} placeholder={String(dataUser[0].mu)}></input>
                             <input type="text" id="sfirstname" className="w-75" name="sfirstname" required={true} placeholder={dataUser[0].sfirstname}></input>
                             <input type="text" id="slastname" className="w-75" name="slastname" required={true} placeholder={dataUser[0].slastname}></input>
+                            <input type="text" id="pMu" className="w-75" name="pMu" required={true} placeholder={String(dataUser[0].pMu)}></input>
                         </div>
                     </div>
                     <div className="d-flex flex-column w-100">
