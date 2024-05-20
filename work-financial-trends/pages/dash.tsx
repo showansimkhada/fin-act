@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 import User, { IUSER } from '@/lib/utils/models/userModel'
 import { GetServerSideProps } from "next";
 import dbConnect from "@/lib/utils/conn/mongoose";
-import { formatDate, getStartDate, getWeekday } from "@/lib/funcPage";
+import { formatDate, getStartDate, getWeekday, stringAmt, sumAmt } from "@/lib/funcPage";
 import BS, { IBS } from "@/lib/utils/models/bsModel";
 import MO, { IMO } from "@/lib/utils/models/moModel"
 import { useSelector } from "react-redux";
 import { lsUser } from "@/lib/redux";
 import { Table } from "react-bootstrap";
+import { parse } from "path";
 
 type Props = {
     userData: IUSER[],
@@ -141,9 +142,9 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
     }
 
     function sumBS() {
-        let x = (parseFloat(String(goBal)) + parseFloat(String(onBal)) + parseFloat(String(serBal))).toFixed(2)
-        setTotal(String(parseFloat(x)))
-        setCB(String(parseFloat(x)))
+        // let x = (parseFloat(String(goBal)) + parseFloat(String(onBal)) + parseFloat(String(serBal))).toFixed(2)
+        // setTotal(String(parseFloat(x)))
+        setCB(String(parseFloat(total)))
         weeklySpent()
         weeklySave()
     }
@@ -189,7 +190,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
         return (
             <>
                 <Navbars/>
-                <div className="container d-flex mt-5 pt-2 justify-content-between">
+                <div className="container-fluid d-flex mt-5 pt-2 justify-content-between">
                     <div>
                         <input type="button" className={`btn ${bP}`} value={"Balance Entry"} disabled={tF} onClick={(event) => {
                             changePage(event.currentTarget.value)
@@ -287,9 +288,8 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                                 <table className="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Amount</th>
-                                            <th>Add</th>
-                                            <th>Total</th>
+                                            <th>Amount <span style={{fontWeight: 2, fontSize: 12, color: 'red'}}>(separate the amount by ',')</span></th>
+                                            <th>Addition expression</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -300,39 +300,12 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                                                     if (!input) {
                                                         event.target.select()
                                                     }
-                                                    if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !input) {
-                                                        input = '0'
-                                                    }
-                                                    else {
-                                                        setGoBal(input)
-                                                    }
-                                                }}></input>
-                                            </td>
-                                            {/* <td>
-                                                <input id="online" className="w-100" value={onBal} onChange={(event) => {
-                                                    let input = event.target.value
-                                                    if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
-                                                        input = '0'
-                                                    } else {
-                                                        setOnBal(input)
-                                                    }
+                                                    setGoBal(input)
+                                                    setTotal(String(parseFloat(String(sumAmt(input)))))
                                                 }}></input>
                                             </td>
                                             <td>
-                                                <input id="serious" className="w-100" value={serBal} onChange={(event) => {
-                                                    let input = event.target.value
-                                                    if(!input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
-                                                        input = '0'
-                                                    } else {
-                                                        setSerBal(input)
-                                                    }
-                                                }}></input>
-                                            </td> */}
-                                            <td>
-                                                <input type="button" className="btn btn-danger" value="ADD"></input>
-                                            </td>
-                                            <td>
-                                                <label id="total">{total}</label>
+                                                <label>{stringAmt(goBal)}</label>
                                             </td>
                                         </tr>
                                     </tbody>

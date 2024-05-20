@@ -40,3 +40,29 @@ export function getYear(date: string) {
   let x = date.split('-');
   return x[0]
 }
+
+// Separate the string and create array then add all the items from array
+export function sumAmt(str: string) {
+  let x = str.split(',')
+  let sum = 0
+  for (let i = 0; i < x.length; i++) {
+    // check if it got other expression
+    if (!x[i].match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !x[i]) {
+    } else {
+      sum += parseFloat(x[i])
+    }
+  }
+  return sum
+}
+
+// Convert the string into addition expression
+export function stringAmt(str: string) {
+  let sum = sumAmt(str)
+  let x = str.replace(/,/g, '+')
+  if (x[x.length-1] === '+') {
+    x = x.substring(0, x.length - 1)
+  } else {
+    x = x.substring(0, x.length) + ' = ' + sum
+  }
+  return x
+}
