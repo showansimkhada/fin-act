@@ -14,6 +14,8 @@ type Props = {
 
 export default function Profile({userData}: Props) {
     const [isClient, setIsClient] = useState(false)
+    const [isTrueA, setTrueA] = useState(false)
+    const [isTrueB, setTrueB] = useState(false)
     useSession({
         required: true,
         onUnauthenticated() {
@@ -24,11 +26,22 @@ export default function Profile({userData}: Props) {
     const username = String(useSelector(lsUser))
     const dataUser = userData.filter((x) => {
         return x.username === username
-    })
+    })[0]
 
     useEffect(() => {
         setIsClient(true)
+        handleA()
+        setTrueA(Boolean(dataUser.mo))
+        setTrueB(Boolean(dataUser.mos))
     }, [])
+
+    function handleA() {
+        setTrueA(!isTrueA)
+    }
+
+    function handleB() {
+        setTrueB(!isTrueB)
+    }
 
     if (isClient) {
         return (
@@ -41,25 +54,42 @@ export default function Profile({userData}: Props) {
                             <label>User Name</label>
                             <label className="mt-1">First Name</label>
                             <label className="mt-1">Last Name</label>
-                            <label>Mussel Opener</label>
                             <label>User Name</label>
                             <label className="mt-1">Partner's First Name</label>
                             <label className="mt-1">Partner's Last Name</label>
-                            <label>Mussel Opener</label>
                         </div>
                         <div className="d-flex flex-column align-items-center justify-content-between align-content-between w-50">
-                            <input id="username" className="w-75" name="newUsername" required={true} placeholder={dataUser[0].username}></input>
-                            <input type="text" id="firstname" className="w-75" name="firstname" required={true} placeholder={dataUser[0].firstname}></input>
-                            <input type="text" id="lastname" className="w-75" name="lastname" required={true} placeholder={dataUser[0].lastname}></input>
-                            <input type="text" id="mo" className="w-75" name="mu" required={true} placeholder={String(dataUser[0].mo)}></input>
-                            <input id="usernames" className="w-75" name="newUsernames" value={dataUser[0].usernames} readOnly></input>
-                            <input type="text" id="sfirstname" className="w-75" name="sfirstname" required={true} placeholder={dataUser[0].sfirstname}></input>
-                            <input type="text" id="slastname" className="w-75" name="slastname" required={true} placeholder={dataUser[0].slastname}></input>
-                            <input type="text" id="mos" className="w-75" name="mos" required={true} placeholder={String(dataUser[0].mos)}></input>
+                            <input id="username" className="w-75" name="newUsername" required={true} placeholder={dataUser.username}></input>
+                            <input type="text" id="firstname" className="w-75" name="firstname" required={true} placeholder={dataUser.firstname}></input>
+                            <input type="text" id="lastname" className="w-75" name="lastname" required={true} placeholder={dataUser.lastname}></input>
+                            <input id="usernames" className="w-75" name="newUsernames" value={dataUser.usernames} readOnly></input>
+                            <input type="text" id="sfirstname" className="w-75" name="sfirstname" required={true} placeholder={dataUser.sfirstname}></input>
+                            <input type="text" id="slastname" className="w-75" name="slastname" required={true} placeholder={dataUser.slastname}></input>
                         </div>
                     </div>
                     <div className="d-flex flex-column w-100">
                         <input type="submit" className="btn btn-primary" value="Update Profile"></input>
+                    </div>
+                </form>
+                <form action={`api/profile/?username=${username}&type=opener`} method="post" className="border border-5 w-100">
+                    <div className="d-flex flex-row">
+                        <div className="d-flex flex-column justify-content-between align-content-between w-50">
+                            <label>{dataUser.firstname} Opener</label>
+                            <label>{dataUser.sfirstname} Opener</label>
+                        </div>
+                        <div className="d-flex flex-column align-items-center justify-content-between align-content-between w-50">
+                            <div className="d-flex flex-row justify-content-between w-50">
+                                <input type="checkbox" className="checkbox mt-2" name="mo" onChange={handleA} defaultChecked={isTrueA}/>
+                                <input className="border-0" type="text" id="mo" name="mu" required={true} value={String(isTrueA).toUpperCase()} readOnly></input>
+                            </div>
+                            <div className="d-flex flex-row justify-content-between w-50">
+                                <input type="checkbox" className="checkbox mt-2" name="mos" onChange={handleB} defaultChecked={isTrueB}/>
+                                <input className="border-0" type="text" id="mo" name="mu" required={true} value={String(isTrueB).toUpperCase()} readOnly></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="d-flex flex-column w-100">
+                        <input type="submit" className="btn btn-primary" value="Update Opener Status"></input>
                     </div>
                 </form>
                 <form action={`api/profile/?username=${username}&type=password`} method="post" className="border border-5 w-100">

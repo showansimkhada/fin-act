@@ -39,7 +39,16 @@ export default async function handler(
               res.send('Error saving data')
             }
           }
-        } else if (type === 'password') {
+        } else if (type === 'opener') {
+          user.mo = Boolean(req.body.mo);
+          user.mos = Boolean(req.body.mos);
+          const data = await user.save()
+          if (data) {
+            res.redirect('/profile')
+          } else {
+            res.send('Error saving opener status')
+          }
+        }else if (type === 'password') {
           let oldpass = req.body.oldpass
           if (bcrypt.compareSync(oldpass || "", user.password)) {
             let newpass = req.body.newpass
