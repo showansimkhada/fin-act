@@ -33,12 +33,15 @@ export default async function handler(
         })
         const oldData = await MO.findOne({username: username, date: date});
         if (!oldData) {
+          if (spot > 0) {
             const result = await data.save()
             if (result) {
               res.redirect('/dash')
             } else {
               res.send('Error on saving old data')
             }
+          }
+          res.redirect('/dash')
         } else {
             oldData.username = username
             oldData.date = date
@@ -48,12 +51,15 @@ export default async function handler(
             oldData.sShift = sShift
             oldData.tShift = tShift
             oldData.total = total
-            const result = await oldData.save()
-            if (result) {
-              res.redirect('/dash')
-            } else {
-              res.send('Error on saving old data')
+            if (spot > 0) {
+              const result = await oldData.save()
+              if (result) {
+                res.redirect('/dash')
+              } else {
+                res.send('Error on saving old data')
+              }
             }
+            res.redirect('/dash')
         }
       } catch (error) {
         res.send(error)

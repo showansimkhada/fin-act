@@ -12,7 +12,6 @@ import MO, { IMO } from "@/lib/utils/models/moModel"
 import { useSelector } from "react-redux";
 import { lsUser } from "@/lib/redux";
 import { Table } from "react-bootstrap";
-import { parse } from "path";
 
 type Props = {
     userData: IUSER[],
@@ -26,6 +25,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
     const [isClicked, setClicked] = useState(false)
     const [isClient, setIsClient] = useState(false)
     const [dateState, setDateState] = useState(0)
+    const [moC, setMOC] = useState(0)
     const [cD, setCD] = useState(formatDate(Date()))
     const WD = getWeekday(cD)
     const [page, setPage] = useState('Mussel Entry')
@@ -43,6 +43,20 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
 
     // Change page to either mussel or balance by auto
     function autoSet() {
+        function checkTwo() {
+            let a = 0;
+            dataUser.map((x) => {
+                if (x.mo === true) {
+                    if (x.mos === true) {
+                        a = 1
+                    } else {
+                        a = 0
+                    }
+                }
+            })
+            return setMOC(a)
+        }
+        checkTwo()
         if ( WD === 'Saturday' || WD === 'Sunday') {
             setPage('Balance Sheet')
             setBP('btn-secondary')
@@ -57,6 +71,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
         }
     }
 
+    // change form according to button
     function changePage(str: String) {
         setClicked(true)
         if ( str === "Balance Entry") {
@@ -71,13 +86,11 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
         }
     }
 
-    
     // For balance data entry
-    const [goBal, setGoBal] = useState('0')
-    const [onBal, setOnBal] = useState('0')
-    const [serBal, setSerBal] = useState('0')
+    const [amt, setAmt] = useState('0')
     const [total, setTotal] = useState('0')
     const [today, setToday] = useState(formatDate(Date()))
+    const [todays, setTodays] = useState(formatDate(Date()))
     const [fWI, setFWI] = useState('0')
     const [sWI, setSWI] = useState('0')
     const [ret, setRET] = useState('0')
@@ -87,6 +100,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
     const [oB, setOB] = useState('0')
 
     // For mussel data entry
+    // For first opener
     const [loadData, setLoadData] = useState(true)
     const [weekDay, setWeekDay] = useState('')
     const [spot, setSpot] = useState(0)
@@ -95,6 +109,16 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
     const [tS, setTS] = useState(0)
     const [totalM, setTotalM] = useState(0)
     const [weekTotal, setWeekTotal] = useState(0)
+
+    // For second opener
+    const [weekDays, setWeekDays] = useState('')
+    const [spots, setSpots] = useState(0)
+    const [fSs, setFSs] = useState(0)
+    const [sSs, setSSs] = useState(0)
+    const [tSs, setTSs] = useState(0)
+    const [totalMs, setTotalMs] = useState(0)
+    const [weekTotals, setWeekTotals] = useState(0)
+
     const [isHandleDate, setIsHandelDate] = useState(false)
 
     const dataMO = moData.filter((x) => {
@@ -104,9 +128,19 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
     const dataUser = userData.filter((x) => {
         return x.username === username
     })
+
+    const fN = dataUser.map((x) => x.firstname)[0];
+    const fNS = dataUser.map((x) => x.sfirstname)[0];
+    const usernames = dataUser.map((x) => x.usernames)[0];
+
+    const dataMOS = moData.filter((x) => {
+        return x.username === usernames
+    })
+
     const dataBs = bsData.filter((x) => {
         return x.username === username
     })
+
     var filtData = dataBs.reverse().slice(0, 5).reverse()
     const getCB = filtData.slice(4,5)
     const closingBalance = getCB.map((x) => {
@@ -123,59 +157,75 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
     useEffect(() => {
         setOB(String(closingBalance))
         sumBS()
-    }, [goBal, onBal, serBal, fWI, sWI, ret, wSP, wSA, cB, oB])
+    }, [amt, fWI, sWI, ret, wSP, wSA, cB, oB])
 
     useEffect(() => {
         sumMO()
         setWeekTotal(Object.values(dataMO).reduce((t, {total}) => Number(t) + Number(total), 0))
-    },  [spot, fS, sS, tS, totalM, weekTotal])
+        setWeekTotals(Object.values(dataMOS).reduce((t, {total}) => Number(t) + Number(total), 0))
+    },  [spot, fS, sS, tS, totalM, spots, fSs, sSs, tSs, totalMs])
 
-    // For balance data
+    // BS
     function weeklySpent() {
         let a = (parseFloat(String(fWI)) + parseFloat(String(sWI)) + parseFloat(String(ret)) + parseFloat(String(oB)) - parseFloat(String(cB))).toFixed(2)
         setWSP(String(parseFloat(a)))
     }
 
+    // BS
     function weeklySave() {
         let a = (parseFloat(String(cB)) - parseFloat(String(oB)) - parseFloat(String(ret))).toFixed(2)
         setWSA(String(parseFloat(a)))
     }
 
+    // BS
     function sumBS() {
-        // let x = (parseFloat(String(goBal)) + parseFloat(String(onBal)) + parseFloat(String(serBal))).toFixed(2)
-        // setTotal(String(parseFloat(x)))
         setCB(String(parseFloat(total)))
         weeklySpent()
         weeklySave()
     }
 
-    // For mussel data
+    // MO
     if (loadData) {
         handleDate()
         setLoadData(false)
         sumMO()
     }
 
+    // MO
     function sumMO() {
-        let x = Number(fS) + Number(sS) + Number(tS)
-        setTotalM(x)
+        if (moC) {
+            let x = Number(fS) + Number(sS) + Number(tS)
+            let y = Number(fSs) + Number(sSs) + Number(tSs)
+            setTotalM(x)
+            setTotalMs(y)
+        } else {
+            let x = Number(fS) + Number(sS) + Number(tS)
+            setTotalM(x)
+        }
     }
 
     function handleDate() {
+        // MO
         const data = dataMO.find((x) => {
             if (x.date === today) {
                 return x
             }
         })
+        const datas = dataMOS.find((x) => {
+            if (x.date === today) {
+                return x
+            }
+        })
+        // MO
         if (data) {
             setLoadData(true)
             if (loadData) {
                 setLoadData(false)
                 setSpot(Number(data.spot))
                 setWeekDay(data.weekday)
-                setFS(Number((data.fShift)))
-                setSS(Number((data.sShift)))
-                setTS(Number((data.tShift)))
+                setFS(Number(data.fShift))
+                setSS(Number(data.sShift))
+                setTS(Number(data.tShift))
             }
         } else {
             setSpot(0)
@@ -184,6 +234,167 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
             setTS(0)
             sumMO()
         }
+        // MO
+        if (datas) {
+            setLoadData(true)
+            if (loadData) {
+                setLoadData(false)
+                setSpots(Number(datas.spot))
+                setWeekDays(datas.weekday)
+                setFSs(Number(datas.fShift))
+                setSSs(Number(datas.sShift))
+                setTSs(Number(datas.tShift))
+            }
+        } else {
+            setSpots(0)
+            setFSs(0)
+            setSSs(0)
+            setTSs(0)
+            sumMO()
+        }
+    }
+
+    function JSX(id: string, uN: string, data: IMO[]) {
+        var check = false;
+        if (id !== 'single') {
+            if (id === 'second') {
+                check = true
+            }
+        }
+        return (
+            <>
+            <div id={id} className="d-flex">
+                <form action={`api/mo/?username=${uN}`} method="POST">
+                    <table id="moOutput" className="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Spot</th>
+                                <th>D1</th>
+                                <th>D2</th>
+                                <th>D3</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data.map((x) => (
+                                <tr key={formatDate(x.date)}>
+                                    <td>{x.date}</td>
+                                    <td>{x.spot.toString()}</td>
+                                    <td>{x.fShift.toString()}</td>
+                                    <td>{x.sShift.toString()}</td>
+                                    <td>{x.tShift.toString()}</td>
+                                    <td>{x.total.toString()}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>
+                                    <input type="date" name="moDate" id="moDate" className="w-100" value={check ? todays: today} onChange={(event) => {
+                                        check ? setTodays(formatDate(event.target.value)) : setToday(formatDate(event.target.value))
+                                        setLoadData(true)
+                                        setIsHandelDate(true)
+                                        handleDate()
+                                    }}/>
+                                </td>
+                                <td hidden={true}>
+                                    <input type="text" name="weekday" value={check ? getWeekday(todays) : getWeekday(today)} readOnly/>
+                                </td>
+                                <td>
+                                    <input name="spot" id="spot" className="w-100" value={check ? spots : spot} onChange={(event) => {
+                                        let input = parseInt(event.target.value)
+                                        if (!input) {
+                                            check ? setSpots(0) : setSpot(0)
+                                        } else if(input > 31) {
+                                            
+                                        } else {
+                                            check ? setSpots(input) : setSpot(input)
+                                        }
+                                    }}/>
+                                </td>
+                                <td>
+                                    <input name="fShift" id="fShift" className="w-100" value={check ? fSs : fS} onChange={(event) => {
+                                        let input = parseInt(event.target.value)
+                                        if (!input) {
+                                            check ? setFSs(0) : setFS(0)
+                                        } else if(String(input).length > 4) {
+                                            
+                                        } else {
+                                            check ? setFSs(input) : setFS(input)
+                                        }
+                                    }}/>
+                                </td>
+                                <td>
+                                    <input name="sShift" id="sShift" className="w-100" value={check ? sSs: sS} onChange={(event) => {
+                                        let input = parseInt(event.target.value)
+                                        if (!input) {
+                                            check ? setSSs(0) : setSS(0)
+                                        } else if(String(input).length > 4) {
+                                            
+                                        } else {
+                                            check ? setSSs(input) : setSS(input)
+                                        }
+                                    }}/>
+                                </td>
+                                <td>
+                                    <input name="tShift" id="tShift" className="w-100" value={check ? tSs : tS} onChange={(event) => {
+                                        let input = parseInt(event.target.value)
+                                        if (!input) {
+                                            check ? setTSs(0) : setTS(0)
+                                        } else if(String(input).length > 4) {
+                                            
+                                        } else {
+                                            check ? setTSs(input) : setTS(input)
+                                        }
+                                    }}/>
+                                </td>
+                                <td>
+                                    <input name="totalM" id="totalM" className="w-100 border-0 p-0" value={check ? totalMs : totalM} readOnly/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colSpan={2} rowSpan={2}>
+                                    <input id="submit" type="submit" value="Submit" className="btn btn-primary w-100"/>
+                                </td>
+                                <td colSpan={3} className="text-end">
+                                    <label>Week Total</label>
+                                </td>
+                                <td>
+                                    <label id="weekTotal">{check ? weekTotals : weekTotal}</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colSpan={3} className="text-end">
+                                    <label>Expected Income</label>
+                                </td>
+                                <td>
+                                    <label>{check ? weekTotals*0.02 : weekTotal*0.02}</label>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </form>
+            </div>
+            </>
+        )
+    }
+
+    //  For single opener
+    function MoEnOne() {
+        return (JSX('single', username, dataMO))
+    }
+
+    // For both opener
+    function MoEnTwo() {
+        return (
+            <>
+                <h3 className="align-self-center">{fN}</h3>
+                {JSX('first', username, dataMO)}
+                <h3 className="pl-5">{fNS}</h3>
+                {JSX('second', usernames, dataMOS)}
+            </>
+        )
     }
 
     if (isClient) {
@@ -205,7 +416,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                     </div>
                 </div>
                 {/* Change the dashboard according to the button clicked */}
-                {dateState ?
+                { dateState ?
                     // Balance Sheet 
                     <div id="bs">
                         <form action={`api/bs/?username=${username}`} method="POST">
@@ -295,17 +506,17 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <input id="go" value={goBal} onChange={(event) => {
+                                                <input id="go" value={amt} onChange={(event) => {
                                                     let input = event.target.value
                                                     if (!input) {
                                                         event.target.select()
                                                     }
-                                                    setGoBal(input)
+                                                    setAmt(input)
                                                     setTotal(String(parseFloat(String(sumAmt(input)))))
                                                 }}></input>
                                             </td>
                                             <td>
-                                                <label>{stringAmt(goBal)}</label>
+                                                <label>{stringAmt(amt)}</label>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -314,105 +525,9 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                             </div>
                         </form>
                     </div>
-                    :
-                    // mussel data
-                    <div id="mo" className="d-flex">
-                    <form action={`api/mo/?username=${username}`} method="POST">
-                        <table id="moOutput" className="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Spot</th>
-                                    <th>D1</th>
-                                    <th>D2</th>
-                                    <th>D3</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {dataMO.map((x) => (
-                                    <tr key={formatDate(x.date)}>
-                                        <td>{x.date}</td>
-                                        <td>{x.spot.toString()}</td>
-                                        <td>{x.fShift.toString()}</td>
-                                        <td>{x.sShift.toString()}</td>
-                                        <td>{x.tShift.toString()}</td>
-                                        <td>{x.total.toString()}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td>
-                                        <input type="date" name="moDate" id="moDate" className="w-100" value={today} onChange={(event) => {
-                                            setToday(formatDate(event.target.value))
-                                            setLoadData(true)
-                                            setIsHandelDate(true)
-                                            handleDate()
-                                        }}/>
-                                    </td>
-                                    <td hidden={true}>
-                                        <input type="text" name="weekday" value={getWeekday(today)} readOnly/>
-                                    </td>
-                                    <td>
-                                        <input name="spot" id="spot" className="w-100" value={spot} onChange={(event) => {
-                                            let input = event.target.value
-                                            if (input.match(/^\d{1,2}$/)) {
-                                                setSpot(Number(input))
-                                            }
-                                        }}/>
-                                    </td>
-                                    <td>
-                                        <input name="fShift" id="fShift" className="w-100" value={fS} onChange={(event) => {
-                                            let input = event.target.value
-                                            if (input.match(/^\d{1,4}$/)) {
-                                                setFS(Number(input))
-                                            }
-                                        }}/>
-                                    </td>
-                                    <td>
-                                        <input name="sShift" id="sShift" className="w-100" value={sS} onChange={(event) => {
-                                            let input = event.target.value
-                                            if (input.match(/^\d{1,4}$/)) {
-                                                setSS(Number(input))
-                                            }
-                                        }}/>
-                                    </td>
-                                    <td>
-                                        <input name="tShift" id="tShift" className="w-100" value={tS} onChange={(event) => {
-                                            let input = event.target.value
-                                            if (input.match(/^\d{1,4}$/)) {
-                                                setTS(Number(input))
-                                            }
-                                        }}/>
-                                    </td>
-                                    <td>
-                                        <input name="totalM" id="totalM" className="w-100 border-0 p-0" value={totalM} readOnly/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colSpan={2} rowSpan={2}>
-                                        <input type="submit" value="Submit" className="btn btn-primary w-100"/>
-                                    </td>
-                                    <td colSpan={3} className="text-end">
-                                        <label>Week Total</label>
-                                    </td>
-                                    <td>
-                                        <label id="weekTotal">{weekTotal}</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colSpan={3} className="text-end">
-                                        <label>Expected Income</label>
-                                    </td>
-                                    <td>
-                                        <label>{weekTotal*0.02}</label>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </form>
-                </div>
+                   :
+                   // mussel data
+                   moC ? MoEnTwo() : MoEnOne()
                 }
             </>
         )

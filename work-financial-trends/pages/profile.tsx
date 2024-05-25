@@ -14,7 +14,6 @@ type Props = {
 
 export default function Profile({userData}: Props) {
     const [isClient, setIsClient] = useState(false)
-    const [accty, setAccTy] = useState('')
     useSession({
         required: true,
         onUnauthenticated() {
@@ -36,36 +35,27 @@ export default function Profile({userData}: Props) {
             <>
             <Navbars />
             <div className="d-flex flex-column align-items-start justify-content-center mt-5 pt3">
-                <form action={`api/profile/?username=${username}&type=username`} method="post" className="border border-5 w-100">
-                    <div className="d-flex flex-row">
-                        <div className="d-flex flex-column justify-content-between align-content-between w-50">
-                            <label>User Name</label>
-                        </div>
-                        <div className="d-flex flex-column align-items-center justify-content-between align-content-between w-50">
-                            <input id="username" className="w-75" name="newUsername" required={true} placeholder={dataUser[0].username}></input>
-                        </div>
-                    </div>
-                    <div className="d-flex flex-column w-100">
-                        <input type="submit" className="btn btn-primary" value="Update"></input>
-                    </div>
-                </form>
                 <form action={`api/profile/?username=${username}&type=details`} method="post" className="border border-5 w-100">
                     <div className="d-flex flex-row">
                         <div className="d-flex flex-column justify-content-between align-content-between w-50">
+                            <label>User Name</label>
                             <label className="mt-1">First Name</label>
                             <label className="mt-1">Last Name</label>
                             <label>Mussel Opener</label>
+                            <label>User Name</label>
                             <label className="mt-1">Partner's First Name</label>
                             <label className="mt-1">Partner's Last Name</label>
                             <label>Mussel Opener</label>
                         </div>
                         <div className="d-flex flex-column align-items-center justify-content-between align-content-between w-50">
+                            <input id="username" className="w-75" name="newUsername" required={true} placeholder={dataUser[0].username}></input>
                             <input type="text" id="firstname" className="w-75" name="firstname" required={true} placeholder={dataUser[0].firstname}></input>
                             <input type="text" id="lastname" className="w-75" name="lastname" required={true} placeholder={dataUser[0].lastname}></input>
-                            <input type="text" id="mus" className="w-75" name="mu" required={true} placeholder={String(dataUser[0].mu)}></input>
+                            <input type="text" id="mo" className="w-75" name="mu" required={true} placeholder={String(dataUser[0].mo)}></input>
+                            <input id="usernames" className="w-75" name="newUsernames" value={dataUser[0].usernames} readOnly></input>
                             <input type="text" id="sfirstname" className="w-75" name="sfirstname" required={true} placeholder={dataUser[0].sfirstname}></input>
                             <input type="text" id="slastname" className="w-75" name="slastname" required={true} placeholder={dataUser[0].slastname}></input>
-                            <input type="text" id="pMu" className="w-75" name="pMu" required={true} placeholder={String(dataUser[0].pMu)}></input>
+                            <input type="text" id="mos" className="w-75" name="mos" required={true} placeholder={String(dataUser[0].mos)}></input>
                         </div>
                     </div>
                     <div className="d-flex flex-column w-100">
