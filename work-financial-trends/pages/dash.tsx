@@ -152,7 +152,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
         if (!isClicked) {
             autoSet()
         }
-    }, [today])
+    }, [today, todays])
 
     useEffect(() => {
         setOB(String(closingBalance))
@@ -212,7 +212,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
             }
         })
         const datas = dataMOS.find((x) => {
-            if (x.date === today) {
+            if (x.date === todays) {
                 return x
             }
         })
@@ -260,139 +260,148 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
             if (id === 'second') {
                 check = true
             }
+        } else {
+            id = ''
         }
         return (
             <>
-            <div id={id} className="d-flex">
-                <form action={`api/mo/?username=${uN}`} method="POST">
-                    <table id="moOutput" className="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Spot</th>
-                                <th>D1</th>
-                                <th>D2</th>
-                                <th>D3</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.map((x) => (
-                                <tr key={formatDate(x.date)}>
-                                    <td>{x.date}</td>
-                                    <td>{x.spot.toString()}</td>
-                                    <td>{x.fShift.toString()}</td>
-                                    <td>{x.sShift.toString()}</td>
-                                    <td>{x.tShift.toString()}</td>
-                                    <td>{x.total.toString()}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td>
-                                    <input type="date" name="moDate" id="moDate" className="w-100" value={check ? todays: today} onChange={(event) => {
-                                        check ? setTodays(formatDate(event.target.value)) : setToday(formatDate(event.target.value))
-                                        setLoadData(true)
-                                        setIsHandelDate(true)
-                                        handleDate()
-                                    }}/>
-                                </td>
-                                <td hidden={true}>
-                                    <input type="text" name="weekday" value={check ? getWeekday(todays) : getWeekday(today)} readOnly/>
-                                </td>
-                                <td>
-                                    <input name="spot" id="spot" className="w-100" value={check ? spots : spot} onChange={(event) => {
-                                        let input = parseInt(event.target.value)
-                                        if (!input) {
-                                            check ? setSpots(0) : setSpot(0)
-                                        } else if(input > 31) {
-                                            
-                                        } else {
-                                            check ? setSpots(input) : setSpot(input)
-                                        }
-                                    }}/>
-                                </td>
-                                <td>
-                                    <input name="fShift" id="fShift" className="w-100" value={check ? fSs : fS} onChange={(event) => {
-                                        let input = parseInt(event.target.value)
-                                        if (!input) {
-                                            check ? setFSs(0) : setFS(0)
-                                        } else if(String(input).length > 4) {
-                                            
-                                        } else {
-                                            check ? setFSs(input) : setFS(input)
-                                        }
-                                    }}/>
-                                </td>
-                                <td>
-                                    <input name="sShift" id="sShift" className="w-100" value={check ? sSs: sS} onChange={(event) => {
-                                        let input = parseInt(event.target.value)
-                                        if (!input) {
-                                            check ? setSSs(0) : setSS(0)
-                                        } else if(String(input).length > 4) {
-                                            
-                                        } else {
-                                            check ? setSSs(input) : setSS(input)
-                                        }
-                                    }}/>
-                                </td>
-                                <td>
-                                    <input name="tShift" id="tShift" className="w-100" value={check ? tSs : tS} onChange={(event) => {
-                                        let input = parseInt(event.target.value)
-                                        if (!input) {
-                                            check ? setTSs(0) : setTS(0)
-                                        } else if(String(input).length > 4) {
-                                            
-                                        } else {
-                                            check ? setTSs(input) : setTS(input)
-                                        }
-                                    }}/>
-                                </td>
-                                <td>
-                                    <input name="totalM" id="totalM" className="w-100 border-0 p-0" value={check ? totalMs : totalM} readOnly/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colSpan={2} rowSpan={2}>
-                                    <input id="submit" type="submit" value="Submit" className="btn btn-primary w-100"/>
-                                </td>
-                                <td colSpan={3} className="text-end">
-                                    <label>Week Total</label>
-                                </td>
-                                <td>
-                                    <label id="weekTotal">{check ? weekTotals : weekTotal}</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colSpan={3} className="text-end">
-                                    <label>Expected Income</label>
-                                </td>
-                                <td>
-                                    <label>{check ? weekTotals*0.02 : weekTotal*0.02}</label>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </form>
-            </div>
+            <table id="moOutput" className="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Spot</th>
+                        <th>D1</th>
+                        <th>D2</th>
+                        <th>D3</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map((x) => (
+                        <tr key={formatDate(x.date)}>
+                            <td>{x.date}</td>
+                            <td>{x.spot.toString()}</td>
+                            <td>{x.fShift.toString()}</td>
+                            <td>{x.sShift.toString()}</td>
+                            <td>{x.tShift.toString()}</td>
+                            <td>{x.total.toString()}</td>
+                        </tr>
+                    ))}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <input type="date" name={`${id}moDate`} id="moDate" className="w-100" value={check ? todays: today} onChange={(event) => {
+                                check ? setTodays(formatDate(event.target.value)) : setToday(formatDate(event.target.value))
+                                setLoadData(true)
+                                setIsHandelDate(true)
+                                handleDate()
+                            }}/>
+                        </td>
+                        <td hidden={true}>
+                            <input type="text" name={`${id}weekday`} value={check ? getWeekday(todays) : getWeekday(today)} readOnly/>
+                        </td>
+                        <td>
+                            <input name={`${id}spot`} id="spot" className="w-100" value={check ? spots : spot} onChange={(event) => {
+                                let input = parseInt(event.target.value)
+                                if (!input) {
+                                    check ? setSpots(0) : setSpot(0)
+                                } else if(input > 31) {
+                                    
+                                } else {
+                                    check ? setSpots(input) : setSpot(input)
+                                }
+                            }}/>
+                        </td>
+                        <td>
+                            <input name={`${id}fShift`} id="fShift" className="w-100" value={check ? fSs : fS} onChange={(event) => {
+                                let input = parseInt(event.target.value)
+                                if (!input) {
+                                    check ? setFSs(0) : setFS(0)
+                                } else if(String(input).length > 4) {
+                                    
+                                } else {
+                                    check ? setFSs(input) : setFS(input)
+                                }
+                            }}/>
+                        </td>
+                        <td>
+                            <input name={`${id}sShift`} id="sShift" className="w-100" value={check ? sSs: sS} onChange={(event) => {
+                                let input = parseInt(event.target.value)
+                                if (!input) {
+                                    check ? setSSs(0) : setSS(0)
+                                } else if(String(input).length > 4) {
+                                    
+                                } else {
+                                    check ? setSSs(input) : setSS(input)
+                                }
+                            }}/>
+                        </td>
+                        <td>
+                            <input name={`${id}tShift`} id="tShift" className="w-100" value={check ? tSs : tS} onChange={(event) => {
+                                let input = parseInt(event.target.value)
+                                if (!input) {
+                                    check ? setTSs(0) : setTS(0)
+                                } else if(String(input).length > 4) {
+                                    
+                                } else {
+                                    check ? setTSs(input) : setTS(input)
+                                }
+                            }}/>
+                        </td>
+                        <td>
+                            <input name={`${id}totalM`} id="totalM" className="w-100 border-0 p-0" value={check ? totalMs : totalM} readOnly/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan={2} rowSpan={2}>
+                            <label>Weekly Total</label>
+                        </td>
+                        <td colSpan={3} className="text-end">
+                            <label>Opened Mussel</label>
+                        </td>
+                        <td>
+                            <label id="weekTotal">{check ? weekTotals : weekTotal}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan={3} className="text-end">
+                            <label>Expected Income</label>
+                        </td>
+                        <td>
+                            <label>{check ? weekTotals*0.02 : weekTotal*0.02}</label>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
             </>
         )
     }
 
     //  For single opener
     function MoEnOne() {
-        return (JSX('single', username, dataMO))
+        return (
+            <>
+            <form action={`api/mo/?username=${username}`} method="POST">
+                {JSX('single', username, dataMO)}
+                <input id="submit" type="submit" value="Submit" className="btn btn-primary w-100"/>
+            </form>
+            </>
+        )
     }
 
     // For both opener
     function MoEnTwo() {
+        const array = [username, usernames]
         return (
             <>
+            <form action={`api/mo/?username=${array}`} method="POST">
                 <h3 className="align-self-center">{fN}</h3>
                 {JSX('first', username, dataMO)}
                 <h3 className="pl-5">{fNS}</h3>
                 {JSX('second', usernames, dataMOS)}
+                <input id="submit" type="submit" value="Submit" className="btn btn-primary w-100"/>
+            </form>
             </>
         )
     }
@@ -565,7 +574,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
     let cWSD = getStartDate(cd)
     const findMO = await MO.find().where({date: {
         $gte: cWSD
-    }})
+    }}).sort({date : 1})
 
     /* Ensures all objectIds and nested objectIds are serialized as JSON data */
     const moData = findMO.map((doc) => {
