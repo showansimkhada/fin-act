@@ -51,7 +51,6 @@ export default function SignIn() {
   return (
     <div className='container'>
       <div className="d-flex flex-column justify-content-center align-items-center" style={{height: '80vh'}}>
-        <h1>Financial Trends</h1>
         <form id="login" onSubmit={handleSubmit}>
           <div className="d-flex">
             <div className="d-flex flex-column justify-content-center p-2">

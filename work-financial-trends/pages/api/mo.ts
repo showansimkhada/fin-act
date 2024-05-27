@@ -53,6 +53,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           const fOD = await MO.findOne({username: firstUN, date: firstdate});
           const sOD = await MO.findOne({username: secondUN, date: seconddate});
           if (!fOD && !sOD) {
+            console.log("adding new one")
             if (firstspot > 0 && secondspot > 0) {
               const resultA = await first.save()
               const resultB = await second.save()
@@ -84,7 +85,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
           } else {
             // checking first opener data
-            if (fOD) {
+            if (fOD && sOD) {
               fOD.username = firstUN
               fOD.date = firstdate
               fOD.weekday = firstweekday
@@ -93,39 +94,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               fOD.sShift = firstsShift
               fOD.tShift = firsttShift
               fOD.total = firsttotal
-              if (firstspot > 0 && secondspot > 0) {
-                const resultA = await fOD.save()
-                const resultB = await second.save()
-                console.log(resultA)
-                if (resultA && resultB) {
-                  res.redirect('/dash');
-                } else {
-                  res.send('Error on saving old data')
-                }
-              } else {
-                if (firstspot > 0) {
-                  const resultA = await first.save()
-                  if (resultA) {
-                    res.redirect('/dash');
-                  } else {
-                    res.send('Error on saving first opener data')
-                  }
-                } else if (secondspot > 0) {
-                  console.log('for second')
-                  const resultB = await second.save()
-                  if (resultB) {
-                    res.redirect('/dash');
-                  } else {
-                    res.send('Error on saving old data')
-                  }
-                } else {
-                  res.send('Check spot fields')
-                }
-              }
-            } else {
-              res.send('Something not right')
-            }
-            if (sOD) {
               sOD.username = secondUN
               sOD.date = seconddate
               sOD.weekday = secondweekday
@@ -135,9 +103,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               sOD.tShift = secondtShift
               sOD.total = secondtotal
               if (firstspot > 0 && secondspot > 0) {
-                const resultA = await first.save()
+                const resultA = await fOD.save()
                 const resultB = await sOD.save()
-                console.log(resultA)
                 if (resultA && resultB) {
                   res.redirect('/dash');
                 } else {
@@ -166,7 +133,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             } else {
               res.send('Something not right')
             }
-            res.redirect('/dash')
           }
         } else {
           // for single opener

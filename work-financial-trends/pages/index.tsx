@@ -10,7 +10,7 @@ export const IndexPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Trends</title>
+        <title>Work & Finance</title>
         <link rel="icon" href="/public/logo.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
       </Head>
