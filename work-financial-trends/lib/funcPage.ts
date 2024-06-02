@@ -30,8 +30,8 @@ export function getStartDate(d: string) {
   const date = new Date(d);
   const day = date.getDay(); // 👉️ get day of week
 
-  // 👇️ day of month - day of week (-6 if Sunday), otherwise +1
-  const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+  // 👇️ day of month - day of week (-7 if Sunday), otherwise +1
+  const diff = date.getDate() - day + (day === 0 ? -7 : 1);
   const startDate = formatDate(String(new Date(date.setDate(diff))));
   return startDate;
 }
@@ -52,7 +52,7 @@ export function sumAmt(str: string) {
       sum += parseFloat(x[i])
     }
   }
-  return sum
+  return sum.toFixed(2)
 }
 
 // Convert the string into addition expression
