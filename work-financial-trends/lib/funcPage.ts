@@ -27,12 +27,13 @@ export function getWeekday(date: string) {
 }
 
 export function getStartDate(d: string) {
-  const date = new Date(d);
-  const day = date.getDay(); // 👉️ get day of week
+  var da = new Date(d)
+  da.setHours(da.getHours() + 12);
+  const day = da.getDay(); // 👉️ get day of week
 
-  // 👇️ day of month - day of week (-7 if Sunday), otherwise +1
-  const diff = date.getDate() - day + (day === 0 ? -7 : 1);
-  const startDate = formatDate(String(new Date(date.setDate(diff))));
+  // 👇️ day of month - day of week (-6 if Sunday), otherwise +1
+  const diff = da.getDate() - day + (day === 0 ? -6 : 1);
+  const startDate = formatDate(String(new Date(da.setDate(diff))));
   return startDate;
 }
 

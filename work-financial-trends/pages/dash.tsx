@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { lsUser } from "@/lib/redux";
 import { Form, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { cwd } from "process";
 
 type Props = {
     userData: IUSER[],
@@ -579,8 +580,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
       return userData
     })
 
-    const cd = Date()
-    let cWSD = getStartDate(cd)
+    const cd = new Date();
+    let cWSD = getStartDate(cd.toUTCString())
     const findMO = await MO.find().where({date: {
         $gte: cWSD
     }}).sort({date : 1})
