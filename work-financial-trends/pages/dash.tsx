@@ -11,7 +11,8 @@ import BS, { IBS } from "@/lib/utils/models/bsModel";
 import MO, { IMO } from "@/lib/utils/models/moModel"
 import { useSelector } from "react-redux";
 import { lsUser } from "@/lib/redux";
-import { Table } from "react-bootstrap";
+import { Form, Table } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {
     userData: IUSER[],
@@ -284,7 +285,11 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                             <td>{x.fShift.toString()}</td>
                             <td>{x.sShift.toString()}</td>
                             <td>{x.tShift.toString()}</td>
-                            <td>{x.total.toString()}</td>
+                            <td className="d-flex flex-row justify-content-between">{x.total.toString()}
+                                <Form action={`api/mo/?type=deleteD&id=${x._id}`} method='post'>
+                                    <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
+                                </Form>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
@@ -302,7 +307,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                             <input type="text" name={`${id}weekday`} value={check ? getWeekday(todays) : getWeekday(today)} readOnly/>
                         </td>
                         <td>
-                            <input name={`${id}spot`} id="spot" className="w-100" value={check ? spots : spot} onChange={(event) => {
+                            <input name={`${id}spot`} id="spot" className="w-100" onChange={(event) => {
                                 let input = parseInt(event.target.value)
                                 if (!input) {
                                     check ? setSpots(0) : setSpot(0)
@@ -311,7 +316,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                                 } else {
                                     check ? setSpots(input) : setSpot(input)
                                 }
-                            }}/>
+                            }} value={check ? spots : spot}/>
                         </td>
                         <td>
                             <input name={`${id}fShift`} id="fShift" className="w-100" value={check ? fSs : fS} onChange={(event) => {
@@ -453,7 +458,11 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                                                 <td>{x.openingBalance.toString()}</td>
                                                 <td>{x.closingBalance.toString()}</td>
                                                 <td>{x.weeklySpent.toString()}</td>
-                                                <td>{x.weeklySave.toString()}</td>
+                                                <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
+                                                    <Form action={`api/bs/?type=deleteD&id=${x._id}`} method='post'>
+                                                        <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
+                                                    </Form>
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>
