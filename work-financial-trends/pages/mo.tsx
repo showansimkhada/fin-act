@@ -12,7 +12,8 @@ import { formatDate } from '@/lib/funcPage';
 import { useSelector } from 'react-redux';
 import { lsUser } from '@/lib/redux';
 import { useEffect, useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Form, Table } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type Props = {
     moData: IMO[] 
@@ -50,6 +51,7 @@ export default function MOpage( {moData}: Props) {
                             <th>D2</th>
                             <th>D3</th>
                             <th>Total</th>
+                            <td>Action</td>
                         </tr>
                     </thead>
                     <thead>
@@ -62,6 +64,11 @@ export default function MOpage( {moData}: Props) {
                                 <td>{x.sShift.toString()}</td>
                                 <td>{x.tShift.toString()}</td>
                                 <td>{x.total.toString()}</td>
+                                <td className="d-flex flex-row justify-content-between">
+                                    <Form action={`api/mo/?type=delete&id=${x._id}`} method='post'>
+                                        <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
+                                    </Form>
+                                </td>
                             </tr>
                         ))}
                     </thead>

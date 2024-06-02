@@ -13,7 +13,8 @@ import { formatDate } from '@/lib/funcPage';
 import { useSelector } from 'react-redux';
 import { lsUser } from '@/lib/redux';
 import { useEffect, useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Form, Table } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type Props = {
     bsData: IBS[] ,
@@ -69,7 +70,11 @@ export default function BSpage( {bsData, userData}: Props) {
                                 <td>{x.openingBalance.toString()}</td>
                                 <td>{x.closingBalance.toString()}</td>
                                 <td>{x.weeklySpent.toString()}</td>
-                                <td>{x.weeklySave.toString()}</td>
+                                <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
+                                    <Form action={`api/bs/?type=delete&id=${x._id}`} method='post'>
+                                        <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
+                                    </Form>
+                                </td>
                             </tr>
                         )): ''}
                     </tbody>
