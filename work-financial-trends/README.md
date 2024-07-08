@@ -1,3 +1,17 @@
+## Project
+<h1>Used Skills</h1>
+<ul>
+    <li>React</li>
+    <li>TypeScript</li>
+    <li>Passport</li>
+    <li>MongoDB</li>
+    <li>NextJS</li>
+    <li>BootStrap</li>
+    <li>Bcrypt</li>
+    <li>NodeJS</li>
+</ul>
+
+<br></br><br></br><br></br><br></br>
 # Redux Toolkit TypeScript Example
 
 This example shows how to integrate Next.js with [Redux Toolkit](https://redux-toolkit.js.org).
