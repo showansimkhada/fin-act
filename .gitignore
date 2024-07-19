@@ -1,35 +1,35 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-work-financial-trends/node_modules
-work-financial-trends/.pnp
-work-financial-trends/.pnp.js
+finact/node_modules
+finact/.pnp
+finact/.pnp.js
 
 # testing
-work-financial-trends/coverage
+finact/coverage
 
 # next.js
-work-financial-trends/.next/
-work-financial-trends/out/
+finact/.next/
+finact/out/
 
 # production
-work-financial-trends/build
+finact/build
 
 # misc
-work-financial-trends/.DS_Store
-work-financial-trends/*.pem
+finact/.DS_Store
+finact/*.pem
 
 # debug
-work-financial-trends/npm-debug.log*
-work-financial-trends/yarn-debug.log*
-work-financial-trends/yarn-error.log*
+finact/npm-debug.log*
+finact/yarn-debug.log*
+finact/yarn-error.log*
 
 # local env files
-work-financial-trends/.env*.local
+finact/.env*.local
 
 # vercel
-work-financial-trends/.vercel
+finact/.vercel
 
 # typescript
-work-financial-trends/*.tsbuildinfo
-work-financial-trends/next-env.d.ts
+finact/*.tsbuildinfo
+finact/next-env.d.ts
