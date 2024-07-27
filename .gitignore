@@ -1,40 +1,38 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-*/node_modules
-*/node_modules
-*/.pnp
-*/.pnp.js
+finact/node_modules
+finact/.pnp
+finact/.pnp.js
 
 # testing
-*/coverage
+finact/coverage
 
 # next.js
-*/.next/
-*/out/
+finact/.next/
+finact/out/
 
 # production
-*/build
+finact/build
 
 # misc
-*/.DS_Store
-*/*.pem
+finact/.DS_Store
+finact/*.pem
 
 # debug
-*/npm-debug.log*
-*/yarn-debug.log*
-*/yarn-error.log*
+finact/npm-debug.log*
+finact/yarn-debug.log*
+finact/yarn-error.log*
 
 # local env files
-*/.env*.local
-*/.env
+finact/.env*.local
 
 # vercel
-*/.vercel
+finact/.vercel
 
 # typescript
-*/*.tsbuildinfo
-*/next-env.d.ts
+finact/*.tsbuildinfo
+finact/next-env.d.ts
 
 
 # android
