@@ -54,6 +54,7 @@ export default function Profile({userData}: Props) {
                             <label>User Name</label>
                             <label className="mt-1">First Name</label>
                             <label className="mt-1">Last Name</label>
+                            <label>User Name</label>
                             <label className="mt-1">Partner's First Name</label>
                             <label className="mt-1">Partner's Last Name</label>
                         </div>
@@ -61,6 +62,7 @@ export default function Profile({userData}: Props) {
                             <input id="username" className="w-75" name="newUsername" required={true} placeholder={dataUser.username}></input>
                             <input type="text" id="firstname" className="w-75" name="firstname" required={true} placeholder={dataUser.firstname}></input>
                             <input type="text" id="lastname" className="w-75" name="lastname" required={true} placeholder={dataUser.lastname}></input>
+                            <input id="usernames" className="w-75" name="newUsernames" value={dataUser.usernames} readOnly></input>
                             <input type="text" id="sfirstname" className="w-75" name="sfirstname" required={true} placeholder={dataUser.sfirstname}></input>
                             <input type="text" id="slastname" className="w-75" name="slastname" required={true} placeholder={dataUser.slastname}></input>
                         </div>
@@ -73,11 +75,16 @@ export default function Profile({userData}: Props) {
                     <div className="d-flex flex-row">
                         <div className="d-flex flex-column justify-content-between align-content-between w-50">
                             <label>{dataUser.firstname} Opener</label>
+                            <label>{dataUser.sfirstname} Opener</label>
                         </div>
                         <div className="d-flex flex-column align-items-center justify-content-between align-content-between w-50">
                             <div className="d-flex flex-row justify-content-between w-50">
                                 <input type="checkbox" className="checkbox mt-2" name="mo" onChange={handleA} defaultChecked={isTrueA}/>
                                 <input className="border-0" type="text" id="mo" name="mu" required={true} value={String(isTrueA).toUpperCase()} readOnly></input>
+                            </div>
+                            <div className="d-flex flex-row justify-content-between w-50">
+                                <input type="checkbox" className="checkbox mt-2" name="mos" onChange={handleB} defaultChecked={isTrueB}/>
+                                <input className="border-0" type="text" id="mo" name="mu" required={true} value={String(isTrueB).toUpperCase()} readOnly></input>
                             </div>
                         </div>
                     </div>

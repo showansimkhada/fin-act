@@ -108,7 +108,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
     });
   
     /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-    const bsData = data.map((doc: IBS) => {
+    const bsData = data.map((doc) => {
       const pet = JSON.parse(JSON.stringify(doc))
       return pet
     })
@@ -117,7 +117,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
     const results = await User.find({})
   
     /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-    const userData = results.map((doc: IUSER) => {
+    const userData = results.map((doc) => {
       const pet = JSON.parse(JSON.stringify(doc))
       return pet
     })

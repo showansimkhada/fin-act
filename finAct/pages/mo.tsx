@@ -93,7 +93,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 
   
     /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-    const moData = data.map((doc: IMO) => {
+    const moData = data.map((doc) => {
       const moData = JSON.parse(JSON.stringify(doc))
       return moData
     })
