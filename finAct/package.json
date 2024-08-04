@@ -1,40 +1,50 @@
 {
+  "name": "finact",
+  "description": "<h1>Used Skills</h1> <ul>     <li>React</li>     <li>TypeScript</li>     <li>Passport</li>     <li>MongoDB</li>     <li>NextJS</li>     <li>BootStrap</li>     <li>Bcrypt</li>     <li>NodeJS</li> </ul>",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "author": "showan",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start"
   },
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.5.2",
-    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
-    "@reduxjs/toolkit": "1.9.5",
+    "@reduxjs/toolkit": "2.2.7",
     "@types/d3": "^7.4.3",
-    "@types/mongoose": "^5.11.97",
-    "@vercel/speed-insights": "^1.0.10",
     "bcrypt": "^5.1.1",
-    "bootstrap": "^5.3.2",
+    "bootstrap": "^5.3.3",
     "d3": "^7.9.0",
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.4.5",
     "latest": "^0.2.0",
     "local-storage": "^2.0.0",
-    "mongoose": "^7.5.2",
-    "next": "^14.1.4",
-    "next-auth": "^4.23.1",
-    "node": "^18.20.0",
-    "react": "18.2.0",
-    "react-bootstrap": "^2.10.2",
-    "react-dom": "18.2.0",
-    "react-redux": "8.1.0"
+    "mongoose": "^8.5.2",
+    "next": "^14.2.5",
+    "next-auth": "^4.24.7",
+    "node": "^20.16.0",
+    "react": "18.3.1",
+    "react-bootstrap": "^2.10.4",
+    "react-dom": "18.3.1",
+    "react-redux": "9.1.2"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.0",
-    "@types/node": "20.3.1",
-    "@types/react": "18.2.12",
-    "@types/react-dom": "18.2.5",
-    "@types/redux-logger": "3.0.9",
+    "@types/bcrypt": "^5.0.2",
+    "@types/node": "22.1.0",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "@types/redux-logger": "3.0.13",
     "redux-logger": "3.0.6",
-    "typescript": "^5.1.3"
+    "typescript": "^5.5.4"
   }
 }
