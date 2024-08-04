@@ -101,7 +101,6 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
     const [oB, setOB] = useState('0')
 
     // For mussel data entry
-    // For first opener
     const [loadData, setLoadData] = useState(true)
     const [weekDay, setWeekDay] = useState('')
     const [spot, setSpot] = useState(0)
@@ -110,15 +109,6 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
     const [tS, setTS] = useState(0)
     const [totalM, setTotalM] = useState(0)
     const [weekTotal, setWeekTotal] = useState(0)
-
-    // For second opener
-    const [weekDays, setWeekDays] = useState('')
-    const [spots, setSpots] = useState(0)
-    const [fSs, setFSs] = useState(0)
-    const [sSs, setSSs] = useState(0)
-    const [tSs, setTSs] = useState(0)
-    const [totalMs, setTotalMs] = useState(0)
-    const [weekTotals, setWeekTotals] = useState(0)
 
     const [isHandleDate, setIsHandelDate] = useState(false)
 
@@ -131,12 +121,6 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
     })
 
     const fN = dataUser.map((x) => x.firstname)[0];
-    const fNS = dataUser.map((x) => x.sfirstname)[0];
-    const usernames = dataUser.map((x) => x.usernames)[0];
-
-    const dataMOS = moData.filter((x) => {
-        return x.username === usernames
-    })
 
     const dataBs = bsData.filter((x) => {
         return x.username === username
@@ -163,8 +147,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
     useEffect(() => {
         sumMO()
         setWeekTotal(Object.values(dataMO).reduce((t, {total}) => Number(t) + Number(total), 0))
-        setWeekTotals(Object.values(dataMOS).reduce((t, {total}) => Number(t) + Number(total), 0))
-    },  [spot, fS, sS, tS, totalM, spots, fSs, sSs, tSs, totalMs])
+    },  [spot, fS, sS, tS, totalM])
 
     // BS
     function weeklySpent() {
@@ -196,9 +179,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
     function sumMO() {
         if (moC) {
             let x = Number(fS) + Number(sS) + Number(tS)
-            let y = Number(fSs) + Number(sSs) + Number(tSs)
-            setTotalM(x)
-            setTotalMs(y)
+            setTotalM(x);
         } else {
             let x = Number(fS) + Number(sS) + Number(tS)
             setTotalM(x)
@@ -209,11 +190,6 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
         // MO
         const data = dataMO.find((x) => {
             if (x.date === today) {
-                return x
-            }
-        })
-        const datas = dataMOS.find((x) => {
-            if (x.date === todays) {
                 return x
             }
         })
@@ -233,24 +209,6 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
             setFS(0)
             setSS(0)
             setTS(0)
-            sumMO()
-        }
-        // MO
-        if (datas) {
-            setLoadData(true)
-            if (loadData) {
-                setLoadData(false)
-                setSpots(Number(datas.spot))
-                setWeekDays(datas.weekday)
-                setFSs(Number(datas.fShift))
-                setSSs(Number(datas.sShift))
-                setTSs(Number(datas.tShift))
-            }
-        } else {
-            setSpots(0)
-            setFSs(0)
-            setSSs(0)
-            setTSs(0)
             sumMO()
         }
     }
@@ -310,52 +268,44 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                             <input name={`${id}spot`} id="spot" className="w-100" onChange={(event) => {
                                 let input = parseInt(event.target.value)
                                 if (!input) {
-                                    check ? setSpots(0) : setSpot(0)
-                                } else if(input > 31) {
-                                    
-                                } else {
-                                    check ? setSpots(input) : setSpot(input)
+                                    setSpot(0)
+                                } else if(input < 31 && input > 0) {
+                                    setSpot(input)
                                 }
-                            }} value={check ? spots : spot}/>
+                            }} value={spot}/>
                         </td>
                         <td>
-                            <input name={`${id}fShift`} id="fShift" className="w-100" value={check ? fSs : fS} onChange={(event) => {
+                            <input name={`${id}fShift`} id="fShift" className="w-100" value={fS} onChange={(event) => {
                                 let input = parseInt(event.target.value)
                                 if (!input) {
-                                    check ? setFSs(0) : setFS(0)
-                                } else if(String(input).length > 4) {
-                                    
-                                } else {
-                                    check ? setFSs(input) : setFS(input)
+                                    setFS(0)
+                                } else if(String(input).length <= 4) {
+                                    setFS(input)
                                 }
                             }}/>
                         </td>
                         <td>
-                            <input name={`${id}sShift`} id="sShift" className="w-100" value={check ? sSs: sS} onChange={(event) => {
+                            <input name={`${id}sShift`} id="sShift" className="w-100" value={sS} onChange={(event) => {
                                 let input = parseInt(event.target.value)
                                 if (!input) {
-                                    check ? setSSs(0) : setSS(0)
-                                } else if(String(input).length > 4) {
-                                    
-                                } else {
-                                    check ? setSSs(input) : setSS(input)
+                                    setSS(0)
+                                } else if(String(input).length <= 4) {
+                                    setSS(input)
                                 }
                             }}/>
                         </td>
                         <td>
-                            <input name={`${id}tShift`} id="tShift" className="w-100" value={check ? tSs : tS} onChange={(event) => {
+                            <input name={`${id}tShift`} id="tShift" className="w-100" value={tS} onChange={(event) => {
                                 let input = parseInt(event.target.value)
                                 if (!input) {
-                                    check ? setTSs(0) : setTS(0)
-                                } else if(String(input).length > 4) {
-                                    
-                                } else {
-                                    check ? setTSs(input) : setTS(input)
+                                    setTS(0)
+                                } else if(String(input).length <= 4) {
+                                    setTS(input)
                                 }
                             }}/>
                         </td>
                         <td>
-                            <input name={`${id}totalM`} id="totalM" className="w-100 border-0 p-0" value={check ? totalMs : totalM} readOnly/>
+                            <input name={`${id}totalM`} id="totalM" className="w-100 border-0 p-0" value={totalM} readOnly/>
                         </td>
                     </tr>
                     <tr>
@@ -366,7 +316,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                             <label>Opened Mussel</label>
                         </td>
                         <td>
-                            <label id="weekTotal">{check ? weekTotals : weekTotal}</label>
+                            <label id="weekTotal">{weekTotal}</label>
                         </td>
                     </tr>
                     <tr>
@@ -374,7 +324,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                             <label>Expected Income</label>
                         </td>
                         <td>
-                            <label>{check ? (weekTotals*0.02).toFixed(2) : (weekTotal*0.02).toFixed(2)}</label>
+                            <label>{(weekTotal*0.02).toFixed(2)}</label>
                         </td>
                     </tr>
                 </tfoot>
@@ -389,22 +339,6 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
             <div>
             <form action={`api/mo/?username=${username}`} method="POST">
                 {JSX('single', username, dataMO)}
-                <input id="submit" type="submit" value="Submit" className="btn btn-primary w-100"/>
-            </form>
-            </div>
-        )
-    }
-
-    // For both opener
-    function MoEnTwo() {
-        const array = [username, usernames]
-        return (
-            <div>
-            <form action={`api/mo/?username=${array}`} method="POST">
-                <h3 className="align-self-center">{fN}</h3>
-                {JSX('first', username, dataMO)}
-                <h3 className="pl-5">{fNS}</h3>
-                {JSX('second', usernames, dataMOS)}
                 <input id="submit" type="submit" value="Submit" className="btn btn-primary w-100"/>
             </form>
             </div>
@@ -513,7 +447,7 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                                     </tfoot>
                                 </Table>
                             </div>
-                            <div className="d-flex pl-5 pr-5">
+                            <div className="d-flex table-responsive-sm pl-5 pr-5">
                                 <table className="table table-bordered">
                                     <thead>
                                         <tr>
@@ -544,8 +478,8 @@ export default function HomeDash({ userData, bsData, moData }: Props ) {
                         </form>
                     </div>
                    :
-                   // mussel data
-                   moC ? MoEnTwo() : MoEnOne()
+                    // mussel data
+                    MoEnOne()
                 }
             </div>
         )

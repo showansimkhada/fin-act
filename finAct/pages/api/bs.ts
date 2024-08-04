@@ -17,7 +17,7 @@ export default async function handler(
         let type = req.query.type;
         if (type === 'deleteD') {
           let id = req.query.id
-          const result = await BS.findByIdAndRemove(id)
+          const result = await BS.findByIdAndDelete(id)
           if (result) {
             res.redirect('/dash');
           } else {
@@ -25,7 +25,7 @@ export default async function handler(
           }
         } else if (type === 'delete') {
           let id = req.query.id
-          const result = await BS.findByIdAndRemove(id)
+          const result = await BS.findByIdAndDelete(id)
           if (result) {
             res.redirect('/bs');
           } else {
