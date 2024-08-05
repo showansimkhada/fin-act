@@ -1,0 +1,19 @@
+{
+  "name": "finact_v1",
+  "version": "1.0.0",
+  "description": "financial and work trends",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ".git"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "showan",
+  "license": "MIT"
+}
