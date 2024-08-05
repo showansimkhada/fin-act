@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Balance Sheet</title>
+        <link rel="stylesheet" href="/public/styles.css"/>
+    </head>
+    <body>
+        <table class="calculator">
+            <thead>
+                <th>GO</th>
+                <th>Online</th>
+                <th>Serious Saver</th>
+                <th>Total</th>
+            </thead>
+            <tbody>
+                <td>
+                    <input id="go" onchange="sumBS()" />
+                </td>
+                <td>
+                    <input id="online" onchange="sumBS()" />
+                </td>
+                <td>
+                    <input id="serious" onchange="sumBS()" />
+                </td>
+                <td>
+                    <input id="currentBalance"/>
+                </td>
+            </tbody>
+        </table>
+        <form id="bs" action="/api/bs" method="post">
+            <table class="bs">
+                <tr">
+                    <th>Date</th>
+                    <th>Showan's Wages</th>
+                    <th>Swastika's Wages</th>
+                    <th>Returns</th>
+                    <th>Opening Balance</th>
+                    <th>Closing Balance</th>
+                    <th>Weekly Spent</th>
+                    <th>Weekly Save</th>
+                </tr>
+                <tr id="bs_input" >
+                    <td>
+                        <input type="date" name="bs_date" id="bs_date"/>
+                    </td>
+                    <td>
+                        <input name="weekly_earn_sh" onchange="weeklySpent()" id="weekly_earn_sh" />
+                    </td>
+                    <td>
+                        <input name="weekly_earn_sw" onchange="weeklySpent()" id="weekly_earn_sw" />
+                    </td>
+                    <td>
+                        <input name="ret" onchange="weeklySpent()" id="ret" />
+                    </td>
+                    <td>
+                        <input name="opening_balance" onchange="weeklySave(), weeklySpent()" id="opening_balance" />
+                    </td>
+                    <td>
+                        <input name="closing_balance" onchange="weeklySave(), weeklySpent()" id="closing_balance" />
+                    </td>
+                    <td>
+                        <input name="weekly_spent" onchange="weeklySpent()" id="weekly_spent" />
+                    </td>
+                    <td>
+                        <input name="weekly_save" onchange="weeklySave()" id="weekly_save" >
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="Submit"/>
+            <table id="bs_output" calss="bs">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Showan Wages</th>
+                        <th>Swastika Wages</th>
+                        <th>Return</th>
+                        <th>Opening Balance</th>
+                        <th>Closing Balance</th>
+                        <th>Weekly Spent</th>
+                        <th>Weekly Save</th>
+                    </tr>
+                </thead>
+            </table>
+        </form>
+        <form id="mo" action="/api/mo" method="post">
+            <table id="input_table">
+                <tr id="label_input">
+                    <th>Date</th>
+                    <th>Weekdays</th>
+                    <th>First Shift</th>
+                    <th>Second Shift</th>
+                    <th>Third Shift</th>
+                    <th>Total</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="date" name="mo_date" id="mo_date" onchange="getWeekday()"/>
+                    </td>
+                    <td>
+                        <input name="weekdays" id="weekdays" />
+                    </td>
+                    <td>
+                        <input name="fShift" onchange="sumMO()" id="fShift" />
+                    </td>
+                    <td>
+                        <input name="sShift" onchange="sumMO()" id="sShift" />
+                    </td>
+                    <td>
+                        <input name="tShift" onchange="sumMO()" id="tShift" />
+                    </td>
+                    <td>
+                        <input name="moTotal" id="moTotal" />
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="Submit"/>
+            <table id="mo_output" calss="bs_output">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Weekdays</th>
+                        <th>First Shift</th>
+                        <th>Second Shift</th>
+                        <th>Third Shift</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+            </table>
+        </form>
+        <script src="/public/index.js"></script>
+        <script src="https://code.jquery.com/jquery-2.2.1.min.js"
+        integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+        crossorigin="anonymous"></script>
+        <script type="module" src="/public/client.js"></script>
+    </body>
+</html>
