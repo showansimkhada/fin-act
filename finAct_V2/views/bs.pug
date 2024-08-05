@@ -1,0 +1,46 @@
+extends nav
+block head
+    title Balance Sheet
+    meta(name='description', content='BS')
+block content
+    div(class='table-responsive-sm' style='margin-top: 60px')
+        table(id='bsOutput' class='table table-bordered table-hover')
+            thead
+                tr
+                    th Date
+                    th #{firstname}'s Wages
+                    th #{sfirstname}'s Wages
+                    th Return
+                    th Opening Balance
+                    th Closing Balance
+                    th Weekly Spent
+                    th Weekly Save
+    div(id='updateBoxContainer' class='align-items-center justify-content-center')
+        div(class='d-flex flex-column align-items-center bg-info p-2')
+            label #{username.toUpperCase()}
+            form(action='/bs/update' method='post')
+                div(class='d-flex flex-row bg-warning border border-sucess border-4' action='/mo/data')
+                    div(class='d-flex flex-column justify-content-around w-50')
+                        label Date
+                        label #{firstname}'s Wage
+                        label #{sfirstname}'s Wage
+                        label Return
+                        label Opening Balance
+                        label Closing Balance
+                        label Weekly Spent
+                        label Weekly Save
+                    div(class='d-flex flex-column align-items-end w-50')
+                        input(id='eDate' type='date' name='bsDate' class='w-75')
+                        input(id='fWE' name='fWE' class='w-75' onchange='weeklySpent(), weeklySave()')
+                        input(id='sWE' name='sWE' class='w-75' onchange='weeklySpent(), weeklySave()')
+                        input(id='ret' name='ret' class='w-75' onchange='weeklySpent(), weeklySave()')
+                        input(id='oB' name='oB' class='w-75' onchange='weeklySpent(), weeklySave()')
+                        input(id='cB' name='cB' class='w-75' onchange='weeklySpent(), weeklySave()')
+                        input(id='wSp' name='sSp' class='w-75')
+                        input(id='wSa' name='wSa' class='w-75')
+                        input(id='oID' name='oID' hidden)
+                div(class='d-flex w-100')
+                    input(id='ok' type='button' value='OK' class='btn btn-success w-100')
+                    input(id='uBS' type='button' value='Update' class='btn btn-warning w-100' disabled)
+                    input(id='dBS' type='submit' value='Delete' class='btn btn-danger w-100' method='post')
+    script(type='text/javascript' src='/public/js/bs.js')
