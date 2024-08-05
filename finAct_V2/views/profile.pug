@@ -1,0 +1,40 @@
+extends nav
+block head
+    title Profile
+    meta(name='description', content='PROFILE')
+block content
+    div(class='d-flex flex-column align-items-start justify-content-center mt-5 pt-3')
+        form(action='/profile/user' method='post' class='border border-5 w-100')
+            div(class='d-flex align-items-center justify-content-between align-content-between mw-100')
+                div(class='w-50')
+                    label User Name
+                div(class='w-50')
+                    input(type='string' id='username' class='w-75' name='username' autocapitalize='none')
+                div
+                    input(type='submit' class='btn btn-primary' value='Update' disabled)
+        form(action='/profile/details' method='post' class='border border-5 w-100')
+            div(class='d-flex flex-row')
+                div(class='d-flex flex-column justify-content-between align-content-between w-50')            
+                    label(class='mt-1') First Name
+                    label(class='mt-1') Last Name
+                    label(class='mt-1') Partner's First Name
+                    label(class='mt-1') Partner's Last Name
+                div(class='d-flex flex-column align-items-center justify-content-between align-content-between w-50')
+                    input(type='text' id='firstname' class='w-75' name='firstname' autocapitalize='none')
+                    input(type='text' id='lastname' class='w-75' name='lastname' autocapitalize='none')
+                    input(type='text' id='sfirstname' class='w-75' name='sfirstname' autocapitalize='none')
+                    input(type='text' id='slastname' class='w-75' name='slastname' autocapitalize='none')
+                div(class='d-flex')
+                    input(type="submit" class='btn btn-primary' value='Update Profile')
+        form(action='/profile/update-password' method='post' class='border border-5 w-100')
+            div(class='d-flex flex-row')
+                div(class='d-flex flex-column justify-content-between align-content-between w-50')
+                    label Old Password
+                    label New Password
+                    label Confirm Password
+                div(class='d-flex flex-column align-items-center justify-content-between align-content-between w-50')
+                    input(type='password' id='oldpass' class='w-75' name='oldpass' class='mt-2')
+                    input(type='password' id='newpass' class='w-75' name='newpass' class='mt-2')
+                    input(type='password' id='confirmpass' class='w-75' name='confirmpass' class='mt-2')
+                div(class='d-flex')
+                    input(type='submit' id='passup' class='btn btn-primary' value='Update Password' disabled)
