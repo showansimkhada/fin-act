@@ -5,11 +5,8 @@ export interface IUSER extends Document {
     password: string,
     firstname: string,
     lastname: string,
-    mo: Boolean,
-    usernames: string,
     sfirstname: string,
     slastname: string,
-    mos: Boolean
 }
 
 const UserSchema = new Schema<IUSER> ({
@@ -27,20 +24,11 @@ const UserSchema = new Schema<IUSER> ({
     lastname: {
         type: String
     },
-    mo: {
-        type: Boolean
-    },
-    usernames: {
-        type: String
-    },
     sfirstname: {
         type: String
     },
     slastname: {
         type: String
-    },
-    mos: {
-        type: Boolean
     }
 });
 
