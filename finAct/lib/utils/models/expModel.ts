@@ -4,20 +4,34 @@ export interface EMO extends Document {
     username: string,
     date: string,
     rent: Number,
-    grocery: Number,
-    oline_shop: Number,
-    shop: Number,
-    broadband: Number,
-    insurance: Number,
-    interest: Number,
-    withholding_tax: Number,
-    mobile_plans: Number,
-    installments: Number,
-    car_maintenance: Number,
+    // Grocery
+    groc: Number,
+    // Online Shoppings
+    on_shp: Number,
+    // Shoppings
+    shp: Number,
+    // Broadbands
+    bro: Number,
+    // Insurance
+    ins: Number,
+    // Interests
+    int: Number,
+    // Withholding TAX
+    wta: Number,
+    // Mobile plans
+    plans: Number,
+    // Installments
+    inst: Number,
+    // Car Maintenance
+    main: Number,
+    // Car fuel
     fuel: Number,
-    electricity: Number,
-    subscriptions: Number,
-    travel: Number
+    // Electricity
+    elec: Number,
+    // Subscriptions
+    subs: Number,
+    // Travel
+    tra: Number
 }
 
 const Expenses = new Schema<EMO> ({
@@ -33,43 +47,43 @@ const Expenses = new Schema<EMO> ({
         type: Number,
         default: 0
     },
-    grocery: {
+    groc: {
         type: Number,
         default: 0
     },
-    oline_shop: {
+    on_shp: {
         type: Number,
         default: 0
     },
-    shop: {
+    shp: {
         type: Number,
         default: 0
     },
-    broadband: {
+    bro: {
         type: Number,
         default: 0
     },
-    insurance: {
+    ins: {
         type: Number,
         default: 0
     },
-    interest: {
+    int: {
         type: Number,
         default: 0
     },
-    withholding_tax: {
+    wta: {
         type: Number,
         default: 0
     },
-    mobile_plans: {
+    plans: {
         type: Number,
         default: 0
     },
-    installments: {
+    inst: {
         type: Number,
         default: 0
     },
-    car_maintenance: {
+    main: {
         type: Number,
         default: 0
     },
@@ -77,15 +91,15 @@ const Expenses = new Schema<EMO> ({
         type: Number,
         default: 0
     },
-    electricity: {
+    elec: {
         type: Number,
         default: 0
     },
-    subscriptions: {
+    subs: {
         type: Number,
         default: 0
     },
-    travel: {
+    tra: {
         type: Number,
         default: 0
     }
