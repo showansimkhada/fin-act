@@ -187,27 +187,27 @@ export default function HomeDash({ userData, bsData, expData}: Props ) {
                     </tr>
                 </thead>
                 <tbody>
-                {data.map((x) => (
-                    <tr key={formatDate(x.date)}>
-                        <td>{x.date}</td>
-                        <td>{x.rent.toString()}</td>
-                        <td>{x.grocery.toString()}</td>
-                        <td>{x.oline_shop.toString()}</td>
-                        <td>{x.shop.toString()}</td>
-                        <td>{x.broadband.toString()}</td>
-                        <td>{x.insurance.toString()}</td>
-                        <td>{x.interest.toString()}</td>
-                        <td>{x.withholding_tax.toString()}</td>
-                        <td>{x.mobile_plans.toString()}</td>
-                        <td>{x.installments.toString()}</td>
-                        <td>{x.car_maintenance.toString()}</td>
-                        <td>{x.fuel.toString()}</td>
-                        <td>{x.electricity.toString()}</td>
-                        <td>{x.subscriptions.toString()}</td>
-                        <td>{x.travel.toString()}</td>
-                        <td>{sumExp(x.rent.toString(), x.grocery.toString(), x.oline_shop.toString(), x.shop.toString(), x.broadband.toString(), x.insurance.toString(), x.interest.toString(), x.withholding_tax.toString(), x.mobile_plans.toString(), x.installments.toString(), x.car_maintenance.toString(), x.fuel.toString(), x.electricity.toString(), x.subscriptions.toString(), x.travel.toString())}</td>
-                    </tr>
-                ))}
+                    {data.map((x) => (
+                        <tr key={formatDate(x.date)}>
+                            <td>{x.date}</td>
+                            <td>{x.rent.toString()}</td>
+                            <td>{x.groc.toString()}</td>
+                            <td>{x.on_shp.toString()}</td>
+                            <td>{x.shp.toString()}</td>
+                            <td>{x.bro.toString()}</td>
+                            <td>{x.ins.toString()}</td>
+                            <td>{x.int.toString()}</td>
+                            <td>{x.wta.toString()}</td>
+                            <td>{x.plans.toString()}</td>
+                            <td>{x.inst.toString()}</td>
+                            <td>{x.carme.toString()}</td>
+                            <td>{x.fuel.toString()}</td>
+                            <td>{x.elec.toString()}</td>
+                            <td>{x.subs.toString()}</td>
+                            <td>{x.tra.toString()}</td>
+                            <td>{sumExp(x.rent.toString(), x.groc.toString(), x.on_shp.toString(), x.shp.toString(), x.bro.toString(), x.ins.toString(), x.int.toString(), x.wta.toString(), x.plans.toString(), x.inst.toString(), x.carme.toString(), x.fuel.toString(), x.elec.toString(), x.subs.toString(), x.tra.toString())}</td>
+                        </tr>
+                    ))}
                 </tbody>
                 <tfoot>
                     <tr>
@@ -219,152 +219,92 @@ export default function HomeDash({ userData, bsData, expData}: Props ) {
                         </td>
                         <td>
                             <input name='rent' id="fShift" value={rent} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setRent('0')
-                                } else if(String(input).length <= 4) {
-                                    setRent(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setRent(input.toString());
                             }}/>
                         </td>
                         <td>
                             <input name='grocery' value={groc} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setGroc('0')
-                                } else if(String(input).length <= 4) {
-                                    setGroc(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setGroc(input.toString());
                             }}/>
                         </td>
                         <td>
                             <input name='online_shopp' value={onshp} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setOnshp('0')
-                                } else if(String(input).length <= 4) {
-                                    setOnshp(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setOnshp(input.toString());
                             }}/>
                         </td>
                         <td>
                             <input name='shopp' value={shp} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setShp('0')
-                                } else if(String(input).length <= 4) {
-                                    setShp(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setShp(input.toString());
                             }}/>
                         </td>
                         <td>
                             <input name='broadband' value={bro} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setBro('0')
-                                } else if(String(input).length <= 4) {
-                                    setBro(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setBro(input.toString());
                             }}/>
                         </td>
                         <td>
                             <input name='insurance' value={ins} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setIns('0')
-                                } else if(String(input).length <= 4) {
-                                    setIns(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setIns(input.toString());
                             }}/>
                         </td>
                         <td>
                             <input name='interest' value={int} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setInt('0')
-                                } else if(String(input).length <= 4) {
-                                    setInt(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setInt(input.toString());
                             }}/>
                         </td>
                         <td>
                             <input name='with_tax' value={wta} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setWta('0')
-                                } else if(String(input).length <= 4) {
-                                    setWta(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setWta(input.toString());
                             }}/>
                         </td>
                         <td>
                             <input name='mobile_plans' value={mobp} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setMobp('0')
-                                } else if(String(input).length <= 4) {
-                                    setMobp(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setMobp(input.toString());
                             }}/>
                         </td>
                         <td>
                             <input name='installments' value={inst} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setInst('0')
-                                } else if(String(input).length <= 4) {
-                                    setInst(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setInst(input.toString());
                             }}/>
                         </td>
                         <td>
                             <input name='car_main' value={mai} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setMai('0')
-                                } else if(String(input).length <= 4) {
-                                    setMai(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setMai(input.toString());
                             }}/>
                         </td>
                         <td>
                             <input name='fuel' value={fuel} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setFuel('0')
-                                } else if(String(input).length <= 4) {
-                                    setFuel(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setFuel(input.toString());
                             }}/>
                         </td>
                         <td>
                             <input name='electricity' value={elec} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setElec('0')
-                                } else if(String(input).length <= 4) {
-                                    setElec(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setElec(input.toString());
                             }}/>
                         </td>
                         <td>
                             <input name='subscriptions' value={subs} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setSubs('0')
-                                } else if(String(input).length <= 4) {
-                                    setSubs(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setSubs(input.toString());
                             }}/>
                         </td>
                         <td>
                             <input name='travel' value={trav} onChange={(event) => {
-                                let input = parseFloat(event.target.value)
-                                if (!input) {
-                                    setTrav('0')
-                                } else if(String(input).length <= 4) {
-                                    setTrav(input.toString())
-                                }
+                                let input = event.target.value;
+                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setTrav(input.toString());
                             }}/>
                         </td>
                         <td>
@@ -380,7 +320,7 @@ export default function HomeDash({ userData, bsData, expData}: Props ) {
     function DailyExpenses() {
         return (
             <div>
-            <form action={`api/mo/?username=${username}`} method="POST">
+            <form action={`api/expenses/?username=${username}`} method="POST">
                 {JSX('single', username, expData)}
                 <input id="submit" type="submit" value="Submit" className="btn btn-primary w-100"/>
             </form>
@@ -453,25 +393,19 @@ export default function HomeDash({ userData, bsData, expData}: Props ) {
                                             <td>
                                                 <input name="fWI" id="fWI" className="w-100" value={fWI} onChange={(event) => {
                                                     let input = event.target.value
-                                                    if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
-                                                        setFWI(input)
-                                                    }
+                                                    if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setFWI(input);
                                                 }}></input>
                                             </td>
                                             <td>
                                                 <input name="sWI" id="sWI" className="w-100" value={sWI} onChange={(event) => {
                                                     let input = event.target.value
-                                                    if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
-                                                        setSWI(input)
-                                                    }
+                                                    if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setSWI(input);
                                                 }}></input>
                                             </td>
                                             <td>
                                                 <input name="ret" id="ret" className="w-100" value={ret} onChange={(event) => {
                                                     let input = event.target.value
-                                                    if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) {
-                                                        setRET(input)
-                                                    }
+                                                    if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setRET(input);
                                                 }}></input>
                                             </td>
                                             <td>
