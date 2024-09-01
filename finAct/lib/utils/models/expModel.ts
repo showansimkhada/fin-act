@@ -7,7 +7,7 @@ export interface EMO extends Document {
     // Grocery
     groc: Number,
     // Online Shoppings
-    on_shp: Number,
+    onshp: Number,
     // Shoppings
     shp: Number,
     // Broadbands
@@ -19,11 +19,11 @@ export interface EMO extends Document {
     // Withholding TAX
     wta: Number,
     // Mobile plans
-    plans: Number,
+    plan: Number,
     // Installments
     inst: Number,
     // Car Maintenance
-    main: Number,
+    carme: Number,
     // Car fuel
     fuel: Number,
     // Electricity
@@ -31,7 +31,9 @@ export interface EMO extends Document {
     // Subscriptions
     subs: Number,
     // Travel
-    tra: Number
+    tra: Number,
+    // Remittance
+    remi: Number
 }
 
 const Expenses = new Schema<EMO> ({
@@ -51,7 +53,7 @@ const Expenses = new Schema<EMO> ({
         type: Number,
         default: 0
     },
-    on_shp: {
+    onshp: {
         type: Number,
         default: 0
     },
@@ -75,7 +77,7 @@ const Expenses = new Schema<EMO> ({
         type: Number,
         default: 0
     },
-    plans: {
+    plan: {
         type: Number,
         default: 0
     },
@@ -83,7 +85,7 @@ const Expenses = new Schema<EMO> ({
         type: Number,
         default: 0
     },
-    main: {
+    carme: {
         type: Number,
         default: 0
     },
@@ -100,6 +102,10 @@ const Expenses = new Schema<EMO> ({
         default: 0
     },
     tra: {
+        type: Number,
+        default: 0
+    },
+    remi: {
         type: Number,
         default: 0
     }
