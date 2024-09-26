@@ -7,7 +7,6 @@ import { dataSlice, lsUser } from '@/lib/redux'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { Container, Navbar, Nav} from 'react-bootstrap'
-import { redirect } from 'next/dist/server/api-utils'
 
 export default function Navbars() {
   const [isClient, setIsClient] = useState(false)
@@ -34,8 +33,6 @@ export default function Navbars() {
             <Nav className="me-auto">
               <Nav.Link href="/dash">Home</Nav.Link>
               <Nav.Link href="/bs">Balance Data</Nav.Link>
-              <Nav.Link href="/mo">Mussel Data</Nav.Link>
-              <Nav.Link href="/report">Report</Nav.Link>
               <Nav.Link href='/profile'>Profile</Nav.Link>
               <Nav.Link onClick={handleSignOut}>Sign Out</Nav.Link>
             </Nav>
