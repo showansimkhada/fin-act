@@ -30,7 +30,6 @@ export default function Profile({userData}: Props) {
     useEffect(() => {
         setIsClient(true)
         handleA()
-        setTrueA(Boolean(dataUser.mo))
     }, [])
 
     function handleA() {
@@ -61,22 +60,6 @@ export default function Profile({userData}: Props) {
                     </div>
                     <div className="d-flex flex-column w-100">
                         <input type="submit" className="btn btn-primary" value="Update Profile"></input>
-                    </div>
-                </form>
-                <form action={`api/profile/?username=${username}&type=opener`} method="post" className="border border-5 w-100">
-                    <div className="d-flex flex-row">
-                        <div className="d-flex flex-column justify-content-between align-content-between w-50">
-                            <label>{dataUser.firstname} Opener</label>
-                        </div>
-                        <div className="d-flex flex-column align-items-center justify-content-between align-content-between w-50">
-                            <div className="d-flex flex-row justify-content-between w-50">
-                                <input type="checkbox" className="checkbox mt-2" name="mo" onChange={handleA} defaultChecked={isTrueA}/>
-                                <input className="border-0" type="text" id="mo" name="mu" required={true} value={String(isTrueA).toUpperCase()} readOnly></input>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="d-flex flex-column w-100">
-                        <input type="submit" className="btn btn-primary" value="Update Opener Status"></input>
                     </div>
                 </form>
                 <form action={`api/profile/?username=${username}&type=password`} method="post" className="border border-5 w-100">
