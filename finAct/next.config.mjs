@@ -1,8 +1,7 @@
-import { config } from 'dotenv'
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: false,
   experimental: {
     esmExternals: "loose",
     serverComponentsExternalPackages: ["mongoose"],
