@@ -8,7 +8,6 @@ import { GetServerSideProps } from "next";
 import dbConnect from "@/lib/utils/conn/mongoose";
 import { formatDate, getStartDate, getWeekday, stringAmt, sumAmt } from "@/lib/funcPage";
 import BS, { IBS } from "@/lib/utils/models/bsModel";
-import Expenses, { EMO } from "@/lib/utils/models/expModel"
 import { useSelector } from "react-redux";
 import { lsUser } from "@/lib/redux";
 import { Form, Table } from "react-bootstrap";
@@ -16,11 +15,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {
     userData: IUSER[],
-    bsData: IBS[],
-    expData: EMO[]
+    bsData: IBS[]
 }
 
-export default function HomeDash({ userData, bsData, expData}: Props ) {
+export default function HomeDash({ userData, bsData}: Props ) {
     // clean up the codes
     const username = String(useSelector(lsUser))
     const [isClicked, setClicked] = useState(false)
@@ -161,303 +159,115 @@ export default function HomeDash({ userData, bsData, expData}: Props ) {
         return x;
     }
 
-    function JSX(id: string, uN: string, data: EMO[]) {
-        var total = 0;
-        return (
-            <Table striped bordered id="expOutput" responsive>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Rent</th>
-                        <th>Grocery</th>
-                        <th>Online Shopping</th>
-                        <th>Shopping</th>
-                        <th>Broadband</th>
-                        <th>Insurance</th>
-                        <th>Interest</th>
-                        <th>Withholding TAX</th>
-                        <th>Mobile Plans</th>
-                        <th>Installments</th>
-                        <th>Car Maintenance</th>
-                        <th>Fuel</th>
-                        <th>Electricity</th>
-                        <th>Subscriptions</th>
-                        <th>Travel</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((x) => (
-                        <tr key={formatDate(x.date)}>
-                            <td>{x.date}</td>
-                            <td>{x.rent.toString()}</td>
-                            <td>{x.groc.toString()}</td>
-                            <td>{x.on_shp.toString()}</td>
-                            <td>{x.shp.toString()}</td>
-                            <td>{x.bro.toString()}</td>
-                            <td>{x.ins.toString()}</td>
-                            <td>{x.int.toString()}</td>
-                            <td>{x.wta.toString()}</td>
-                            <td>{x.plans.toString()}</td>
-                            <td>{x.inst.toString()}</td>
-                            <td>{x.carme.toString()}</td>
-                            <td>{x.fuel.toString()}</td>
-                            <td>{x.elec.toString()}</td>
-                            <td>{x.subs.toString()}</td>
-                            <td>{x.tra.toString()}</td>
-                            <td>{sumExp(x.rent.toString(), x.groc.toString(), x.on_shp.toString(), x.shp.toString(), x.bro.toString(), x.ins.toString(), x.int.toString(), x.wta.toString(), x.plans.toString(), x.inst.toString(), x.carme.toString(), x.fuel.toString(), x.elec.toString(), x.subs.toString(), x.tra.toString())}</td>
-                        </tr>
-                    ))}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>
-                            <input type="date" name={'date'} id="date" value={today} onChange={(event) => {
-                                setToday(formatDate(event.target.value))
-                                setIsHandelDate(true)
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='rent' id="fShift" value={rent} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setRent(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='grocery' value={groc} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setGroc(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='online_shopp' value={onshp} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setOnshp(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='shopp' value={shp} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setShp(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='broadband' value={bro} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setBro(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='insurance' value={ins} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setIns(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='interest' value={int} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setInt(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='with_tax' value={wta} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setWta(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='mobile_plans' value={mobp} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setMobp(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='installments' value={inst} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setInst(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='car_main' value={mai} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setMai(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='fuel' value={fuel} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setFuel(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='electricity' value={elec} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setElec(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='subscriptions' value={subs} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setSubs(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='travel' value={trav} onChange={(event) => {
-                                let input = event.target.value;
-                                if (input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setTrav(input.toString());
-                            }}/>
-                        </td>
-                        <td>
-                            <input name='total' readOnly value={totalE}/>
-                        </td>
-                    </tr>
-                </tfoot>
-            </Table>
-        )
-    }
-
-    //  For single opener
-    function DailyExpenses() {
-        return (
-            <div>
-            <form action={`api/expenses/?username=${username}`} method="POST">
-                {JSX('single', username, expData)}
-                <input id="submit" type="submit" value="Submit" className="btn btn-primary w-100"/>
-            </form>
-            </div>
-        )
-    }
-
     if (isClient) {
         return (
             <div className="w-100">
                 <Navbars/>
-                <div className="d-flex mt-5 pt-2 justify-content-between">
-                    <div>
-                        <input type="button" className={`btn ${bP}`} value={"Balance Entry"} disabled={tF} onClick={(event) => {
-                            changePage(event.currentTarget.value)
-                            setTF(!tF)
-                        }}></input>
-                    </div>
-                    <div>
-                        <input type="button" className={`btn ${bS}`} value={"Expenses Entry"} disabled={!tF} onClick={(event) => {
-                            changePage(event.currentTarget.value)
-                            setTF(!tF)
-                        }}></input>
-                    </div>
+                <div id="bs">
+                    <form action={`api/bs/?username=${username}`} method="POST">
+                        <div className="d-flex mt-5 pt-2">
+                            <Table striped bordered id="bsOutput" responsive="sm">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>{dataUser[0]?.firstname}'s WI</th>
+                                        <th>{dataUser[0]?.sfirstname}'s WI</th>
+                                        <th>Return</th>
+                                        <th>Opening Balance</th>
+                                        <th>Closing Balance</th>
+                                        <th>Weekly Spent</th>
+                                        <th>Weekly Save</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {filtData.map((x) => (
+                                        <tr key={formatDate(x.date)}>
+                                            <td>{x.date}</td>
+                                            <td>{x.fWE.toString()}</td>
+                                            <td>{x.sWE.toString()}</td>
+                                            <td>{x.return.toString()}</td>
+                                            <td>{x.openingBalance.toString()}</td>
+                                            <td>{x.closingBalance.toString()}</td>
+                                            <td>{x.weeklySpent.toString()}</td>
+                                            <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
+                                                <Form action={`api/bs/?type=deleteD&id=${x._id}`} method='post'>
+                                                    <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
+                                                </Form>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>
+                                            <input type="date" name="bsDate" id="bsDate" className="w-100" value={today} onChange={(event) => {
+                                                setToday(formatDate(event.target.value))
+                                            }}></input>
+                                        </td>
+                                        <td>
+                                            <input name="fWI" id="fWI" className="w-100" value={fWI} onChange={(event) => {
+                                                let input = event.target.value
+                                                if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setFWI(input);
+                                            }}></input>
+                                        </td>
+                                        <td>
+                                            <input name="sWI" id="sWI" className="w-100" value={sWI} onChange={(event) => {
+                                                let input = event.target.value
+                                                if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setSWI(input);
+                                            }}></input>
+                                        </td>
+                                        <td>
+                                            <input name="ret" id="ret" className="w-100" value={ret} onChange={(event) => {
+                                                let input = event.target.value
+                                                if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setRET(input);
+                                            }}></input>
+                                        </td>
+                                        <td>
+                                            <input name="oB" id="oB" className="w-100 border-0 p-0" value={oB} readOnly></input>
+                                        </td>
+                                        <td>
+                                            <input name="cB" id="cB" className="w-100 border-0 p-0" value={cB} readOnly></input>
+                                        </td>
+                                        <td>
+                                            <input name="wSp" id="wSp" className="w-100 border-0 p-0" value={wSP} readOnly></input>
+                                        </td>
+                                        <td>
+                                            <input name="wSa" id="wSa" className="w-100 border-0 p-0" value={wSA} readOnly></input>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </Table>
+                        </div>
+                        <div className="d-flex table-responsive-sm pl-5 pr-5">
+                            <table className="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Amount <span style={{fontWeight: 2, fontSize: 12, color: 'red'}}>(separate the amount by ',')</span></th>
+                                        <th>Addition expression</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input id="go" value={amt} onChange={(event) => {
+                                                let input = event.target.value
+                                                if (!input) {
+                                                    event.target.select()
+                                                }
+                                                setAmt(input)
+                                                setTotal(String(parseFloat(String(sumAmt(input)))))
+                                            }}></input>
+                                        </td>
+                                        <td>
+                                            <label>{stringAmt(amt)}</label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <input className="table btn btn-primary w-25" type="submit" value="Submit"></input>
+                        </div>
+                    </form>
                 </div>
-                {/* Change the dashboard according to the button clicked */}
-                { dateState ?
-                    // Balance Sheet 
-                    <div id="bs">
-                        <form action={`api/bs/?username=${username}`} method="POST">
-                            <div className="d-flex">
-                                <Table striped bordered id="bsOutput" responsive="sm">
-                                    <thead>
-                                        <tr> 
-                                            <th>Date</th>
-                                            <th>{dataUser[0]?.firstname}'s WI</th>
-                                            <th>{dataUser[0]?.sfirstname}'s WI</th>
-                                            <th>Return</th>
-                                            <th>Opening Balance</th>
-                                            <th>Closing Balance</th>
-                                            <th>Weekly Spent</th>
-                                            <th>Weekly Save</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {filtData.map((x) => (
-                                            <tr key={formatDate(x.date)}>
-                                                <td>{x.date}</td>
-                                                <td>{x.fWE.toString()}</td>
-                                                <td>{x.sWE.toString()}</td>
-                                                <td>{x.return.toString()}</td>
-                                                <td>{x.openingBalance.toString()}</td>
-                                                <td>{x.closingBalance.toString()}</td>
-                                                <td>{x.weeklySpent.toString()}</td>
-                                                <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
-                                                    <Form action={`api/bs/?type=deleteD&id=${x._id}`} method='post'>
-                                                        <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
-                                                    </Form>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td>
-                                                <input type="date" name="bsDate" id="bsDate" className="w-100" value={today} onChange={(event) => {
-                                                    setToday(formatDate(event.target.value))
-                                                }}></input>
-                                            </td>
-                                            <td>
-                                                <input name="fWI" id="fWI" className="w-100" value={fWI} onChange={(event) => {
-                                                    let input = event.target.value
-                                                    if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setFWI(input);
-                                                }}></input>
-                                            </td>
-                                            <td>
-                                                <input name="sWI" id="sWI" className="w-100" value={sWI} onChange={(event) => {
-                                                    let input = event.target.value
-                                                    if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setSWI(input);
-                                                }}></input>
-                                            </td>
-                                            <td>
-                                                <input name="ret" id="ret" className="w-100" value={ret} onChange={(event) => {
-                                                    let input = event.target.value
-                                                    if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setRET(input);
-                                                }}></input>
-                                            </td>
-                                            <td>
-                                                <input name="oB" id="oB" className="w-100 border-0 p-0" value={oB} readOnly></input>
-                                            </td>
-                                            <td>
-                                                <input name="cB" id="cB" className="w-100 border-0 p-0" value={cB} readOnly></input>
-                                            </td>
-                                            <td>
-                                                <input name="wSp" id="wSp" className="w-100 border-0 p-0" value={wSP} readOnly></input>
-                                            </td>
-                                            <td>
-                                                <input name="wSa" id="wSa" className="w-100 border-0 p-0" value={wSA} readOnly></input>
-                                            </td>
-                                        </tr>
-                                    </tfoot>
-                                </Table>
-                            </div>
-                            <div className="d-flex table-responsive-sm pl-5 pr-5">
-                                <table className="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Amount <span style={{fontWeight: 2, fontSize: 12, color: 'red'}}>(separate the amount by ',')</span></th>
-                                            <th>Addition expression</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <input id="go" value={amt} onChange={(event) => {
-                                                    let input = event.target.value
-                                                    if (!input) {
-                                                        event.target.select()
-                                                    }
-                                                    setAmt(input)
-                                                    setTotal(String(parseFloat(String(sumAmt(input)))))
-                                                }}></input>
-                                            </td>
-                                            <td>
-                                                <label>{stringAmt(amt)}</label>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <input className="table btn btn-primary w-25" type="submit" value="Submit"></input>
-                            </div>
-                        </form>
-                    </div>
-                   :
-                    // Daily Expenses
-                    DailyExpenses()
-                }
             </div>
         )
     } else {
@@ -489,18 +299,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
       const userData = JSON.parse(JSON.stringify(doc))
       return userData
     })
-
-    const cd = new Date();
-    let cWSD = getStartDate(cd.toUTCString())
-    const findExp = await Expenses.find().where({date: {
-        $gte: cWSD
-    }}).sort({date : 1})
-
-    /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-    const expData = findExp.map((doc) => {
-      const expData = JSON.parse(JSON.stringify(doc))
-      return expData
-    })
   
-    return { props: { bsData: bsData, expData: expData, userData: userData } }
+    return { props: { bsData: bsData, userData: userData } }
 }
