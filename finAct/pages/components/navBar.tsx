@@ -32,7 +32,7 @@ export default function Navbars() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="/dash">Home</Nav.Link>
-              <Nav.Link href="/bs">Balance Data</Nav.Link>
+              <Nav.Link href="/bs">Balance Sheet</Nav.Link>
               <Nav.Link href='/profile'>Profile</Nav.Link>
               <Nav.Link onClick={handleSignOut}>Sign Out</Nav.Link>
             </Nav>
