@@ -10,7 +10,7 @@ export function formatDate(date: string) {
       if (day.length < 2) {
           day = '0' + day;
       }
-      return [year, month, day].join('-');
+      return [day, month, year].join('/');
 }
 
 export function getWeekNumber(date: string) {
