@@ -2,7 +2,9 @@ import { model, Schema, Document, models } from 'mongoose';
 
 export interface IBS extends Document {
     username: string,
-    date: string,
+    year: Number,
+    month: Number,
+    date: Number,
     fWE: Number,
     sWE: Number,
     return: Number,
@@ -17,8 +19,16 @@ const BalanceSheet = new Schema<IBS> ({
         type: String,
         required: true
     },
+    year: {
+        type: Number,
+        required: true,
+    },
+    month: {
+        type: Number,
+        required: true
+    },
     date: {
-        type: String,
+        type: Number,
         required: true
     },
     fWE: {
