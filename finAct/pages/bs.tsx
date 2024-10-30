@@ -40,13 +40,21 @@ export default function BSpage( {bsData, userData}: Props) {
     const sweTotal = dataBS.reduce((c, x) => c + Number(x.sWE), 0).toFixed(2)
     const wspTotal = dataBS.reduce((c, x) => c + Number(x.weeklySpent), 0).toFixed(2)
     const wsaTotal = dataBS.reduce((c, x) => c + Number(x.weeklySave), 0).toFixed(2)
+    let s = '';
     useEffect (() => {
         setIsClient(true)
     }, [])
+
     return (
         <div>
             <Navbars/>
-            <div className="table-responsive-sm" style={{marginTop: "60px"}}>
+            <div id="filter" style={{marginTop: "60px"}}>
+                <label>Filter the data by</label>
+                <input type='button' value='Year' onClick={() => {}}/>
+                <input type='button' value='Monthly' onClick={() => {}}/>
+                <input type='button' value='Year' onClick={() => {}}/>
+            </div>
+            <div className="table-responsive-sm">
                 <Table id="bsOutput" responsive="sm" className="table table-bordered table-hover">
                     <thead>
                         <tr>
@@ -62,8 +70,8 @@ export default function BSpage( {bsData, userData}: Props) {
                     </thead>
                     <tbody id='data'>
                         {isClient? dataBS.map((x) => (
-                            <tr key={formatDate(x.date)}>
-                                <td>{x.date}</td>
+                            <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString())}>
+                                <td>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString())}</td>
                                 <td>{x.fWE.toString()}</td>
                                 <td>{x.sWE.toString()}</td>
                                 <td>{x.return.toString()}</td>
@@ -79,7 +87,6 @@ export default function BSpage( {bsData, userData}: Props) {
                         )): ''}
                     </tbody>
                     <tfoot id='total'>
-
                         {isClient ? 
                         <tr>
                             <td>{'Total'}</td>
@@ -104,7 +111,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
     /* find all the data in our database */
     const findBS = await BS.find({})
     const data = findBS.sort((a, b) => {
-        return new Date(a.date).getTime() - new Date(b.date).getTime()
+        return new Date(formatDate(a.date.toString() + '/' + a.month.toString() + '/' + a.year.toString())).getTime() - new Date(formatDate(b.date.toString() + '/' + b.month.toString() + '/' + b.year.toString())).getTime()
     });
   
     /* Ensures all objectIds and nested objectIds are serialized as JSON data */

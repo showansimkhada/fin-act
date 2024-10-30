@@ -181,8 +181,8 @@ export default function HomeDash({ userData, bsData}: Props ) {
                                 </thead>
                                 <tbody>
                                     {filtData.map((x) => (
-                                        <tr key={formatDate(x.date)}>
-                                            <td>{x.date}</td>
+                                        <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString())}>
+                                            <td>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString())}</td>
                                             <td>{x.fWE.toString()}</td>
                                             <td>{x.sWE.toString()}</td>
                                             <td>{x.return.toString()}</td>
@@ -282,7 +282,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
     /* find all the data in our database */
     const findBS = await BS.find({})
     const data = findBS.sort((a, b) => {
-        return new Date(a.date).getTime() - new Date(b.date).getTime()
+        return new Date(formatDate(a.date.toString() + '/' + a.month.toString() + '/' + a.year.toString())).getTime() - new Date(formatDate(b.date.toString() + '/' + b.month.toString() + '/' + b.year.toString())).getTime()
     });
   
     /* Ensures all objectIds and nested objectIds are serialized as JSON data */
