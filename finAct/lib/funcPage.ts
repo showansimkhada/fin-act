@@ -1,4 +1,4 @@
-export function formatDate(date: string) {
+export function formatDate(date: string, type: Number) {
   var d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
@@ -10,7 +10,11 @@ export function formatDate(date: string) {
       if (day.length < 2) {
           day = '0' + day;
       }
-      return [day, month, year].join('/');
+      if (type === 0) {
+        return [year, month, day].join('-');
+      } else {
+        return [day, month, year].join('/');
+      }
 }
 
 export function getWeekNumber(date: string) {
@@ -33,7 +37,7 @@ export function getStartDate(d: string) {
 
   // 👇️ day of month - day of week (-6 if Sunday), otherwise +1
   const diff = da.getDate() - day + (day === 0 ? -6 : 1);
-  const startDate = formatDate(String(new Date(da.setDate(diff))));
+  const startDate = formatDate(String(new Date(da.setDate(diff))), 0);
   return startDate;
 }
 
