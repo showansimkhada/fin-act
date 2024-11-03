@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-import dbConnect from '@/lib/utils/conn/mongoose'
-import BS from '@/lib/utils/models/bsModel'
+import { NextApiRequest, NextApiResponse } from 'next';
+import dbConnect from '@/lib/utils/conn/mongoose';
+import BS from '@/lib/utils/models/bsModel';
 
 export default async function handler(
   req: NextApiRequest,
@@ -32,7 +32,11 @@ export default async function handler(
             res.send(`could't delete`);
           }
         } else {
-          let date = req.body.bsDate;
+          let str = req.body.bsDate.split('-');
+          console.log(str);
+          let year = Number(str[0]);
+          let month = Number(str[1]);
+          let date = Number(str[2]);
           let fWI = req.body.fWI;
           let sWI = req.body.sWI;
           let ret = req.body.ret;
@@ -42,16 +46,18 @@ export default async function handler(
           let wSa = req.body.wSa;
           const data = new BS({
               username: username,
+              year: year,
+              month: month,
               date: date,
-              fWE: fWI,
-              sWE: sWI,
+              fWI: fWI,
+              sWI: sWI,
               return: ret,
               openingBalance: oB,
               closingBalance: cB,
               weeklySpent: wSp,
               weeklySave: wSa
           })
-          const oldData = await BS.findOne({username: username, date: date});
+          const oldData = await BS.findOne({username: username, year: year, month: month, date: date});
           if (!oldData) {
               const result = await data.save()
               if (result) {
@@ -61,6 +67,8 @@ export default async function handler(
               }
           } else {
               oldData.username = username
+              oldData.year = year
+              oldData.month = month
               oldData.date = date
               oldData.fWI = fWI
               oldData.sWI = sWI
@@ -78,6 +86,7 @@ export default async function handler(
           }
         }
       } catch (error) {
+        console.log('some thing wrong')
         res.send(error)
       }
       break
