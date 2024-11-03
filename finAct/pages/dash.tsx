@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import User, { IUSER } from '@/lib/utils/models/userModel'
 import { GetServerSideProps } from "next";
 import dbConnect from "@/lib/utils/conn/mongoose";
-import { formatDate, getStartDate, getWeekday, stringAmt, sumAmt } from "@/lib/funcPage";
+import { formatDate, getWeekday, stringAmt, sumAmt } from "@/lib/funcPage";
 import BS, { IBS } from "@/lib/utils/models/bsModel";
 import { useSelector } from "react-redux";
 import { lsUser } from "@/lib/redux";
@@ -23,14 +23,7 @@ export default function HomeDash({ userData, bsData}: Props ) {
     const username = String(useSelector(lsUser))
     const [isClicked, setClicked] = useState(false)
     const [isClient, setIsClient] = useState(false)
-    const [dateState, setDateState] = useState(0)
-    const [cD, setCD] = useState(formatDate(Date()))
-    const WD = getWeekday(cD)
-    const [page, setPage] = useState('Mussel Entry')
-    const [bP, setBP] = useState('btn-primary')
-    const [bS, setBS] = useState('btn-secondary')
-    // default for bs is true
-    const [tF, setTF] = useState(true)
+    const [cD, setCD] = useState(formatDate(Date(), 0))
 
     useSession({
         required: true,
@@ -39,42 +32,10 @@ export default function HomeDash({ userData, bsData}: Props ) {
         }
     })
 
-    // Change page to either mussel or balance by auto
-    function autoSet() {
-        if ( WD === 'Saturday' || WD === 'Sunday') {
-            setPage('Balance Sheet')
-            setBP('btn-secondary')
-            setBS('btn-primary')
-            setTF(true)
-            setDateState(1)
-        } else {
-            setBS('btn-secondary')
-            setBP('btn-primary')
-            setDateState(0)
-            setTF(false)
-        }
-    }
-
-    // change form according to button
-    function changePage(str: String) {
-        setClicked(true)
-        if ( str === "Balance Entry") {
-            setBP('btn-secondary')
-            setBS('btn-primary')
-            setDateState(1)
-        } else {
-            setBS('btn-secondary')
-            setBP('btn-primary')
-            setDateState(0)
-            setTF(false)
-        }
-    }
-
     // For balance data entry
     const [amt, setAmt] = useState('0')
     const [total, setTotal] = useState('0')
-    const [today, setToday] = useState(formatDate(Date()))
-    const [todays, setTodays] = useState(formatDate(Date()))
+    const [today, setToday] = useState(formatDate(Date(), 0));
     const [fWI, setFWI] = useState('0')
     const [sWI, setSWI] = useState('0')
     const [ret, setRET] = useState('0')
@@ -82,26 +43,6 @@ export default function HomeDash({ userData, bsData}: Props ) {
     const [wSP, setWSP] = useState('0')
     const [wSA, setWSA] = useState('0')
     const [oB, setOB] = useState('0')
-
-    // For expenses
-    const [totalE, setTotalE] = useState('0');
-    const [rent, setRent] = useState('0');
-    const [groc, setGroc] = useState('0');
-    const [onshp, setOnshp] = useState('0');
-    const [shp, setShp] = useState('0');
-    const [bro, setBro] = useState('0');
-    const [ins, setIns] = useState('0');
-    const [int, setInt] = useState('0');
-    const [wta, setWta] = useState('0');
-    const [mobp, setMobp] = useState('0');
-    const [inst, setInst] = useState('0');
-    const [mai, setMai] = useState('0');
-    const [fuel, setFuel] = useState('0');
-    const [elec, setElec] = useState('0');
-    const [subs, setSubs] = useState('0');
-    const [trav, setTrav] = useState('0');
-
-    const [isHandleDate, setIsHandelDate] = useState(false);
 
     const dataUser = userData.filter((x) => {
         return x.username === username
@@ -121,19 +62,13 @@ export default function HomeDash({ userData, bsData}: Props ) {
 
     useEffect(() => {
         setIsClient(true)
-        if (!isClicked) {
-            autoSet()
-        }
-    }, [today, todays])
+        console.log(today)
+    }, [today])
 
     useEffect(() => {
         setOB(String(closingBalance))
         sumBS()
     }, [amt, fWI, sWI, ret, wSP, wSA, cB, oB, total])
-
-    useEffect(() => {
-        setTotalE(sumExp(rent, groc, onshp, shp, bro, ins, int, wta, mobp, inst, mai, fuel, elec, subs, trav).toString())
-    }, [rent + groc + onshp + shp + bro + ins + int + wta + mobp + inst + mai + fuel + elec + subs + trav, totalE])
 
     // BS
     function weeklySpent() {
@@ -152,11 +87,6 @@ export default function HomeDash({ userData, bsData}: Props ) {
         setCB(String(parseFloat(total)))
         weeklySpent()
         weeklySave()
-    }
-
-    function sumExp(a: string, b: string, c: string, d: string, e: string, f: string, g: string, h: string, i: string, j: string, k: string, l: string ,m: string, n: string, o: string) {
-        let x = parseFloat(a) + parseFloat(b) + parseFloat(c) + parseFloat(d) + parseFloat(e) + parseFloat(f) + parseFloat(g) + parseFloat(h) + parseFloat(i) + parseFloat(j) + parseFloat(k) + parseFloat(l) + parseFloat(m) + parseFloat(n) + parseFloat(o);
-        return x;
     }
 
     if (isClient) {
@@ -181,10 +111,10 @@ export default function HomeDash({ userData, bsData}: Props ) {
                                 </thead>
                                 <tbody>
                                     {filtData.map((x) => (
-                                        <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString())}>
-                                            <td>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString())}</td>
-                                            <td>{x.fWE.toString()}</td>
-                                            <td>{x.sWE.toString()}</td>
+                                        <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}>
+                                            <td>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
+                                            <td>{x.fWI.toString()}</td>
+                                            <td>{x.sWI.toString()}</td>
                                             <td>{x.return.toString()}</td>
                                             <td>{x.openingBalance.toString()}</td>
                                             <td>{x.closingBalance.toString()}</td>
@@ -201,7 +131,7 @@ export default function HomeDash({ userData, bsData}: Props ) {
                                     <tr>
                                         <td>
                                             <input type="date" name="bsDate" id="bsDate" className="w-100" value={today} onChange={(event) => {
-                                                setToday(formatDate(event.target.value))
+                                                setToday(event.target.value)
                                             }}></input>
                                         </td>
                                         <td>
@@ -282,7 +212,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
     /* find all the data in our database */
     const findBS = await BS.find({})
     const data = findBS.sort((a, b) => {
-        return new Date(formatDate(a.date.toString() + '/' + a.month.toString() + '/' + a.year.toString())).getTime() - new Date(formatDate(b.date.toString() + '/' + b.month.toString() + '/' + b.year.toString())).getTime()
+        return new Date(a.year.toString() + '-' + a.month.toString() + '-' + a.date.toString()).getTime() - new Date(b.year.toString() + '-' + b.month.toString() + '-' + b.date.toString()).getTime()
     });
   
     /* Ensures all objectIds and nested objectIds are serialized as JSON data */
