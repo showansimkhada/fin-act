@@ -7,18 +7,8 @@ import { formatDate, getWeekday } from '@/lib/funcPage'
 
 export default function SignIn() {
   const [user, setUser] = useState('')
-  const [dateState, setDateState] = useState(true)
   const [pass, setPass] = useState('')
   const [mess, setMess] = useState('')
-  const [cD, setCD] = useState(formatDate(Date()))
-  const weekDay = getWeekday(cD)
-  const [page, setPage] = useState('Mussel Entry')
-  if (dateState) {
-    if ( weekDay === 'Saturday' || weekDay === 'Sunday') {
-      setDateState(false)
-      setPage('Balance Sheet')
-    }
-  }
   const router = useRouter();
   const dispatch = useDispatch()
   var callBackUrl = '/dash';
