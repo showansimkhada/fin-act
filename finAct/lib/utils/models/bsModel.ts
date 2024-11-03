@@ -5,8 +5,8 @@ export interface IBS extends Document {
     year: Number,
     month: Number,
     date: Number,
-    fWE: Number,
-    sWE: Number,
+    fWI: Number,
+    sWI: Number,
     return: Number,
     openingBalance: Number,
     closingBalance: Number,
@@ -31,11 +31,11 @@ const BalanceSheet = new Schema<IBS> ({
         type: Number,
         required: true
     },
-    fWE: {
+    fWI: {
         type: Number,
         required: true
     },
-    sWE: {
+    sWI: {
         type: Number,
         required: true
     },
