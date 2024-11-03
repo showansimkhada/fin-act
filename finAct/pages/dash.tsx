@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import User, { IUSER } from '@/lib/utils/models/userModel'
 import { GetServerSideProps } from "next";
 import dbConnect from "@/lib/utils/conn/mongoose";
-import { formatDate, getWeekday, stringAmt, sumAmt } from "@/lib/funcPage";
+import { formatDate, stringAmt, sumAmt } from "@/lib/funcPage";
 import BS, { IBS } from "@/lib/utils/models/bsModel";
 import { useSelector } from "react-redux";
 import { lsUser } from "@/lib/redux";
@@ -21,9 +21,7 @@ type Props = {
 export default function HomeDash({ userData, bsData}: Props ) {
     // clean up the codes
     const username = String(useSelector(lsUser))
-    const [isClicked, setClicked] = useState(false)
     const [isClient, setIsClient] = useState(false)
-    const [cD, setCD] = useState(formatDate(Date(), 0))
 
     useSession({
         required: true,
@@ -62,7 +60,6 @@ export default function HomeDash({ userData, bsData}: Props ) {
 
     useEffect(() => {
         setIsClient(true)
-        console.log(today)
     }, [today])
 
     useEffect(() => {
