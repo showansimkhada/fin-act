@@ -133,9 +133,6 @@ export default function BSpage( {bsData, userData}: Props) {
                         <td>{x.return.toString()}</td>
                         <td>{x.weeklySpent.toString()}</td>
                         <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
-                            <Form action={`api/bs/?type=delete&id=${x.year}`} method='post'>
-                                <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
-                            </Form>
                         </td>
                     </tr>
                 ))}
@@ -220,9 +217,6 @@ export default function BSpage( {bsData, userData}: Props) {
                         <td>{x.return.toString()}</td>
                         <td>{x.weeklySpent.toString()}</td>
                         <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
-                            <Form action={`api/bs/?type=delete&id=${x.month}`} method='post'>
-                                <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
-                            </Form>
                         </td>
                     </tr>
                 ))}
@@ -270,9 +264,6 @@ export default function BSpage( {bsData, userData}: Props) {
                         <td>{x.return.toString()}</td>
                         <td>{x.weeklySpent.toString()}</td>
                         <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
-                            <Form action={`api/bs/?type=delete&id=${x.year}`} method='post'>
-                                <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
-                            </Form>
                         </td>
                     </tr>
                     ))}
