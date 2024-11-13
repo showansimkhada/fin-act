@@ -296,6 +296,9 @@ export default function BSpage( {bsData, userData}: Props) {
                 <input type='button' value='Fisial Year' onClick={() => {
                     setFilter(3);
                 }}/>
+                <input type='button' value='Clear' onClick={() => {
+                    setFilter(0);
+                }}/>
             </div>
             <div className="table-responsive-sm">
                 {isClient? checkfilter(): ''}
