@@ -132,7 +132,7 @@ export default function BSpage( {bsData, userData}: Props) {
                         <td>{x.sWI.toString()}</td>
                         <td>{x.return.toString()}</td>
                         <td>{x.weeklySpent.toString()}</td>
-                        <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
+                        <td>{x.weeklySave.toString()}
                         </td>
                     </tr>
                 ))}
@@ -216,8 +216,7 @@ export default function BSpage( {bsData, userData}: Props) {
                         <td>{x.sWI.toString()}</td>
                         <td>{x.return.toString()}</td>
                         <td>{x.weeklySpent.toString()}</td>
-                        <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
-                        </td>
+                        <td>{x.weeklySave.toString()}</td>
                     </tr>
                 ))}
                 </tbody>
@@ -229,17 +228,32 @@ export default function BSpage( {bsData, userData}: Props) {
         {/* 1st April this year to 31st March of next year */}
         // 01/04/2022 - 31/03/2023
         let yr = bsData.map(x => x.year).filter((v, i, y) => y.indexOf(v) === i);
-        let fil = bsData.map(x => x.month).filter((v, i, y) => y.indexOf(v) === i);
         let arr = [];
         for (let i = 0; i < yr.length; i++) {
-            let dataSum = ({
+            let dataSum1 = ({
                 'year': yr[i],
-                'fWI' : Number(dataBS.filter(x => formatDate(x.year.toString() + x.month.toString() + x.date.toString(), 1) > formatDate('01/04/'+yr[i], 1)).reduce((a, v) => a + Number(v.fWI), 0).toFixed(2)),
-                'sWI' : Number(dataBS.filter(x => Number(x.month) > 3 && x.year === fil[i]).reduce((a, v) => a + Number(v.sWI), 0).toFixed(2)),
-                'return' : Number(dataBS.filter(x => Number(x.month) > 3 && x.year === fil[i]).reduce((a, v) => a + Number(v.return), 0).toFixed(2)),
-                'weeklySpent' : Number(dataBS.filter(x => Number(x.month) > 3 && x.year === fil[i]).reduce((a, v) => a + Number(v.weeklySpent), 0).toFixed(2)),
-                'weeklySave' : Number(dataBS.filter(x => Number(x.month) > 3 && x.year === fil[i]).reduce((a, v) => a + Number(v.weeklySave), 0).toFixed(2))
+                'fWI' : Number(dataBS.filter(x => x.year == yr[i] && (Number(x.month) > 3)).reduce((a, v) => a + Number(v.fWI), 0).toFixed(2)),
+                'sWI' : Number(dataBS.filter(x => x.year == yr[i] && (Number(x.month) > 3)).reduce((a, v) => a + Number(v.sWI), 0).toFixed(2)),
+                'return' : Number(dataBS.filter(x => x.year == yr[i] && (Number(x.month) > 3)).reduce((a, v) => a + Number(v.return), 0).toFixed(2)),
+                'weeklySpent' : Number(dataBS.filter(x => x.year == yr[i] && (Number(x.month) > 3)).reduce((a, v) => a + Number(v.weeklySpent), 0).toFixed(2)),
+                'weeklySave' : Number(dataBS.filter(x => x.year == yr[i] && (Number(x.month) > 3)).reduce((a, v) => a + Number(v.weeklySave), 0).toFixed(2))
             });
+            let dataSum2 = ({
+                'year': Number(yr[i])+1,
+                'fWI' : Number(dataBS.filter(x => Number(x.year) == Number(yr[i])+1 && Number(x.month) < 4).reduce((a, v) => a + Number(v.fWI), 0).toFixed(2)),
+                'sWI' : Number(dataBS.filter(x => Number(x.year) == Number(yr[i])+1 && Number(x.month) < 4).reduce((a, v) => a + Number(v.sWI), 0).toFixed(2)),
+                'return' : Number(dataBS.filter(x => Number(x.year) == Number(yr[i])+1 && Number(x.month) < 4).reduce((a, v) => a + Number(v.return), 0).toFixed(2)),
+                'weeklySpent' : Number(dataBS.filter(x => Number(x.year) == Number(yr[i])+1 && Number(x.month) < 4).reduce((a, v) => a + Number(v.weeklySpent), 0).toFixed(2)),
+                'weeklySave' : Number(dataBS.filter(x => Number(x.year) == Number(yr[i])+1 && Number(x.month) < 4).reduce((a, v) => a + Number(v.weeklySave), 0).toFixed(2))
+            });
+            let dataSum = ({
+                'year': '01/04/' + dataSum1.year + " to " + '31/03/' + dataSum2.year,
+                'fWI': dataSum1.fWI + dataSum2.fWI,
+                'sWI': dataSum1.sWI + dataSum2.sWI,
+                'return': dataSum1.return + dataSum2.return,
+                'weeklySpent': dataSum1.weeklySpent + dataSum2.weeklySpent,
+                'weeklySave': dataSum1.weeklySave + dataSum2.weeklySave
+            })
             arr.push(dataSum);
         }
         arr.sort((a, b) => Number(a.year) - Number(b.year));
@@ -247,7 +261,7 @@ export default function BSpage( {bsData, userData}: Props) {
             <Table id="bsOutput" responsive="sm" className="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Ficial Date</th>
+                        <th>Fiscal Year</th>
                         <th>{isClient? dataUser[0]?.firstname: ''}'s WI</th>
                         <th>{isClient? dataUser[0]?.sfirstname: ''}'s WI</th>
                         <th>Return</th>
@@ -258,13 +272,12 @@ export default function BSpage( {bsData, userData}: Props) {
                 <tbody id='data'>
                     {arr.map((x) => (
                     <tr key={x.year.toString()}>
-                        <td>{'01/04/'+ x.year.toString()}</td>
+                        <td>{x.year.toString()}</td>
                         <td>{x.fWI.toString()}</td>
                         <td>{x.sWI.toString()}</td>
                         <td>{x.return.toString()}</td>
                         <td>{x.weeklySpent.toString()}</td>
-                        <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
-                        </td>
+                        <td>{x.weeklySave.toString()}</td>
                     </tr>
                     ))}
                 </tbody>
@@ -282,6 +295,7 @@ export default function BSpage( {bsData, userData}: Props) {
         }
         return filterByFiY()
     }
+
     return (
         <div>
             <Navbars/>
@@ -293,7 +307,7 @@ export default function BSpage( {bsData, userData}: Props) {
                 <input type='button' value='Monthly' onClick={() => {
                     setFilter(2);
                 }}/>
-                <input type='button' value='Fisial Year' onClick={() => {
+                <input type='button' value='Fiscal Year' onClick={() => {
                     setFilter(3);
                 }}/>
                 <input type='button' value='Clear' onClick={() => {
