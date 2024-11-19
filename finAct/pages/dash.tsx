@@ -88,7 +88,7 @@ export default function HomeDash({ userData, bsData}: Props ) {
 
     if (isClient) {
         return (
-            <div className="w-100">
+            <div className="container-fluid">
                 <Navbars/>
                 <div id="bs">
                     <form action={`api/bs/?username=${username}`} method="POST">

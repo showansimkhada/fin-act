@@ -48,7 +48,7 @@ export default function BSpage( {bsData, userData}: Props) {
 
     function AllData() {
         return (
-            <Table id="bsOutput" responsive="sm" className="table table-bordered table-hover">
+            <Table striped bordered id="bsOutput" responsive="sm" className="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -113,7 +113,7 @@ export default function BSpage( {bsData, userData}: Props) {
             arr.push(dataSum);
         }
         return (
-            <Table id="bsOutput" responsive="sm" className="table table-bordered table-hover">
+            <Table striped bordered id="bsOutput" responsive="sm" className="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>Year</th>
@@ -197,7 +197,7 @@ export default function BSpage( {bsData, userData}: Props) {
         }
         arr.sort((a, b) => Number(a.id) - Number(b.id));
         return (
-            <Table id="bsOutput" responsive="sm" className="table table-bordered table-hover">
+            <Table striped bordered id="bsOutput" responsive="sm" className="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>Month</th>
@@ -258,7 +258,7 @@ export default function BSpage( {bsData, userData}: Props) {
         }
         arr.sort((a, b) => Number(a.year) - Number(b.year));
         return (
-            <Table id="bsOutput" responsive="sm" className="table table-bordered table-hover">
+            <Table striped bordered id="bsOutput" responsive="sm" className="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>Fiscal Year</th>
@@ -299,18 +299,17 @@ export default function BSpage( {bsData, userData}: Props) {
     return (
         <div className='container-fluid'>
             <Navbars/>
-            <div style={{marginTop: '55px'}}>
-                <label>Filter the data by</label>
-                <input type='button' value='Year' onClick={() => {
+            <div className="d-flex flex-row justify-content-between" style={{marginTop: '55px'}}>
+                <input className="w-50" type='button' value='Year' onClick={() => {
                     setFilter(1);
                     }}/>
-                <input type='button' value='Monthly' onClick={() => {
+                <input className="w-50" type='button' value='Monthly' onClick={() => {
                     setFilter(2);
                 }}/>
-                <input type='button' value='Fiscal Year' onClick={() => {
+                <input className="w-50" type='button' value='Fiscal Year' onClick={() => {
                     setFilter(3);
                 }}/>
-                <input type='button' value='Clear' onClick={() => {
+                <input className="w-50" type='button' value='Clear' onClick={() => {
                     setFilter(0);
                 }}/>
             </div>
