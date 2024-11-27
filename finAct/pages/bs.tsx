@@ -5,16 +5,19 @@ import Navbars from "./components/navBar"
 
 import BS, { IBS } from '@/lib/utils/models/bsModel'
 import User, { IUSER } from '@/lib/utils/models/userModel'
-import { GetServerSideProps } from "next";
 import dbConnect from "@/lib/utils/conn/mongoose";
+import { formatDate } from '@/lib/funcPage';
+import { lsUser } from '@/lib/redux';
+
+import { GetServerSideProps } from "next";
+import React, {useRef} from 'react';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import { formatDate } from '@/lib/funcPage';
 import { useSelector } from 'react-redux';
-import { lsUser } from '@/lib/redux';
 import { useEffect, useState } from 'react';
 import { Form, Table } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { StackedBarplot } from '@/lib/utils/graphs/barchart';
 
 type Props = {
     bsData: IBS[] ,
@@ -24,6 +27,7 @@ type Props = {
 export default function BSpage( {bsData, userData}: Props) {
     const [isClient, setIsClient] = useState(false);
     const [filter, setFilter] = useState(0);
+    const [graph, setGraph] = useState(false);
     useSession({
         required: true,
         onUnauthenticated() {
@@ -143,6 +147,16 @@ export default function BSpage( {bsData, userData}: Props) {
 
     function filterByMonth() {
         let fil = bsData.map(x => x.month).filter((v, i, y) => y.indexOf(v) === i);
+        let filYear = bsData.map(x => x.year).filter((v, i, y) => y.indexOf(v) === i);
+        type arr = {
+            id: string;
+            month: number;
+            fWI: number;
+            sWI: number;
+            return: number;
+            weeklySpent: number;
+            weeklySave: number;
+        }
         let arr = [];
         for (let i = 0; i < fil.length; i++) {
             let str = '';
@@ -184,19 +198,19 @@ export default function BSpage( {bsData, userData}: Props) {
                     str = 'December'
                     break;
             }
-            let dataSum = ({
-                'id': fil[i],
-                'month': str,
+            arr.push({
+                'month': Number(fil[i]),
+                'id': str,
                 'fWI' : Number(dataBS.filter(x => x.month === fil[i]).reduce((a, v) => a + Number(v.fWI), 0).toFixed(2)),
                 'sWI' : Number(dataBS.filter(x => x.month === fil[i]).reduce((a, v) => a + Number(v.sWI), 0).toFixed(2)),
                 'return' : Number(dataBS.filter(x => x.month === fil[i]).reduce((a, v) => a + Number(v.return), 0).toFixed(2)),
                 'weeklySpent' : Number(dataBS.filter(x => x.month === fil[i]).reduce((a, v) => a + Number(v.weeklySpent), 0).toFixed(2)),
                 'weeklySave' : Number(dataBS.filter(x => x.month === fil[i]).reduce((a, v) => a + Number(v.weeklySave), 0).toFixed(2))
             });
-            arr.push(dataSum);
         }
-        arr.sort((a, b) => Number(a.id) - Number(b.id));
-        return (
+        arr.sort((a, b) => Number(a.month) - Number(b.month));
+
+        const tableJSX = (
             <Table striped bordered id="bsOutput" responsive="sm" className="table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -210,8 +224,8 @@ export default function BSpage( {bsData, userData}: Props) {
                 </thead>
                 <tbody id='data'>
                     {arr.map((x) => (
-                    <tr key={x.month.toString()}>
-                        <td>{x.month.toString()}</td>
+                    <tr key={x.id}>
+                        <td>{x.id}</td>
                         <td>{x.fWI.toString()}</td>
                         <td>{x.sWI.toString()}</td>
                         <td>{x.return.toString()}</td>
@@ -221,6 +235,24 @@ export default function BSpage( {bsData, userData}: Props) {
                 ))}
                 </tbody>
             </Table>
+        )
+
+        const graphJSX = (
+            <StackedBarplot data={arr} width={1200} height={600} />
+        )
+
+        return (
+            <>
+            <div className="d-flex flex-row justify-content-between">
+                <input className="w-50 btn btn-primary active" type='button' value='Table form' onClick={() => {
+                    setGraph(false);
+                    }}/>
+                <input className="w-50" type='button' value='Graphical form' onClick={() => {
+                    setGraph(true)
+                }}/>
+            </div>
+            {graph? graphJSX : tableJSX}            
+            </>
         )
     }
 
