@@ -238,7 +238,7 @@ export default function BSpage( {bsData, userData}: Props) {
         )
 
         const graphJSX = (
-            <StackedBarplot data={arr} width={1200} height={600} />
+            <StackedBarplot data={arr} width={1200} height={600} dataUser={dataUser}/>
         )
 
         return (
