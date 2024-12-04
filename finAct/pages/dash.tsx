@@ -176,7 +176,7 @@ export default function HomeDash({ userData, bsData}: Props ) {
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <input id="go" value={amt} onChange={(event) => {
+                                            <input id="amt" value={amt} onChange={(event) => {
                                                 let input = event.target.value
                                                 if (!input) {
                                                     event.target.select()
