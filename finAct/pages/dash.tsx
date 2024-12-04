@@ -178,11 +178,12 @@ export default function HomeDash({ userData, bsData}: Props ) {
                                         <td>
                                             <input id="amt" value={amt} onChange={(event) => {
                                                 let input = event.target.value
-                                                if (!input) {
-                                                    event.target.select()
+                                                if (input) {
+                                                    setAmt(input)
+                                                    setTotal(String(parseFloat(String(amt))))
+                                                } else {
+                                                    setAmt('0')
                                                 }
-                                                setAmt(input)
-                                                setTotal(String(parseFloat(String(sumAmt(input)))))
                                             }}></input>
                                         </td>
                                         <td>
