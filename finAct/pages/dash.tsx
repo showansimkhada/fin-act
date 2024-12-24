@@ -1,34 +1,33 @@
 'use client'
-import Navbars from "@/pages/components/navBar";
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
-import User, { IUSER } from '@/lib/utils/models/userModel'
+import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+import User, { IUSER } from '@/lib/utils/models/userModel';
 import { GetServerSideProps } from "next";
 import dbConnect from "@/lib/utils/conn/mongoose";
-import { formatDate, stringAmt, sumAmt } from "@/lib/funcPage";
-import BS, { IBS } from "@/lib/utils/models/bsModel";
-import { useSelector } from "react-redux";
-import { lsUser } from "@/lib/redux";
-import { Form, Table } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { formatDate, stringAmt, sumAmt } from '@/lib/funcPage';
+import BS, { IBS } from '@/lib/utils/models/bsModel';
+import { useSelector } from 'react-redux';
+import { lsUser } from '@/lib/redux';
+import { Form, Table } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Navbars from "@/pages/components/navBar";
 
 type Props = {
     userData: IUSER[],
     bsData: IBS[]
 }
 
-export default function HomeDash({ userData, bsData}: Props ) {
-    // clean up the codes
-    const username = String(useSelector(lsUser))
-    const [isClient, setIsClient] = useState(false)
+export default function HomeDash({ userData, bsData }: Props) {
+    const username = String(useSelector(lsUser));
+    const [isClient, setIsClient] = useState(false);
 
     useSession({
         required: true,
         onUnauthenticated() {
-            redirect('/')
+            redirect('/');
         }
-    })
+    });
 
     // For balance data entry
     const [amt, setAmt] = useState('0')
