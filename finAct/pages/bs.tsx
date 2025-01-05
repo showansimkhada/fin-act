@@ -10,14 +10,13 @@ import { formatDate } from '@/lib/funcPage';
 import { lsUser } from '@/lib/redux';
 
 import { GetServerSideProps } from "next";
-import React, {useRef} from 'react';
+import React from 'react';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Form, Table } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { StackedBarplot } from '@/lib/utils/graphs/barchart';
 
 type Props = {
     bsData: IBS[] ,
@@ -26,8 +25,6 @@ type Props = {
 
 export default function BSpage( {bsData, userData}: Props) {
     const [isClient, setIsClient] = useState(false);
-    const [filter, setFilter] = useState(0);
-    const [graph, setGraph] = useState(false);
     useSession({
         required: true,
         onUnauthenticated() {
@@ -48,7 +45,7 @@ export default function BSpage( {bsData, userData}: Props) {
     const wsaTotal = dataBS.reduce((c, x) => c + Number(x.weeklySave), 0).toFixed(2);
     useEffect (() => {
         setIsClient(true)
-    }, [filter])
+    })
 
     const dataTable = (
             <Table striped bordered id="bsOutput" responsive="sm" className="table table-bordered table-hover">
@@ -65,22 +62,22 @@ export default function BSpage( {bsData, userData}: Props) {
                     </tr>
                 </thead>
                 <tbody id='data'>
-                    {data.map((x) => (
-                        <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}>
-                            <td>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
-                            <td>{x.fWI.toString()}</td>
-                            <td>{x.sWI.toString()}</td>
-                            <td>{x.return.toString()}</td>
-                            <td>{x.openingBalance.toString()}</td>
-                            <td>{x.closingBalance.toString()}</td>
-                            <td>{x.weeklySpent.toString()}</td>
-                            <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
-                                <Form action={`api/bs/?type=delete&id=${x._id}`} method='post'>
-                                    <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
-                                </Form>
-                            </td>
-                        </tr>
-                    ))}
+                    {isClient? data.map((x) => (
+                      <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}>
+                      <td>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
+                      <td>{x.fWI.toString()}</td>
+                      <td>{x.sWI.toString()}</td>
+                      <td>{x.return.toString()}</td>
+                      <td>{x.openingBalance.toString()}</td>
+                      <td>{x.closingBalance.toString()}</td>
+                      <td>{x.weeklySpent.toString()}</td>
+                      <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
+                          <Form action={`api/bs/?type=delete&id=${x._id}`} method='post'>
+                              <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
+                          </Form>
+                      </td>
+                  </tr>
+                    )): ''}
                 </tbody>
                 <tfoot id='total'>
                     {isClient ? 
