@@ -9,12 +9,11 @@ import dbConnect from "@/lib/utils/conn/mongoose";
 import { lsUser } from '@/lib/redux';
 
 import { GetServerSideProps } from "next";
-import React, {useRef} from 'react';
+import React from 'react';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Table } from 'react-bootstrap';
 import {
     Chart as ChartJS, 
     CategoryScale,
@@ -23,8 +22,7 @@ import {
     LineElement,
     Title,
     Tooltip,
-    Legend,
-    scales,} 
+    Legend} 
     from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
@@ -40,19 +38,13 @@ ChartJS.register(
 );
 
 var options = {
-    responsive: true,
+    maintainaspectratio: false,
     plugins: {
       legend: {
-        position: 'top' as const,
-      },
-      title: {
-        display: true,
-        text: 'Chart.js Line Chart',
-      },
+        position: 'bottom' as const,
+      }
     },
-    scales: {
-
-    }
+    scales: {}
   };
 
 type Props = {
@@ -218,7 +210,7 @@ export default function Report( {bsData, userData}: Props) {
                 borderColor: 'rgba(255, 165, 0, 0.5)'
               },
               {
-                label: 'Montly Spent',
+                label: 'Monthly Spent',
                 data: arr.map(x => x.monthlyspent),
                 backgroundColor: 'rgb(255, 255, 0)',
                 borderColor: 'rgba(255, 255, 0, 0.5)'
@@ -331,12 +323,9 @@ export default function Report( {bsData, userData}: Props) {
         <>
             <div className='container-fluid'>
                 <Navbars/>
-                <div className="table-responsive-sm" style={{marginTop: '55px'}}>
+                <div id="chartLine" style={{marginTop: '55px'}}>
                     {isClient? checkfilter(): ''}
-                </div>
-            </div>
-            <footer>
-                <div className="d-flex align-items-end" style={{marginLeft: '2.5%', marginRight: '2.5%'}}>
+                    <div className="d-flex align-items-end" style={{marginLeft: '2.5%', marginRight: '2.5%'}}>
                     <input className="w-50" type='button' value='Monthly Income' onClick={() => {
                         setFilter(2);
                     }}/>
@@ -347,6 +336,10 @@ export default function Report( {bsData, userData}: Props) {
                         setFilter(3);
                     }}/>
                 </div>
+                </div>
+            </div>
+            <footer>
+                
             </footer>
         </>
     )
