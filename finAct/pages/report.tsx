@@ -63,7 +63,6 @@ type Props = {
 export default function Report( {bsData, userData}: Props) {
     const [isClient, setIsClient] = useState(false);
     const [filter, setFilter] = useState(0);
-    const [graph, setGraph] = useState(false);
     useSession({
         required: true,
         onUnauthenticated() {
