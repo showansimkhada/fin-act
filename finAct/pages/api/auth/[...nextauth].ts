@@ -11,7 +11,7 @@ if (!process.env.NEXTAUTH_SECRET) {
   );
 }
 
-export const authOptions:  NextAuthOptions = ({
+export const authOptions: NextAuthOptions = ({
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -29,7 +29,7 @@ export const authOptions:  NextAuthOptions = ({
         } else {
           throw new Error ("Incorrect username and password!!")
         }
-      },
+      }
     }),
   ],
   callbacks: {

@@ -21,30 +21,28 @@ export default function Navbars() {
     dispatch(dataSlice.actions.clearLS())
     signOut()
   }
-  
-  if (isClient) {
-    return (
-      <>
-      <Navbar expand="lg" className="bg-body-tertiary" fixed="top" bg="primary" data-bs-theme="dark">
-        <Container>
-          <Navbar.Brand>WELCOME {`${username}`}</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="/dash">Dashboard</Nav.Link>
-              <Nav.Link href="/bs">Balance Sheet</Nav.Link>
-              <Nav.Link href='/report'>Report</Nav.Link>
-              <Nav.Link href='/profile'>Profile</Nav.Link>
-              <Nav.Link onClick={handleSignOut}>Sign Out</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      </>
-    )
-  } else {
-    return (
-      <></>
-    )
-  }
+
+  const navJSX = (
+    <Navbar expand="lg" className="bg-body-tertiary" fixed="top" bg="primary" data-bs-theme="dark">
+      <Container>
+        <Navbar.Brand>WELCOME {`${username}`}</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="/dash">Dashboard</Nav.Link>
+            <Nav.Link href="/bs">Balance Sheet</Nav.Link>
+            <Nav.Link href='/report'>Report</Nav.Link>
+            <Nav.Link href='/profile'>Profile</Nav.Link>
+            <Nav.Link onClick={handleSignOut}>Sign Out</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  )
+
+  return  (
+    <>
+    {isClient ? navJSX: ''}
+    </>
+  )
 }
