@@ -92,13 +92,13 @@ export default function Report( {bsData, userData}: Props) {
             labels,
             datasets: [
               {
-                label: dataUser[0]?.firstname + "'s WI",
+                label: dataUser[0]?.firstname + "'s Yearly Income",
                 data: arr.map(x => x.fWI),
                 backgroundColor: 'rgb(135, 206, 235)',
                 borderColor: 'rgba(135, 206, 235, 0.5)'
               },
               {
-                label: dataUser[0]?.sfirstname + "'s WI",
+                label: dataUser[0]?.sfirstname + "'s Yearly Income",
                 data: arr.map(x => x.sWI),
                 backgroundColor: 'rgb(255, 165, 0)',
                 borderColor: 'rgba(255, 165, 0, 0.5)'
@@ -110,7 +110,7 @@ export default function Report( {bsData, userData}: Props) {
                 borderColor: 'rgba(255, 255, 0, 0.5)'
               },
               {
-                label: 'Yearly Save',
+                label: 'Yearly Saved',
                 data: arr.map(x => x.yearlySave),
                 backgroundColor: 'rgb(0, 128, 0)',
                 borderColor: 'rgba(0, 128, 0, 0.5)'
@@ -273,25 +273,25 @@ export default function Report( {bsData, userData}: Props) {
             labels,
             datasets: [
               {
-                label: dataUser[0]?.firstname + "'s WI",
+                label: dataUser[0]?.firstname + "'s Ficial Year Income",
                 data: arr.map(x => x.fWI),
                 backgroundColor: 'rgb(135, 206, 235)',
                 borderColor: 'rgba(135, 206, 235, 0.5)'
               },
               {
-                label: dataUser[0]?.sfirstname + "'s WI",
+                label: dataUser[0]?.sfirstname + "'s Ficial Year Income",
                 data: arr.map(x => x.sWI),
                 backgroundColor: 'rgb(255, 165, 0)',
                 borderColor: 'rgba(255, 165, 0, 0.5)'
               },
               {
-                label: 'Yearly Spent',
+                label: 'Ficial Yearl Spent',
                 data: arr.map(x => x.yeralySpent),
                 backgroundColor: 'rgb(255, 255, 0)',
                 borderColor: 'rgba(255, 255, 0, 0.5)'
               },
               {
-                label: 'Yearly Save',
+                label: 'Ficial Yearl Saved',
                 data: arr.map(x => x.yearlySave),
                 backgroundColor: 'rgb(0, 128, 0)',
                 borderColor: 'rgba(0, 128, 0, 0.5)'
