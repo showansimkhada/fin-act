@@ -45,8 +45,6 @@ export default function HomeDash({ userData, bsData }: Props) {
         return x.username === username
     })
 
-    const fN = dataUser.map((x) => x.firstname)[0];
-
     const dataBs = bsData.filter((x) => {
         return x.username === username
     })
@@ -58,150 +56,163 @@ export default function HomeDash({ userData, bsData }: Props) {
     })
 
     useEffect(() => {
+        setOB(String(closingBalance))
         setIsClient(true)
     }, [today])
 
     useEffect(() => {
-        setOB(String(closingBalance))
-        sumBS()
-    }, [amt, fWI, sWI, ret, wSP, wSA, cB, oB, total])
+        changeAmounts()
+    }, [amt, fWI, sWI, ret, wSP, wSA])
 
     // BS
     function weeklySpent() {
         let a = (parseFloat(String(fWI)) + parseFloat(String(sWI)) + parseFloat(String(ret)) + parseFloat(String(oB)) - parseFloat(String(cB))).toFixed(2)
-        setWSP(String(parseFloat(a)))
+        if (parseFloat(a) < 0) {
+            setWSP('0')
+        } else {
+            setWSP(String(parseFloat(a)))
+        }
     }
 
     // BS
     function weeklySave() {
         let a = (parseFloat(String(cB)) - parseFloat(String(oB)) - parseFloat(String(ret))).toFixed(2)
-        setWSA(String(parseFloat(a)))
+        if (parseFloat(a) < 0) {
+            setWSA('0')
+        } else {
+            setWSA(String(parseFloat(a)))
+        }
     }
 
     // BS
     function sumBS() {
-        setCB(String(parseFloat(total)))
         weeklySpent()
         weeklySave()
     }
 
-    if (isClient) {
-        return (
-            <div className="container-fluid">
-                <Navbars/>
-                <div id="bs">
-                    <form action={`api/bs/?username=${username}`} method="POST">
-                        <div className="d-flex mt-5 pt-2">
-                            <Table striped bordered id="bsOutput" responsive="sm">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>{dataUser[0]?.firstname}'s WI</th>
-                                        <th>{dataUser[0]?.sfirstname}'s WI</th>
-                                        <th>Return</th>
-                                        <th>Opening Balance</th>
-                                        <th>Closing Balance</th>
-                                        <th>Weekly Spent</th>
-                                        <th>Weekly Save</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {filtData.map((x) => (
-                                        <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}>
-                                            <td>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
-                                            <td>{x.fWI.toString()}</td>
-                                            <td>{x.sWI.toString()}</td>
-                                            <td>{x.return.toString()}</td>
-                                            <td>{x.openingBalance.toString()}</td>
-                                            <td>{x.closingBalance.toString()}</td>
-                                            <td>{x.weeklySpent.toString()}</td>
-                                            <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
-                                                <Form action={`api/bs/?type=deleteD&id=${x._id}`} method='post'>
-                                                    <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
-                                                </Form>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td>
-                                            <input type="date" name="bsDate" id="bsDate" className="w-100" value={today} onChange={(event) => {
-                                                setToday(event.target.value)
-                                            }}></input>
-                                        </td>
-                                        <td>
-                                            <input name="fWI" id="fWI" className="w-100" value={fWI} onChange={(event) => {
-                                                let input = event.target.value
-                                                if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setFWI(input);
-                                            }}></input>
-                                        </td>
-                                        <td>
-                                            <input name="sWI" id="sWI" className="w-100" value={sWI} onChange={(event) => {
-                                                let input = event.target.value
-                                                if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setSWI(input);
-                                            }}></input>
-                                        </td>
-                                        <td>
-                                            <input name="ret" id="ret" className="w-100" value={ret} onChange={(event) => {
-                                                let input = event.target.value
-                                                if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setRET(input);
-                                            }}></input>
-                                        </td>
-                                        <td>
-                                            <input name="oB" id="oB" className="w-100 border-0 p-0" value={oB} readOnly></input>
-                                        </td>
-                                        <td>
-                                            <input name="cB" id="cB" className="w-100 border-0 p-0" value={cB} readOnly></input>
-                                        </td>
-                                        <td>
-                                            <input name="wSp" id="wSp" className="w-100 border-0 p-0" value={wSP} readOnly></input>
-                                        </td>
-                                        <td>
-                                            <input name="wSa" id="wSa" className="w-100 border-0 p-0" value={wSA} readOnly></input>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </Table>
-                        </div>
-                        <div className="d-flex table-responsive-sm pl-5 pr-5">
-                            <table className="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Amount <span style={{fontWeight: 2, fontSize: 12, color: 'red'}}>(separate the amount by ',')</span></th>
-                                        <th>Addition expression</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <input id="amt" value={amt} onChange={(event) => {
-                                                let input = event.target.value
-                                                if (input) {
-                                                    setAmt(input)
-                                                    setTotal(String(parseFloat(String(amt))))
-                                                } else {
-                                                    setAmt('0')
-                                                }
-                                            }}></input>
-                                        </td>
-                                        <td>
-                                            <label>{stringAmt(amt)}</label>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <input className="table btn btn-primary w-25" type="submit" value="Submit"></input>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        )
-    } else {
-        return (
-            <></>
-        )
+    // Need to run for every amoun is changed
+    function changeAmounts() {
+        sumBS()
+        setCB(total)
     }
+
+    const tableJSX = (
+        <div className="container-fluid">
+            <Navbars/>
+            <div id="bs">
+                <form action={`api/bs/?username=${username}`} method="POST">
+                    <div className="d-flex mt-5 pt-2">
+                        <Table striped bordered id="bsOutput" responsive="sm">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>{dataUser[0]?.firstname}'s WI</th>
+                                    <th>{dataUser[0]?.sfirstname}'s WI</th>
+                                    <th>Return</th>
+                                    <th>Opening Balance</th>
+                                    <th>Closing Balance</th>
+                                    <th>Weekly Spent</th>
+                                    <th>Weekly Save</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filtData.map((x) => (
+                                    <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}>
+                                        <td>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
+                                        <td>{x.fWI.toString()}</td>
+                                        <td>{x.sWI.toString()}</td>
+                                        <td>{x.return.toString()}</td>
+                                        <td>{x.openingBalance.toString()}</td>
+                                        <td>{x.closingBalance.toString()}</td>
+                                        <td>{x.weeklySpent.toString()}</td>
+                                        <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
+                                            <Form action={`api/bs/?type=deleteD&id=${x._id}`} method='post'>
+                                                <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
+                                            </Form>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        <input type="date" name="bsDate" id="bsDate" className="w-100" value={today} onChange={(event) => {
+                                            setToday(event.target.value)
+                                        }}></input>
+                                    </td>
+                                    <td>
+                                        <input name="fWI" id="fWI" className="w-100" value={fWI} onChange={(event) => {
+                                            let input = event.target.value
+                                            if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setFWI(input);
+                                        }}></input>
+                                    </td>
+                                    <td>
+                                        <input name="sWI" id="sWI" className="w-100" value={sWI} onChange={(event) => {
+                                            let input = event.target.value
+                                            if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setSWI(input);
+                                        }}></input>
+                                    </td>
+                                    <td>
+                                        <input name="ret" id="ret" className="w-100" value={ret} onChange={(event) => {
+                                            let input = event.target.value
+                                            if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setRET(input);
+                                        }}></input>
+                                    </td>
+                                    <td>
+                                        <input name="oB" id="oB" className="w-100 border-0 p-0" value={oB} readOnly></input>
+                                    </td>
+                                    <td>
+                                        <input name="cB" id="cB" className="w-100 border-0 p-0" value={total} readOnly></input>
+                                    </td>
+                                    <td>
+                                        <input name="wSp" id="wSp" className="w-100 border-0 p-0" value={wSP} readOnly></input>
+                                    </td>
+                                    <td>
+                                        <input name="wSa" id="wSa" className="w-100 border-0 p-0" value={wSA} readOnly></input>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </Table>
+                    </div>
+                    <div className="d-flex table-responsive-sm pl-5 pr-5">
+                        <table className="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Amount <span style={{fontWeight: 2, fontSize: 12, color: 'red'}}>(separate the amount by ',')</span></th>
+                                    <th>Addition expression</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input id="amt" value={amt} onChange={(event) => {
+                                            let input = event.target.value
+                                            if (input) {
+                                                setAmt(input)
+                                                setTotal(String(parseFloat(String(amt))))
+                                            } else {
+                                                setAmt('0')
+                                            }
+                                        }}></input>
+                                    </td>
+                                    <td>
+                                        <label>{stringAmt(amt)}</label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <input className="table btn btn-primary w-25" type="submit" value="Submit"></input>
+                    </div>
+                </form>
+            </div>
+        </div>
+    )
+
+    return (
+        <>
+            {isClient ? tableJSX : ''}
+        </>
+    )
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
