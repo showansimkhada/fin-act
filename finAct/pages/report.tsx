@@ -326,13 +326,13 @@ export default function Report( {bsData, userData}: Props) {
                 <div id="chartLine" style={{marginTop: '55px'}}>
                     {isClient? checkfilter(): ''}
                     <div className="d-flex align-items-end" style={{marginLeft: '2.5%', marginRight: '2.5%'}}>
-                    <input className="w-50" type='button' value='Monthly Income' onClick={() => {
+                    <input className="w-50" type='button' value='Monthly' onClick={() => {
                         setFilter(2);
                     }}/>
-                    <input className="w-50" type='button' value='Yearly Income' onClick={() => {
+                    <input className="w-50" type='button' value='Yearly' onClick={() => {
                         setFilter(1);
                     }}/>
-                    <input className="w-50" type='button' value='Fiscal Year Income' onClick={() => {
+                    <input className="w-50" type='button' value='Fiscal Year' onClick={() => {
                         setFilter(3);
                     }}/>
                 </div>

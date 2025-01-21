@@ -90,7 +90,7 @@ export default function HomeDash({ userData, bsData }: Props) {
         weeklySave()
     }
 
-    // Need to run for every amoun is changed
+    // Need to run for every amount is changed
     function changeAmounts() {
         sumBS()
         setCB(total)
@@ -155,7 +155,7 @@ export default function HomeDash({ userData, bsData }: Props) {
                                     <td>
                                         <input name="ret" id="ret" className="w-100" value={ret} onChange={(event) => {
                                             let input = event.target.value
-                                            if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setRET(input);
+                                            if(input.match(/^[-]?([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setRET(input);
                                         }}></input>
                                     </td>
                                     <td>
