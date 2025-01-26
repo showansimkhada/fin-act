@@ -72,6 +72,8 @@ export default function Report( {bsData, userData}: Props) {
         setIsClient(true)
     }, [filter])
 
+    // Add average income, average spent, average saved, max income, max spent, max saved, min income, min spent, min saved
+
     function filterByYear() {
         // return type should be JSX element
         let fil = bsData.map(x => x.year).filter((v, i, y) => y.indexOf(v) === i);
@@ -198,13 +200,13 @@ export default function Report( {bsData, userData}: Props) {
             labels,
             datasets: [
               {
-                label: dataUser[0]?.firstname + "'s WI",
+                label: dataUser[0]?.firstname + "'s Monthly Income",
                 data: arr.map(x => x.fWI),
                 backgroundColor: 'rgb(135, 206, 235)',
                 borderColor: 'rgba(135, 206, 235, 0.5)'
               },
               {
-                label: dataUser[0]?.sfirstname + "'s WI",
+                label: dataUser[0]?.sfirstname + "'s Monthly Income",
                 data: arr.map(x => x.sWI),
                 backgroundColor: 'rgb(255, 165, 0)',
                 borderColor: 'rgba(255, 165, 0, 0.5)'
