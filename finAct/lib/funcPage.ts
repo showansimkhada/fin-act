@@ -49,8 +49,7 @@ export function getYear(date: string) {
 // Separate the string and create array then add all the items from array
 export function sumAmt(str: string) {
   let x = str.split(',')
-  let sum = 0
-  console.log(x)
+  let sum = 0;
   for (let i = 0; i < x.length; i++) {
     // check if it got other expression
     if (!x[i].match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/) || !x[i]) {
@@ -58,7 +57,7 @@ export function sumAmt(str: string) {
       sum += parseFloat(x[i])
     }
   }
-  return sum;
+  return sum.toString();
 }
 
 // Convert the string into addition expression
