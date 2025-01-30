@@ -31,7 +31,6 @@ export default function HomeDash({ userData, bsData }: Props) {
 
     // For balance data entry
     const [amt, setAmt] = useState('0')
-    const [total, setTotal] = useState('0')
     const [today, setToday] = useState(formatDate(Date(), 0));
     const [fWI, setFWI] = useState('0')
     const [sWI, setSWI] = useState('0')
@@ -61,40 +60,23 @@ export default function HomeDash({ userData, bsData }: Props) {
     }, [today])
 
     useEffect(() => {
-        changeAmounts()
-    }, [amt, fWI, sWI, ret, wSP, wSA])
-
-    // BS
-    function weeklySpent() {
-        let a = (parseFloat(String(fWI)) + parseFloat(String(sWI)) + parseFloat(String(ret)) + parseFloat(String(oB)) - parseFloat(String(cB))).toFixed(2)
-        if (parseFloat(a) < 0) {
-            setWSP('0')
-        } else {
-            setWSP(String(parseFloat(a)))
-        }
-    }
-
-    // BS
-    function weeklySave() {
-        let a = (parseFloat(String(cB)) - parseFloat(String(oB)) - parseFloat(String(ret))).toFixed(2)
-        if (parseFloat(a) < 0) {
-            setWSA('0')
-        } else {
-            setWSA(String(parseFloat(a)))
-        }
-    }
-
-    // BS
-    function sumBS() {
-        weeklySpent()
-        weeklySave()
-    }
-
-    // Need to run for every amount is changed
-    function changeAmounts() {
-        sumBS()
-        setCB(total)
-    }
+        setWSP(() =>{
+            let a = (parseFloat(String(fWI)) + parseFloat(String(sWI)) + parseFloat(String(ret)) + parseFloat(String(oB)) - parseFloat(String(cB))).toFixed(2)
+            if (parseFloat(a) < 0) {
+                return '0'
+            } else {
+                return String(parseFloat(a))
+            }
+        })
+        setWSA(() =>{
+            let a = (parseFloat(String(cB)) - parseFloat(String(oB)) - parseFloat(String(ret))).toFixed(2)
+            if (parseFloat(a) < 0) {
+                return '0'
+            } else {
+                return String(parseFloat(a))
+            }
+        })
+    }, [fWI, sWI, ret, cB, wSA, wSP])
 
     const tableJSX = (
         <div className="container-fluid">
@@ -155,14 +137,14 @@ export default function HomeDash({ userData, bsData }: Props) {
                                     <td>
                                         <input name="ret" id="ret" className="w-100" value={ret} onChange={(event) => {
                                             let input = event.target.value
-                                            if(input.match(/^[-]?([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setRET(input);
+                                            if(input.match(/^-?([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setRET(input);
                                         }}></input>
                                     </td>
                                     <td>
                                         <input name="oB" id="oB" className="w-100 border-0 p-0" value={oB} readOnly></input>
                                     </td>
                                     <td>
-                                        <input name="cB" id="cB" className="w-100 border-0 p-0" value={total} readOnly></input>
+                                        <input name="cB" id="cB" className="w-100 border-0 p-0" value={cB} readOnly></input>
                                     </td>
                                     <td>
                                         <input name="wSp" id="wSp" className="w-100 border-0 p-0" value={wSP} readOnly></input>
@@ -186,12 +168,14 @@ export default function HomeDash({ userData, bsData }: Props) {
                                 <tr>
                                     <td>
                                         <input id="amt" value={amt} onChange={(event) => {
-                                            let input = event.target.value
+                                            let input = event.target.value;
                                             if (input) {
                                                 setAmt(input)
-                                                setTotal(String(parseFloat(String(amt))))
+                                                let x = sumAmt(input);
+                                                setCB(x)
                                             } else {
                                                 setAmt('0')
+                                                setCB('0')
                                             }
                                         }}></input>
                                     </td>
