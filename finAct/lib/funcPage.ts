@@ -57,7 +57,7 @@ export function sumAmt(str: string) {
       sum += parseFloat(x[i])
     }
   }
-  return sum.toString();
+  return sum.toFixed(2).toString();
 }
 
 // Convert the string into addition expression
