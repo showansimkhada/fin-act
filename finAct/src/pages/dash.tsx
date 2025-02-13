@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { lsUser } from '@/lib/redux';
 import { Form, Table } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Navbars from "@/pages/components/navBar";
+import Navbars from "@/components/navBar";
 
 type Props = {
     userData: IUSER[],

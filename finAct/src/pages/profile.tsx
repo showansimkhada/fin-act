@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import Navbars from "./components/navBar"
+import Navbars from "@/components/navBar"
 import { redirect } from "next/navigation";
 import dbConnect from "@/lib/utils/conn/mongoose";
 import User, { IUSER } from '@/lib/utils/models/userModel'
