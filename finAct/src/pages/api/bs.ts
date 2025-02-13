@@ -21,7 +21,7 @@ export default async function handler(
           if (result) {
             res.redirect('/dash');
           } else {
-            res.send(`could't delete`);
+            res.send(`Could not delete ${id}`);
           }
         } else if (type === 'delete') {
           let id = req.query.id
@@ -29,7 +29,7 @@ export default async function handler(
           if (result) {
             res.redirect('/bs');
           } else {
-            res.send(`could't delete`);
+            res.send(`Could not delete ${id}`);
           }
         } else {
           let str = req.body.bsDate.split('-');
@@ -63,7 +63,7 @@ export default async function handler(
               if (result) {
                 res.redirect('/dash')
               } else {
-                res.send('Error on saving old data')
+                res.send(`Could not save the given data.`)
               }
           } else {
               oldData.username = username
@@ -81,12 +81,12 @@ export default async function handler(
               if (result) {
                 res.redirect('/dash')
               } else {
-                res.send('Error on saving old data')
+                res.send(`Could not save the given data.`)
               }
           }
         }
       } catch (error) {
-        console.log('some thing wrong')
+        console.log('Maybe database is not connected.')
         res.send(error)
       }
       break
