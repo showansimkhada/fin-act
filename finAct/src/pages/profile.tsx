@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import Navbars from "@/components/navBar"
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import dbConnect from "@/lib/utils/conn/mongoose";
 import User, { IUSER } from '@/lib/utils/models/userModel'
 import { GetServerSideProps } from "next";
@@ -15,10 +15,12 @@ type Props = {
 export default function Profile({userData}: Props) {
     const [isClient, setIsClient] = useState(false)
     const [isTrueA, setTrueA] = useState(false)
+    const router = useRouter()
+    
     useSession({
         required: true,
         onUnauthenticated() {
-            redirect('/')
+            router.push('/')
         }
     })
 

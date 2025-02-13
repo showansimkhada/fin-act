@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 import User, { IUSER } from '@/lib/utils/models/userModel';
 import { GetServerSideProps } from "next";
 import dbConnect from "@/lib/utils/conn/mongoose";
@@ -18,14 +18,15 @@ type Props = {
     bsData: IBS[]
 }
 
-export default function HomeDash({ userData, bsData }: Props) {
+export default function ({ userData, bsData }: Props) {
     const username = String(useSelector(lsUser));
     const [isClient, setIsClient] = useState(false);
+    const router = useRouter()
 
     useSession({
         required: true,
         onUnauthenticated() {
-            redirect('/');
+            router.push('/')
         }
     });
 

@@ -12,7 +12,7 @@ import { lsUser } from '@/lib/redux';
 import { GetServerSideProps } from "next";
 import React from 'react';
 import { useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Form, Table } from 'react-bootstrap';
@@ -25,10 +25,11 @@ type Props = {
 
 export default function BSpage( {bsData, userData}: Props) {
     const [isClient, setIsClient] = useState(false);
+    const router = useRouter()
     useSession({
         required: true,
         onUnauthenticated() {
-            redirect('/')
+            router.push('/')
         }
     })
     const username = String(useSelector(lsUser))

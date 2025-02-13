@@ -7,12 +7,10 @@ export async function middleware(req: NextRequest) {
   const isPathProtected = protectedPaths?.some((path) => pathname == path);
   const res = NextResponse.next();
   const token = await getToken({ req });
-  if (isPathProtected) {
-    if (!token) {
-      const url = new URL(`/`, req.url);
-      url.searchParams.set("callbackUrl", pathname);
-      return NextResponse.redirect(url);
-    }
+  if (isPathProtected && !token) {
+    const url = new URL(`/`, req.url);
+    url.searchParams.set("callbackUrl", pathname);
+    return NextResponse.redirect(url);
   }
   return res;
 }
