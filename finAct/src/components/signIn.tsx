@@ -4,7 +4,7 @@ import { signIn } from 'next-auth/react'
 import { dataSlice } from '@/lib/redux'
 import { useDispatch } from 'react-redux'
 import Image from 'next/image'
-import icon from "@/public/icon.ico"
+import logo from "@/public/logo.svg"
 
 export default function SignIn() {
   const [user, setUser] = useState('')
@@ -43,7 +43,7 @@ export default function SignIn() {
     <div className="d-flex align-items-center py-4 bg-body-tertiary text-center">
       <div className="form-signin w-100 m-auto">
         <form onSubmit={handleSubmit}>
-          <Image className='mb-4' src={icon} alt="favicon" width={64} height={64} />
+          <Image className='mb-4' src={logo} alt="logo" width={55} height={55} />
           <h1>Please Signin</h1>
           <div className="form-floating">
             <input className="form-control" type="text" id="username" name="username" autoCapitalize='none' onChange={(event)=> {
