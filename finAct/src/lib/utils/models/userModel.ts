@@ -1,6 +1,7 @@
-import { model, Schema, Document, models } from 'mongoose';
+import { model, Schema, Document, models, ObjectId } from 'mongoose';
 
 export interface IUSER extends Document {
+    _id: ObjectId,
     username: string,
     password: string,
     firstname: string,
