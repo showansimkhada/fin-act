@@ -1,6 +1,7 @@
-import { model, Schema, Document, models } from 'mongoose';
+import { model, Schema, Document, models, ObjectId } from 'mongoose';
 
 export interface IBS extends Document {
+    _id: ObjectId,
     username: string,
     year: Number,
     month: Number,
