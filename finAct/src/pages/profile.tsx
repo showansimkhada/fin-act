@@ -1,3 +1,4 @@
+'use client'
 import { useSession } from "next-auth/react";
 import Navbars from "@/components/navBar"
 import { useRouter } from "next/navigation";
@@ -12,36 +13,28 @@ type Props = {
     userData: IUSER[]
 }
 
-export default function Profile({userData}: Props) {
+export default function Profile ({userData}: Props) {
     const [isClient, setIsClient] = useState(false)
-    const [isTrueA, setTrueA] = useState(false)
     const router = useRouter()
-    
+
     useSession({
         required: true,
         onUnauthenticated() {
             router.push('/')
         }
     })
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
 
     const username = String(useSelector(lsUser))
     const dataUser = userData.filter((x) => {
         return x.username === username
-    })[0]
+    })
 
-    useEffect(() => {
-        setIsClient(true)
-        handleA()
-    }, [])
-
-    function handleA() {
-        setTrueA(!isTrueA)
-    }
-
-    if (isClient) {
-        return (
-            <>
-            <Navbars />
+    const profileJSX = (
+        <>
+        <Navbars />
             <div className="d-flex flex-column align-items-start justify-content-center mt-5 pt3">
                 <form action={`api/profile/?username=${username}&type=details`} method="post" className="border border-5 w-100">
                     <div className="d-flex flex-row">
@@ -53,11 +46,11 @@ export default function Profile({userData}: Props) {
                             <label className="mt-1">Partner's Last Name</label>
                         </div>
                         <div className="d-flex flex-column align-items-center justify-content-between align-content-between w-50">
-                            <input id="username" className="w-75" name="newUsername" required={true} placeholder={dataUser.username}></input>
-                            <input type="text" id="firstname" className="w-75" name="firstname" required={true} placeholder={dataUser.firstname}></input>
-                            <input type="text" id="lastname" className="w-75" name="lastname" required={true} placeholder={dataUser.lastname}></input>
-                            <input type="text" id="sfirstname" className="w-75" name="sfirstname" required={true} placeholder={dataUser.sfirstname}></input>
-                            <input type="text" id="slastname" className="w-75" name="slastname" required={true} placeholder={dataUser.slastname}></input>
+                            <input id="username" className="w-75" name="newUsername" required={true} placeholder={dataUser[0]?.username}></input>
+                            <input type="text" id="firstname" className="w-75" name="firstname" required={true} placeholder={dataUser[0]?.firstname}></input>
+                            <input type="text" id="lastname" className="w-75" name="lastname" required={true} placeholder={dataUser[0]?.lastname}></input>
+                            <input type="text" id="sfirstname" className="w-75" name="sfirstname" required={true} placeholder={dataUser[0]?.sfirstname}></input>
+                            <input type="text" id="slastname" className="w-75" name="slastname" required={true} placeholder={dataUser[0]?.slastname}></input>
                         </div>
                     </div>
                     <div className="d-flex flex-column w-100">
@@ -82,13 +75,14 @@ export default function Profile({userData}: Props) {
                     </div>
                 </form>
             </div>
-            </>
-        )
-    } else {
-        return (
-            <></>
-        )
-    }
+        </>
+    )
+
+    return (
+        <>
+        {isClient? profileJSX : ''}
+        </>
+    )
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {

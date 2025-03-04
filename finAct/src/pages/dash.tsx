@@ -9,8 +9,7 @@ import { formatDate, stringAmt, sumAmt } from '@/lib/funcPage';
 import BS, { IBS } from '@/lib/utils/models/bsModel';
 import { useSelector } from 'react-redux';
 import { lsUser } from '@/lib/redux';
-import { Form, Table } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Table } from 'react-bootstrap';
 import Navbars from "@/components/navBar";
 
 type Props = {
@@ -108,11 +107,7 @@ export default function ({ userData, bsData }: Props) {
                                         <td>{x.openingBalance.toString()}</td>
                                         <td>{x.closingBalance.toString()}</td>
                                         <td>{x.weeklySpent.toString()}</td>
-                                        <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
-                                            <Form action={`api/bs/?type=deleteD&id=${x._id}`} method='post'>
-                                                <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
-                                            </Form>
-                                        </td>
+                                        <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}</td>
                                     </tr>
                                 ))}
                             </tbody>

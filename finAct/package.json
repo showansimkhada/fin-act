@@ -10,7 +10,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "next",
+    "dev": "next --turbopack",
     "build": "next build",
     "start": "next start"
   },
@@ -29,7 +29,7 @@
     "latest": "^0.2.0",
     "local-storage": "^2.0.0",
     "mongoose": "^8.9.5",
-    "next": "^15.1.4",
+    "next": "^15.2.1",
     "next-auth": "^4.24.11",
     "node": "^23.5.0",
     "react": "^19.0.0",

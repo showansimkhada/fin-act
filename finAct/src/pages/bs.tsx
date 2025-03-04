@@ -1,6 +1,3 @@
-// Bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css'
-
 import Navbars from "@/components/navBar"
 
 import BS, { IBS } from '@/lib/utils/models/bsModel'
@@ -15,15 +12,14 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Form, Table } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Table } from 'react-bootstrap';
 
 type Props = {
     bsData: IBS[] ,
     userData: IUSER[]
 }
 
-export default function BSpage( {bsData, userData}: Props) {
+export default function( {bsData, userData}: Props) {
     const [isClient, setIsClient] = useState(false);
     const router = useRouter()
     useSession({
@@ -72,11 +68,7 @@ export default function BSpage( {bsData, userData}: Props) {
                       <td>{x.openingBalance.toString()}</td>
                       <td>{x.closingBalance.toString()}</td>
                       <td>{x.weeklySpent.toString()}</td>
-                      <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}
-                          <Form action={`api/bs/?type=delete&id=${x._id}`} method='post'>
-                              <button className='border-0 bg-transparent'><FontAwesomeIcon type='submit' icon='trash' color='red'/></button>
-                          </Form>
-                      </td>
+                      <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}</td>
                   </tr>
                     )): ''}
                 </tbody>

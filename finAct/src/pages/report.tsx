@@ -1,6 +1,3 @@
-// Bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css'
-
 import Navbars from "@/components/navBar"
 
 import BS, { IBS } from '@/lib/utils/models/bsModel'
@@ -52,7 +49,7 @@ type Props = {
     userData: IUSER[]
 }
 
-export default function Report( {bsData, userData}: Props) {
+export default function( {bsData, userData}: Props) {
     const [isClient, setIsClient] = useState(false);
     const [filter, setFilter] = useState(0);
     const router = useRouter()
@@ -330,21 +327,18 @@ export default function Report( {bsData, userData}: Props) {
                 <div id="chartLine" style={{marginTop: '55px'}}>
                     {isClient? checkfilter(): ''}
                     <div className="d-flex align-items-end" style={{marginLeft: '2.5%', marginRight: '2.5%'}}>
-                    <input className="w-50" type='button' value='Monthly' onClick={() => {
-                        setFilter(2);
-                    }}/>
-                    <input className="w-50" type='button' value='Yearly' onClick={() => {
-                        setFilter(1);
-                    }}/>
-                    <input className="w-50" type='button' value='Fiscal Year' onClick={() => {
-                        setFilter(3);
-                    }}/>
-                </div>
+                        <input className="w-50" type='button' value='Monthly' onClick={() => {
+                            setFilter(2);
+                        }}/>
+                        <input className="w-50" type='button' value='Yearly' onClick={() => {
+                            setFilter(1);
+                        }}/>
+                        <input className="w-50" type='button' value='Fiscal Year' onClick={() => {
+                            setFilter(3);
+                        }}/>
+                    </div>
                 </div>
             </div>
-            <footer>
-                
-            </footer>
         </>
     )
 }
