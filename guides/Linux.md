@@ -1,69 +1,86 @@
-# Linux Installation on MacBook pro with T2 chip
+# Arch Linux Installation on MacBook pro with T2 chip (18 April 2025).
 
 ## Introduction
 This guide provides an instructions to install the Linux on the Mac system using the partition to boot to the Linux OS.
 
 ## Table of Contents
 1. [Disable security, download Linux and Create Partitions](#disable-security-download-linux-and-create-partitions)
-2. [Install brew and QEMU](#install-brew-and-qemu)
-3. [Create a LIVE ISO boot partition](#create-a-live-iso-boot-partition)
-4. [Edit the grub configuration file](#edit-the-grub-configuration-file)
-5. [Boot into the LIVE ISO and connect to WLAN](#boot-into-the-live-iso-and-connect-to-wlan)
-6. [Follow the guides for the your specific Linux Distros until to reboot your system](https://wiki.t2linux.org/distributions/overview/)
-7. [Copy the network files](#copy-the-network-files)
+2. [Install VM and create a LIVE ISO boot partition](#install-vm-and-create-a-live-iso-boot-partition)
+2. [Edit the grub configuration file](#edit-the-grub-configuration-file)
+4. [Connect to WLAN](#connect-to-wlan)
+5. [Follow the guides from t2linux and Arch Linux wiki](#follow-the-guides-from-t2linux-and-arch-linux-wiki)
+6. [Edit the grub.cfg to boot to Linux System](#edit-the-grubcfg-to-boot-to-linux-system)
+6. [Configure the network](#configure-the-network)
 
 ## Disable security, download Linux and Create Partitions
-If your are in your MacOS system now go to the setting and go to the privacy and security and turn off the File Vault and Encryption.
+Download the ISO file for you Linux Distribution as I have done this for Arch Linux. Rename that file to "arch".
+<hr>
+Open the diskutility and select the partition.
+<hr>
+<table>
+    <head>
+        <tr>
+            <td>No</td>
+            <td>Label</td>
+            <td>Size</td>
+            <td>File system (Format type)</td>
+        </tr>
+    </head>
+    <body>
+        <tr>
+            <td>1.</td>
+            <td>Arch</td>
+            <td>2.5 GB min</td>
+            <td>MS-DOS(FAT)</td>
+        </tr>
+        <tr>
+            <td>2.</td>
+            <td>Linux</td>
+            <td>50 GB min</td>
+            <td>*</td>
+        </tr>
+        <tr>
+            <td>3.</td>
+            <td>SWAP</td>
+            <td>4 GB min.</td>
+            <td>*</td>
+        </tr>
+    </body>
+</table>
+Note * it doesn't matter which format method you use for 2 and 3.
+<hr>
 
-Download the ISO file for you Linux Distribution as I have done this for Arch Linux. Rename that file to "Linux" or "Arch".
-
-Create a partition for the EFI BOOT drive and give it a size of around 2.5 GB. Now format that drive to a Fat system or run the below command in terminal:
-sudo diskutil eraseVolume FAT32 "BOOT" /dev/XXXXXX
-
-Copy the ISO image file to the boot directory.
-
-Create a root partition for the Linux system and format it with ExFat system.
+Copy the ISO image file to the Arch volume.
 
 [Go to table of contents](#table-of-contents)
 
-## Install brew and QEMU
-We are installing the QEMU VM for macOS which I think was the most effective but later I think you can choose any one of the VM that you are used to.
+## Install VM and create a Live ISO boot partition
+In this process it is not required to connect to the internet. Select the iso file you downloaded earlier and pass the boot drive in the VM.
 
-Lauch the VM with the disk image and pass the boot disk only.
-
-The command to run for the QEMU is
-sudo qemu-system-x86_64 \
--accel hvf \
--cpu Penryn \
--m 4G \
--smp 4 \
--boot d \
--drive file=/users/showansimkhada/downloads/name,media=cdrom \
--drive file=/dev/XXXX,if=virtio,format=raw \
--drive file=/usr/local/opt/qemu/share/qemu/edk2-x86_64-code.fd,if=pflash,readonly=on \
--vga std
-
-[Go to table of contents](#table-of-contents)
-
-## Create a Live ISO boot partition
 Once you are in the installation process run the following commands
-loadkeys us
-timedatectl list-timezones
-timedatectl set-timezone "Your time zone from above"
+<hr>
 lsblk -l
+<hr>
 mount /dev/XXXXX /mnt
+<hr>
 ls /mnt  # to track what's there
+<hr>
 mkdir /mnt/iso
-sudo mount -o loop /path/to/file /mnt/iso
+<hr>
+mount -o loop /path/to/file /mnt/iso
+<hr>
 cp -r /mnt/iso/* /mnt/
-ls -l /mnt  #verify all files are copied
+<hr>
+ls -l /mnt  # verify all files are copied
+<hr>
 
 [Go to table of contents](#table-of-contents)
 
 ## Edit the grub configuration file
 vim /mnt/boot/boot/grub/grub.cfg
+<hr>
 i # to edit the configuration file
-
+<hr>
 Go to the menuentry section and look for the word with search now make sure all are as below:
 <hr>
 search —no-floppy —set=root --label BOOT
@@ -77,25 +94,16 @@ linux (loop)/arch/boot/x86_64/vmlinuz-linux-t2 img_dev=LABEL=BOOT img_loop=/arch
 initrd (loop)/arch/boot/intel-ucode.img (loop)/arch/boot/x86_64/initramfs-linux-t2.img
 <hr>
 
-You can remove all the menuentries below this
+Press Ctrl+c and enter :wq to write and exit
 
-Press ctrl+c and enter :wq to write and exit
+Verify that by removing the ISO file from the command you passed earlier and just pass the disk labeled ARCH to verify that we can boot from the IOS file.
 
-Well done you have successfully created a Live ISO partition.
-
-Verify that by removing the ISO file from the command you passed earlier and just pass the boot partition.
-
-Ther should be a GRUB 2 Bootloader.
+Now, reboot your mac and hold Command + R to go into recovery mode.
+Now login and select the Startup Utility and select Low security and allow boot from removable device, and external hard drives. Verify again by repeating the process to verify that you hace choosed the low security and allowed boot from removable drives and external hard drives.
 
 [Go to table of contents](#table-of-contents)
 
-## Boot into the LIVE ISO and connect to WLAN
-
-Reboot your mac and hold Command + R to go into recovery mode.
-Now login and select the Startup Utility and select Low security and allow boot from removable device, and external hard drives.
-
-Run the following commands
-<hr>
+## Connect to WLAN
 iwctl
 <hr>
 [iwd#] station list
@@ -108,24 +116,82 @@ iwctl
 <hr>
 Passphrase: enter the passphrase
 <hr>
-ping archlinux.org
+[iwd#] known-networks SSIDNAME set-property AutoConnect yes
 <hr>
+q # to exit
+<hr>
+ping archlinux.org # to verify we are connected
+
+
+## Follow the guides from t2linux and Arch Linux wiki.
+
 lsblk
 <hr>
-mkfs.ext4 /dev/XXXXXX
+we are formatting the remaining two
+<table>
+    <head>
+        <tr>
+            <td>No</td>
+            <td>Label</td>
+            <td>Run Command</td>
+        </tr>
+    </head>
+    <body>
+        <tr>
+            <td>1.</td>
+            <td>Linux</td>
+            <td>mkfs.ext4 /dev/nvme0xxxx</td>
+        </tr>
+        <tr>
+            <td>2.</td>
+            <td>SWAP</td>
+            <td>mkswap /dev/nvme0xxxx</td>
+        </tr>
+    </body>
+</table>
 <hr>
-tune2fs -L "Linux" /dev/XXXXX
+blkid # to verify all the labels are correct for each partitions
 <hr>
-tune2fs -L "BOOT" /dev/XXXX
-[Top table of contents](#table-of-contents)
+If your patition missed label except swap partition use the following command to give it a label
+<hr>
+tune2fs -L "LABEL" /dev/XXXXX # replace LABEL with your label name
 
-## Follow the guides for the your specific Linux Distros until to reboot your system
-Before you follow don't run grub-install.
-Go to the this site to follow the instructions and skip the steps up to the install essential pacakages and before exit the chomode follow the below instructions. 
-Don't run grub-install.
+[Follow this guide to connect to internet](#boot-into-the-live-iso-and-connect-to-wlan)
 
-## Copy the network files
-exit
+Skip the step make partition and grub-install as we already have the bootx64.efi. Also include the <b>intel-ucode</b> and vim with <b>t2strap</b> command.
+
+[Go to the first site to make sure your are doing what are exactly required](https://wiki.t2linux.org/distributions/arch/installation/).
+
+[Follow this one to install to install the Arch Linux](https://wiki.archlinux.org/title/Installation_guide)
+
+## Edit the grub.cfg to boot to Linux System
+Login to you macOS.
+Mount the Arch drive and goto the both folders(/boot/boot/grub/grub.cfg and boot/grub/grub.cfg) and open both grub.cfg files with text edit. Now copy the menueentry from second folder .cfg file and paste it into the first .cfg file remember not to overwrite all the texts we need the ISO Live boots for the later if we need to do troubleshootings.
+
+Make sure the file of /efi/boot/bootx64.efi have a file size of around 6 - 7 MB.
+
+## Configure the network
+If not connected to the internet follow the step [Connect to wan](#connect-to-wlan).
+<hr>
+systemctl status iwd # if service is not started
+<hr>
+systemctl start iwd
+<hr>
+systemctl enable iwd # auto start when we reboot every time.
+<hr>
+
+Now let's configure some settings.
+
+<hr>
+vim /etc/iwd/main.conf
+<hr>
+add this line to the main.conf file
+<hr>
+[General]
+
+EnableNetworkConfiguration=true
+<hr>
+exit the chroot and copy the network files from live ISO to your linux system
 <hr>
 cp -r /etc/systemd/network/* /mnt/etc/systemd/network/*
 <hr>
@@ -137,23 +203,8 @@ passwd username
 <hr>
 enter the password for your username
 <hr>
-make sure you have created a user before you start any desktop manager.
+reboot
 <hr>
-
-## Edit the grub configuration file to boot to the Linux system
-Login to you macOS.
-Your boot device is mounted in the system and goto the folders and open both grub.cfg files from the both location. Remember we are editing for the /boot/boot/grub/grub.cfg
-
-Make sure the file of /efi/boot/bootx64.efi have a file size of around 6 - 7 MB.
-
-Now copy the first menuentry from /boot/grub/grub.cfg and paste it 
-into the file /boot/boot/grub/grub.cfg 
-In this file you can remove any other unneeded entries.
-
-To confirm it's running run it into the VM's and make some changes if required. Always remember /EFI/BOOT/
-
-Now it will be easy if you do this by using VM and don't run any grub commands (grub-mkconfig or grub-install) when you are in VM.
-
-Misson completed
+You should be able to login to the Linux System now.
 
 Thanks
