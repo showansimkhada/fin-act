@@ -1,21 +1,24 @@
-# Arch Linux Installation on MacBook pro with T2 chip (18 April 2025).
+# Install Kali Linux on MacBook Pro with T2 chip without external keyboard, mouse and usb (4 May 2025).
 
 ## Introduction
-This guide provides an instructions to install the Linux on the Mac system using the partition to boot to the Linux OS.
+This guide provides an instructions to install the Linux on the Macbook Pro with T2 chip with out external keyboard, mouse and usb.
 
 ## Table of Contents
-1. [Disable security, download Linux and Create Partitions](#disable-security-download-linux-and-create-partitions)
-2. [Install VM and create a LIVE ISO boot partition](#install-vm-and-create-a-live-iso-boot-partition)
-2. [Edit the grub configuration file](#edit-the-grub-configuration-file)
-4. [Connect to WLAN](#connect-to-wlan)
-5. [Follow the guides from t2linux and Arch Linux wiki](#follow-the-guides-from-t2linux-and-arch-linux-wiki)
-6. [Edit the grub.cfg to boot to Linux System](#edit-the-grubcfg-to-boot-to-linux-system)
-6. [Configure the network](#configure-the-network)
+1. [Disable security, download Kali Linux and Create Partitions](#disable-security-download-linux-and-create-partitions)
+2. [Install QEMU VM and boot into the Live System](#2-install-qemu-vm-and-boot-into-the-live-system)
+3. [Select Start Installer](#3-select-start-installer)
+4. [Adding Linux Kernel for T2](#4-adding-linux-kernel-for-t2)
+5. [Install WIFI and Bluetooth firmware](#5-install-wifi-and-bluetooth-firmware)
+6. [Edit fstab, grub.cfg and add kernel parameters](#6-edit-fstab-grubcfg-and-add-kernel-parameters)
 
-## Disable security, download Linux and Create Partitions
-Download the ISO file for you Linux Distribution as I have done this for Arch Linux. Rename that file to "arch".
+
+## 1. Disable security, download Kali Linux and Create Partitions
+Download the ISO file for [Kali Linux](#https://www.kali.org/get-kali/#kali-live).Get the [WIFI and Bluetooth drivers](#https://wiki.t2linux.org/guides/wifi-bluetooth/).
+
 <hr>
-Open the diskutility and select the partition.
+Open the diskutility and create the required partitions.
+
+If you need a separate BOOT and EFI partitions create 3 partitions as follow.
 <hr>
 <table>
     <head>
@@ -29,14 +32,14 @@ Open the diskutility and select the partition.
     <body>
         <tr>
             <td>1.</td>
-            <td>Arch</td>
-            <td>2.5 GB min</td>
+            <td>BOOT</td>
+            <td>1 GB</td>
             <td>MS-DOS(FAT)</td>
         </tr>
         <tr>
             <td>2.</td>
-            <td>Linux</td>
-            <td>50 GB min</td>
+            <td>LINUX</td>
+            <td>Allocate min size as required by your distros.</td>
             <td>*</td>
         </tr>
         <tr>
@@ -47,164 +50,222 @@ Open the diskutility and select the partition.
         </tr>
     </body>
 </table>
-Note * it doesn't matter which format method you use for 2 and 3.
-<hr>
 
-Copy the ISO image file to the Arch volume.
-
-[Go to table of contents](#table-of-contents)
-
-## Install VM and create a Live ISO boot partition
-In this process it is not required to connect to the internet. Select the iso file you downloaded earlier and pass the boot drive in the VM.
-
-Once you are in the installation process run the following commands
+You can do this with a single partiton as well if you are using dual boot with macOS.
 <hr>
-lsblk -l
-<hr>
-mount /dev/XXXXX /mnt
-<hr>
-ls /mnt  # to track what's there
-<hr>
-mkdir /mnt/iso
-<hr>
-mount -o loop /path/to/file /mnt/iso
-<hr>
-cp -r /mnt/iso/* /mnt/
-<hr>
-ls -l /mnt  # verify all files are copied
-<hr>
-
-[Go to table of contents](#table-of-contents)
-
-## Edit the grub configuration file
-vim /mnt/boot/boot/grub/grub.cfg
-<hr>
-i # to edit the configuration file
-<hr>
-Go to the menuentry section and look for the word with search now make sure all are as below:
-<hr>
-search —no-floppy —set=root --label BOOT
-<hr>
-set iso_path=/arch/x86_64/airootfs.sfs
-<hr>
-loopback loop /arch.iso
-<hr>
-linux (loop)/arch/boot/x86_64/vmlinuz-linux-t2 img_dev=LABEL=BOOT img_loop=/arch.iso archisobasedir=arch quite splash intel_iommu=on iommu=pt pcie_ports=compat
-<hr>
-initrd (loop)/arch/boot/intel-ucode.img (loop)/arch/boot/x86_64/initramfs-linux-t2.img
-<hr>
-
-Press Ctrl+c and enter :wq to write and exit
-
-Verify that by removing the ISO file from the command you passed earlier and just pass the disk labeled ARCH to verify that we can boot from the IOS file.
-
-Now, reboot your mac and hold Command + R to go into recovery mode.
-Now login and select the Startup Utility and select Low security and allow boot from removable device, and external hard drives. Verify again by repeating the process to verify that you hace choosed the low security and allowed boot from removable drives and external hard drives.
-
-[Go to table of contents](#table-of-contents)
-
-## Connect to WLAN
-iwctl
-<hr>
-[iwd#] station list
-<hr>
-[iwd#] station wlan* scan
-<hr>
-[iwd#] station wlan* get-networks
-<hr>
-[iwd#] station wlan* connect SSIDNAME
-<hr>
-Passphrase: enter the passphrase
-<hr>
-[iwd#] known-networks SSIDNAME set-property AutoConnect yes
-<hr>
-q # to exit
-<hr>
-ping archlinux.org # to verify we are connected
-
-
-## Follow the guides from t2linux and Arch Linux wiki.
-
-lsblk
-<hr>
-we are formatting the remaining two
 <table>
     <head>
         <tr>
             <td>No</td>
             <td>Label</td>
-            <td>Run Command</td>
+            <td>Size</td>
+            <td>File system (Format type)</td>
         </tr>
     </head>
     <body>
         <tr>
             <td>1.</td>
-            <td>Linux</td>
-            <td>mkfs.ext4 /dev/nvme0xxxx</td>
-        </tr>
-        <tr>
-            <td>2.</td>
-            <td>SWAP</td>
-            <td>mkswap /dev/nvme0xxxx</td>
+            <td>LINUX</td>
+            <td>Allocate min size as required by your distros.</td>
+            <td>*</td>
         </tr>
     </body>
 </table>
-<hr>
-blkid # to verify all the labels are correct for each partitions
-<hr>
-If your patition missed label except swap partition use the following command to give it a label
-<hr>
-tune2fs -L "LABEL" /dev/XXXXX # replace LABEL with your label name
 
-[Follow this guide to connect to internet](#boot-into-the-live-iso-and-connect-to-wlan)
-
-Skip the step make partition and grub-install as we already have the bootx64.efi. Also include the <b>intel-ucode</b> and vim with <b>t2strap</b> command.
-
-[Go to the first site to make sure your are doing what are exactly required](https://wiki.t2linux.org/distributions/arch/installation/).
-
-[Follow this one to install to install the Arch Linux](https://wiki.archlinux.org/title/Installation_guide)
-
-## Edit the grub.cfg to boot to Linux System
-Login to you macOS.
-Mount the Arch drive and goto the both folders(/boot/boot/grub/grub.cfg and boot/grub/grub.cfg) and open both grub.cfg files with text edit. Now copy the menueentry from second folder .cfg file and paste it into the first .cfg file remember not to overwrite all the texts we need the ISO Live boots for the later if we need to do troubleshootings.
-
-Make sure the file of /efi/boot/bootx64.efi have a file size of around 6 - 7 MB.
-
-## Configure the network
-If not connected to the internet follow the step [Connect to wan](#connect-to-wlan).
-<hr>
-systemctl status iwd # if service is not started
-<hr>
-systemctl start iwd
-<hr>
-systemctl enable iwd # auto start when we reboot every time.
+Note * it doesn't matter which format method you use.
 <hr>
 
-Now let's configure some settings.
+[Go to table of contents](#table-of-contents)
+
+## 2. Install QEMU VM and boot into the Live System
+Choose either brew or ports to install QEMU. You can follow this [link](#https://www.qemu.org/download/#macos) to install QEMU.
+
+The command to run the QEMU VM is as follow if it didn't work please go to this [site](#https://www.qemu.org) for more information. Add the command -drive file=/dev/diskXXX,if=virtio,format=raw \ per partitions.
+
+sudo qemu-system-x86_64 \
+-accel hvf \
+-cpu Penryn \
+-m 4G \
+-smp 4 \
+-boot d \
+-drive file=/users/showan/Desktop/Linux/kali.iso,media=cdrom \
+-drive file=/dev/diskXXX,if=virtio,format=raw \
+-drive file=/usr/local/opt/qemu/share/qemu/edk2-x86_64-code.fd,if=pflash,readonly=on \
+-vga std
+
+** Note you need to pass the EFI partition of your mac if you did not create separate BOOT partition.
+
+Select live system and run the following commands in the terminal.
 
 <hr>
-vim /etc/iwd/main.conf
-<hr>
-add this line to the main.conf file
-<hr>
-[General]
+<table>
+    <head>
+        <tr>
+            <td>Commands</td>
+            <td>Info</td>
+        </tr>
+    </head>
+    <body>
+        <tr>
+            <td>lsblk -f</td>
+            <td>List all avialable disks</td>
+        </tr>
+        <tr>
+            <td>mkfs.ext4 /dev/XXXX</td>
+            <td>Creating a root partiton.</td>
+        </tr>
+        <tr>
+            <td>tune2fs -L LINUX /dev/XXX</td>
+            <td>Labeling the root system</td>
+        </tr>
+        <tr>
+            <td>mkswap /dev/XXXX</td>
+            <td>If you have choose partition to create swap partition</td>
+        </tr>
+        <tr>
+            <td>lsblk -f</td>
+            <td>Make sure all partition as listed as you have created for your LINUX system</td>
+        </tr>
+    </body>
+</table>
 
-EnableNetworkConfiguration=true
-<hr>
-exit the chroot and copy the network files from live ISO to your linux system
-<hr>
-cp -r /etc/systemd/network/* /mnt/etc/systemd/network/*
-<hr>
-check all the required kernals are in the /mnt/boot folder
-<hr>
-sudo useradd -m username #-m is to create the home directory
-<hr>
-passwd username
-<hr>
-enter the password for your username
-<hr>
-reboot
-<hr>
-You should be able to login to the Linux System now.
+[Go to table of contents](#table-of-contents)
 
-Thanks
+## 3. Select Start Installer
+Continue until Partition Disks appear in the steps. Now select the manual and the result could be as follows
+<table>
+    <head>
+        <tr>
+            <th>Virtual disk 1 (vda) -***MB Virtio Device Block</th>
+            <td>Size</td>
+            <td>File system</td>
+        </tr>
+    </head>
+    <body>
+        <tr>
+            <td>#1</td>
+            <td>***</td>
+            <td>fat32</td>
+        </tr>
+    </body>
+</table>
+
+<table>
+    <head>
+        <tr><th>Virtual disk 2 (vdb) -***GB Virtio Device Block</th></tr>
+    </head>
+    <body>
+        <tr>
+            <td>#1</td>
+            <td>***</td>
+            <td>swap</td>
+        </tr>
+    </body>
+</table>
+
+<table>
+    <head>
+        <tr><th>Virtual disk 3 (vdc) -***GB Virtio Device Block</th></tr>
+    </head>
+    <body>
+        <tr>
+            <td>#1</td>
+            <td>***</td>
+            <td>ext4</td>
+        </tr>
+    </body>
+</table>
+
+Now select the each file system either fat32, swap or ext4 and select use as option and select correct file system for each partition and select mount point as /boot/efi and / for fat32 and ext4 respectively then select finish partitioning and write changes to disk and start Install the system. Reboot and boot into the Kali GNU/Linux GNU/Linux.
+
+[Go to table of contents](#table-of-contents)
+
+## 4. Adding Linux Kernel for T2
+Follow the steps Adding the Common apt repo and Adding the Release specific apt repo and use CODENAME=testing from this [link](#https://github.com/AdityaGarg8/t2-ubuntu-repo?tab=readme-ov-file#apt-repository-for-t2-macs).
+
+Now run the command
+
+sudo apt install linux-t2 apple-t2-audio-config
+
+[Go to table of contents](#table-of-contents)
+
+## 5. Install WIFI and Bluetooth firmware
+Follow the steps from this [link](#https://wiki.t2linux.org/guides/wifi-bluetooth/).
+
+[Go to table of contents](#table-of-contents)
+
+## 6. Edit fstab, grub.cfg and add kernel parameters
+Run the command in macOS terminal 
+
+diskutil list
+
+Now identify your partitions number by your allocated sizes is it's disk0s1 then replace the nvme0n1p[X] by 1 that is nvme0n1p1. Do this for each partition that you have created.
+
+Edit the fstab and replacing /dev/XXX by nvme0n1pX where XXX and X varies for each partition.
+
+sudo vim /etc/fstab
+
+Look for the lines and press i
+<table>
+    <head>
+        <tr>
+            <td>Previous Line</td>
+            <td>After Edit</td>
+            <td>Next Line</td>
+        </tr>
+    </head>
+    <body>
+        <tr>
+            <td># / was on /dev/XXX during installation</td>
+            <td># / was on /dev/nvme0n1pX during installation</td>
+            <td>UUID=XXXXXXXXXXXXXXXXXX /               ext4    errors=remount-ro 0       1</td>
+        </tr>
+        <tr>
+            <td># /boot/efi was on /dev/XXX during installation</td>
+            <td># /boot/efi was on /dev/nvme0n1pX during installation</td>
+            <td>UUID=XXXXXXXX /boot/efi           vfat    defaults        0       2</td>
+        </tr>
+        <tr>
+            <td># swap was on /dev/XXX during installation</td>
+            <td># swap was on /dev/nvme0n1pX during installation</td>
+            <td>UUID=XXXXXXXXX            swap    sw              0       0</td>
+        </tr>
+    </body>
+</table>
+
+Remove the lines if it exists in fstab
+/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+/dev/sr1        /media/cdrom1   udf,iso9660 user,noauto     0       0
+
+Once you have done this press escape and follow the following to save and exit the vim
+
+:wq
+
+Now let's confirm our folder structure for the /boot/efi. The folder structure should look like this as follow
+
+<table>
+    <head>
+        <tr>
+            <td>Command</td>
+            <td>Output</td>
+        </tr>
+    </head>
+    <body>
+        <tr>
+            <td>ls /boot/efi</td>
+            <td>boot efi grub</td>
+        </tr>
+    </body>
+</table>
+
+Now edit the grub.cfg using sudo vim /boot/efi/boot/grub/grub.cfg.
+
+Add the kernel parameters for in the line that begins with
+
+linux	/boot/vmlinuz-6.14.4-1-t2-trixie root=UUID=XXXXXXXXX ro
+
+add line at the end of the line above by pressing i
+
+intel_iommu=on iommu=pt pcie_ports=native quiet splash
+
+now press esc and write :wq to save and exit.
