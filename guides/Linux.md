@@ -4,12 +4,14 @@
 This guide provides an instructions to install the Linux on the Macbook Pro with T2 chip with out external keyboard, mouse and usb.
 
 ## Table of Contents
-1. [Disable security, download Kali Linux and Create Partitions](#disable-security-download-linux-and-create-partitions)
+1. [Disable security, download Kali Linux and Create Partitions](#1-disable-security-download-kali-linux-and-create-partitions)
 2. [Install QEMU VM and boot into the Live System](#2-install-qemu-vm-and-boot-into-the-live-system)
 3. [Select Start Installer](#3-select-start-installer)
 4. [Adding Linux Kernel for T2](#4-adding-linux-kernel-for-t2)
 5. [Install WIFI and Bluetooth firmware](#5-install-wifi-and-bluetooth-firmware)
-6. [Edit fstab, grub.cfg and add kernel parameters](#6-edit-fstab-grubcfg-and-add-kernel-parameters)
+6. [Edit fstab](#6-edit-fstab)
+7. [Folder structure of directory /boot/efi](#7-folder-structure-of-directory-bootefi)
+8. [Edit grub.cfg at directory /boot/efi/boot/grub](#edit-grubcfg-at-directory-bootefibootgrub)
 
 
 ## 1. Disable security, download Kali Linux and Create Partitions
@@ -185,7 +187,7 @@ Follow the steps Adding the Common apt repo and Adding the Release specific apt 
 
 Now run the command
 
-sudo apt install linux-t2 apple-t2-audio-config
+    sudo apt install linux-t2 apple-t2-audio-config
 
 [Go to table of contents](#table-of-contents)
 
@@ -194,16 +196,16 @@ Follow the steps from this [link](#https://wiki.t2linux.org/guides/wifi-bluetoot
 
 [Go to table of contents](#table-of-contents)
 
-## 6. Edit fstab, grub.cfg and add kernel parameters
+## 6. Edit fstab
 Run the command in macOS terminal 
 
-diskutil list
+    diskutil list
 
 Now identify your partitions number by your allocated sizes is it's disk0s1 then replace the nvme0n1p[X] by 1 that is nvme0n1p1. Do this for each partition that you have created.
 
 Edit the fstab and replacing /dev/XXX by nvme0n1pX where XXX and X varies for each partition.
 
-sudo vim /etc/fstab
+    sudo vim /etc/fstab
 
 Look for the lines and press i
 <table>
@@ -233,39 +235,95 @@ Look for the lines and press i
     </body>
 </table>
 
-Remove the lines if it exists in fstab
-/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
-/dev/sr1        /media/cdrom1   udf,iso9660 user,noauto     0       0
+Remove the lines below if it exists in fstab
+    
+    /dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+    /dev/sr1        /media/cdrom1   udf,iso9660 user,noauto     0       0
 
-Once you have done this press escape and follow the following to save and exit the vim
+Once you have done this press 
+    
+    esc
+    :wq
 
-:wq
+[Go to table of contents](#table-of-contents)
 
-Now let's confirm our folder structure for the /boot/efi. The folder structure should look like this as follow
-
+## 7. Folder structure of directory /boot/efi
+This folder structure is for the EFI partition of macOS if you have separate /boot/efi partition ignore the APPLE folder rest should be similar. If not move the required folders to the specific directory. Please run ls and commands as listed in the following tables.
 <table>
-    <head>
-        <tr>
-            <td>Command</td>
-            <td>Output</td>
-        </tr>
-    </head>
-    <body>
-        <tr>
-            <td>ls /boot/efi</td>
-            <td>boot efi grub</td>
-        </tr>
-    </body>
+    <tr>
+        <th>/boot/efi</th>
+        <th>/boot/efi/boot</th>
+        <th>/boot/efi/boot/grub</th>
+    </tr>
+    <tr>
+        <td>boot</td>
+        <td>grub</td>
+        <td>grub.cfg</td>
+    </tr>
+    <tr>
+        <td>EFI</td>
+    </tr>
+    <tr>
+        <td>grub</td>
+    <tr>
+    <tr>
+        <td>NvVars</td>
+    </tr>
+</table>
+All boot files should be in this directory. If BOOT directroy doesn't exists and other exists rename to BOOT.
+<table>
+    <tr>
+        <th>/boot/efi/EFI</th>
+        <th>/boot/efi/EFI/BOOT</th>
+    </tr>
+    <tr>
+        <td>BOOT</td>
+        <td>bootx64.efi</td>
+    </tr>
+    <tr>
+        <td>APPLE</td>
+    </tr>
+</table>
+All tools required for the grub should be in this grub directory.
+<table>
+    <tr>
+        <th>/boot/efi/grub</th>
+    </tr>
+    <tr>
+        <td>fonts</td>
+    </tr>
+    <tr>
+        <td>grubenv</td>
+    </tr>
+    <tr>
+        <td>locale</td>
+    </tr>
+    <tr>
+        <td>themes</td>
+    </tr>
+    <tr>
+        <td>unicode.pf2</td>
+    </tr>
+    <tr>
+        <td>x86_64-efi</td>
+    </tr>
 </table>
 
-Now edit the grub.cfg using sudo vim /boot/efi/boot/grub/grub.cfg.
+[Go to table of contents](#table-of-contents)
 
-Add the kernel parameters for in the line that begins with
+## Edit grub.cfg at directory /boot/efi/boot/grub
+Edit the grub.cfg by running the following command
 
-linux	/boot/vmlinuz-6.14.4-1-t2-trixie root=UUID=XXXXXXXXX ro
+    sudo vim /boot/efi/boot/grub/grub.cfg
 
-add line at the end of the line above by pressing i
+Find the similar line below
 
-intel_iommu=on iommu=pt pcie_ports=native quiet splash
+	linux	/boot/vmlinuz-x.x.x-x-t2-trixie root=UUID=XXXXXXXXXXXXX ro components
 
-now press esc and write :wq to save and exit.
+Press i and make the above line as
+
+	linux	/boot/vmlinuz-x.x.x-x-t2-trixie root=UUID=XXXXXXXXXXXXX ro intel_iommu=on iommu=pt pcie_ports=native quiet splash
+
+Reboot the system and check it in QEMU VM to verify every thing works.
+
+[Go to table of contents](#table-of-contents)
