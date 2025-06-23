@@ -1,7 +1,7 @@
-# Install Kali Linux on MacBook Pro with T2 chip without external keyboard, mouse and usb (4 May 2025).
+# Install Kali Linux on MacBook Pro with T2 chip without external keyboard, mouse and USB (4 May 2025).
 
 ## Introduction
-This guide provides an instructions to install the Linux on the Macbook Pro with T2 chip with out external keyboard, mouse and usb.
+This guide provides instructions to install Linux on the MacBook Pro with T2 chip without an external keyboard, mouse or USB.
 
 ## Table of Contents
 1. [Disable security, download Kali Linux and Create Partitions](#1-disable-security-download-kali-linux-and-create-partitions)
@@ -15,12 +15,14 @@ This guide provides an instructions to install the Linux on the Macbook Pro with
 
 
 ## 1. Disable security, download Kali Linux and Create Partitions
-Download the ISO file for [Kali Linux](#https://www.kali.org/get-kali/#kali-live).Get the [WIFI and Bluetooth drivers](#https://wiki.t2linux.org/guides/wifi-bluetooth/).
+If you have already selected no security and allowed to boot from a removable device by holding the keys command+R, you are good to go; else, you can do it later when you reboot your system.
+
+Download the Kali ISO file from https://www.kali.org/get-kali/#kali-live. Get and install WiFi and Bluetooth drivers following the instructions from this link: https://wiki.t2linux.org/guides/wifi-bluetooth/.
 
 <hr>
-Open the diskutility and create the required partitions.
-
-If you need a separate BOOT and EFI partitions create 3 partitions as follow.
+Open the Disk Utility and create the required partitions.
+G
+If you need a separate BOOT and EFI partitions, create 3 partitions as follows.
 <hr>
 <table>
     <head>
@@ -53,7 +55,7 @@ If you need a separate BOOT and EFI partitions create 3 partitions as follow.
     </body>
 </table>
 
-You can do this with a single partiton as well if you are using dual boot with macOS.
+You can do this with a single partition as well if you are using a dual boot with macOS.
 <hr>
 <table>
     <head>
@@ -80,24 +82,23 @@ Note * it doesn't matter which format method you use.
 [Go to table of contents](#table-of-contents)
 
 ## 2. Install QEMU VM and boot into the Live System
-Choose either brew or ports to install QEMU. You can follow this [link](#https://www.qemu.org/download/#macos) to install QEMU.
+Choose either brew or ports to install QEMU. You can follow this link https://www.qemu.org/download/#macos to install QEMU.
 
-The command to run the QEMU VM is as follow if it didn't work please go to this [site](#https://www.qemu.org) for more information. Add the command -drive file=/dev/diskXXX,if=virtio,format=raw \ per partitions.
+The command to run the QEMU VM is as follows: if it didn't work, please go to this https://www.qemu.org for more information. Add the command -drive file=/dev/diskXXX,if=virtio,format=raw \ per partitions.
 
-sudo qemu-system-x86_64 \
--accel hvf \
--cpu Penryn \
--m 4G \
--smp 4 \
--boot d \
--drive file=/users/showan/Desktop/Linux/kali.iso,media=cdrom \
--drive file=/dev/diskXXX,if=virtio,format=raw \
--drive file=/usr/local/opt/qemu/share/qemu/edk2-x86_64-code.fd,if=pflash,readonly=on \
--vga std
+    sudo qemu-system-x86_64 \
+    -accel hvf \
+    -m 4G \
+    -smp 4 \
+    -boot d \
+    -drive file=<path-to-kali>/kali.iso,media=cdrom \
+    -drive file=/dev/diskXXX,if=virtio,format=raw \
+    -drive file=/usr/local/opt/qemu/share/qemu/edk2-x86_64-code.fd,if=pflash,readonly=on \
+    -vga std
 
-** Note you need to pass the EFI partition of your mac if you did not create separate BOOT partition.
+** Note you need to pass the EFI partition of your Mac if you did not create a separate BOOT partition.
 
-Select live system and run the following commands in the terminal.
+Select a live system and run the following commands in the terminal.
 
 <hr>
 <table>
@@ -114,7 +115,7 @@ Select live system and run the following commands in the terminal.
         </tr>
         <tr>
             <td>mkfs.ext4 /dev/XXXX</td>
-            <td>Creating a root partiton.</td>
+            <td>Creating a root partition.</td>
         </tr>
         <tr>
             <td>tune2fs -L LINUX /dev/XXX</td>
@@ -122,11 +123,11 @@ Select live system and run the following commands in the terminal.
         </tr>
         <tr>
             <td>mkswap /dev/XXXX</td>
-            <td>If you have choose partition to create swap partition</td>
+            <td>If you have chosen partition to create a swap partition</td>
         </tr>
         <tr>
             <td>lsblk -f</td>
-            <td>Make sure all partition as listed as you have created for your LINUX system</td>
+            <td>Make sure all partitions as listed as you have created for your LINUX system</td>
         </tr>
     </body>
 </table>
@@ -134,7 +135,7 @@ Select live system and run the following commands in the terminal.
 [Go to table of contents](#table-of-contents)
 
 ## 3. Select Start Installer
-Continue until Partition Disks appear in the steps. Now select the manual and the result could be as follows
+Continue until Partition Disks appear in the steps. Now select the manual, and the result could be as follows
 <table>
     <head>
         <tr>
@@ -178,30 +179,30 @@ Continue until Partition Disks appear in the steps. Now select the manual and th
     </body>
 </table>
 
-Now select the each file system either fat32, swap or ext4 and select use as option and select correct file system for each partition and select mount point as /boot/efi and / for fat32 and ext4 respectively then select finish partitioning and write changes to disk and start Install the system. Reboot and boot into the Kali GNU/Linux GNU/Linux.
+Now select each file system, either FAT32, swap or ext4 and select use as option and select the correct file system for each partition and select mount point as /boot/efi and / for FAT32 and EXT4, respectively, then select finish partitioning and write changes to disk and start Install the system. Reboot and boot into Kali GNU/Linux GNU/Linux.
 
 [Go to table of contents](#table-of-contents)
 
 ## 4. Adding Linux Kernel for T2
-Follow the steps Adding the Common apt repo and Adding the Release specific apt repo and use CODENAME=testing from this [link](#https://github.com/AdityaGarg8/t2-ubuntu-repo?tab=readme-ov-file#apt-repository-for-t2-macs).
+Follow the steps: Adding the Common apt repo and Adding the Release specific apt repo, and use CODENAME=testing from this https://github.com/AdityaGarg8/t2-ubuntu-repo?tab=readme-ov-file#apt-repository-for-t2-macs.
 
 Now run the command
 
-    sudo apt install linux-t2 apple-t2-audio-config
+    sudo apt install linux-t2 t2fanrd
 
 [Go to table of contents](#table-of-contents)
 
-## 5. Install WIFI and Bluetooth firmware
-Follow the steps from this [link](#https://wiki.t2linux.org/guides/wifi-bluetooth/).
+## 5. Install the Wi-Fi and Bluetooth firmware
+Follow the steps from this link: https://wiki.t2linux.org/guides/wifi-bluetooth/.
 
 [Go to table of contents](#table-of-contents)
 
 ## 6. Edit fstab
-Run the command in macOS terminal 
+Run the command in the macOS terminal 
 
     diskutil list
 
-Now identify your partitions number by your allocated sizes is it's disk0s1 then replace the nvme0n1p[X] by 1 that is nvme0n1p1. Do this for each partition that you have created.
+Now identify your partition number by your allocated sizes, is it disk0s1, then replace the nvme0n1p[X] by 1, that is, nvme0n1p1. Do this for each partition that you have created.
 
 Edit the fstab and replacing /dev/XXX by nvme0n1pX where XXX and X varies for each partition.
 
@@ -235,20 +236,20 @@ Look for the lines and press i
     </body>
 </table>
 
-Remove the lines below if it exists in fstab
+Remove the lines below if they exist in fstab
     
     /dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
     /dev/sr1        /media/cdrom1   udf,iso9660 user,noauto     0       0
 
-Once you have done this press 
+Once you have done this, press 
     
-    esc
+    esc or Ctr+C
     :wq
 
 [Go to table of contents](#table-of-contents)
 
 ## 7. Folder structure of directory /boot/efi
-This folder structure is for the EFI partition of macOS if you have separate /boot/efi partition ignore the APPLE folder rest should be similar. If not move the required folders to the specific directory. Please run ls and commands as listed in the following tables.
+This folder structure is for the EFI partition of macOS. If you have a separate /boot/efi partition, ignore the APPLE folder rest should be similar. If not, move the required folders to the specific directory. Please run and commands as listed in the following tables.
 <table>
     <tr>
         <th>/boot/efi</th>
@@ -270,7 +271,7 @@ This folder structure is for the EFI partition of macOS if you have separate /bo
         <td>NvVars</td>
     </tr>
 </table>
-All boot files should be in this directory. If BOOT directroy doesn't exists and other exists rename to BOOT.
+All boot files should be in this directory. If the BOOT directroy doesn't exist and other exists, rename to BOOT.
 <table>
     <tr>
         <th>/boot/efi/EFI</th>
@@ -316,14 +317,14 @@ Edit the grub.cfg by running the following command
 
     sudo vim /boot/efi/boot/grub/grub.cfg
 
-Find the similar line below
+Find a similar line below
 
-	linux	/boot/vmlinuz-x.x.x-x-t2-trixie root=UUID=XXXXXXXXXXXXX ro components
+    linux   /boot/vmlinuz-x.x.x-x-t2-trixie root=UUID=XXXXXXXXXXXXX ro components
 
-Press i and make the above line as
+Press i and replace the components with "intel_iommu=on iommu=pt pcie_ports=native quiet splash"
 
-	linux	/boot/vmlinuz-x.x.x-x-t2-trixie root=UUID=XXXXXXXXXXXXX ro intel_iommu=on iommu=pt pcie_ports=native quiet splash
+    linux   /boot/vmlinuz-x.x.x-x-t2-trixie root=UUID=XXXXXXXXXXXXX ro intel_iommu=on iommu=pt pcie_ports=native quiet splash
 
-Reboot the system and check it in QEMU VM to verify every thing works.
+Reboot the system and check it in QEMU VM to verify everything works.
 
 [Go to table of contents](#table-of-contents)
