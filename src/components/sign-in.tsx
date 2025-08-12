@@ -38,16 +38,22 @@ export default function SignIn() {
 			<Image className='react-logo' src={logo} alt="logo"/>
 			<form onSubmit={handleSubmit}>
 				<div className="form-floating">
-					<input className="form-control" type="text" id="username" name="username" autoCapitalize='none' onChange={(event)=> {
-					setUser(event.target.value)
-					}}></input>
-					<label htmlFor="username">Username</label>
+					<input className="form-control" type="text" id="username" 
+						name="username" autoCapitalize='none' onChange={(event)=> {
+							setUser(event.target.value)
+					}}/>
+					<label htmlFor="username">
+						Username
+					</label>
 				</div>
 				<div className='form-floating'>
-					<input className="form-control" type="password" id="password" name="password" onChange={(event) => {
-					setPass(event.target.value)
-					}}></input>
-					<label htmlFor='password'>Password</label>
+					<input className="form-control" type="password" id="password" 
+						name="password" onChange={(event) => {
+							setPass(event.target.value)
+					}}/>
+					<label htmlFor='password'>
+						Password
+					</label>
 				</div>
 				<input className="btn" type="submit" value={`Sign In`}></input>
 				<p>

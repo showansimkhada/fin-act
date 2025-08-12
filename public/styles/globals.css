@@ -7,6 +7,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
+		width: 100vw;
         margin: 0;
         background-color: #f0f0f0;
         font-family: Arial, sans-serif;
@@ -14,6 +15,7 @@
 
 	/* For sign in forms*/
 	.form-signin {
+		margin-top: -25vh;
 		background-color: aqua;
 		padding: 20px;
 		border-radius: 15px;
@@ -21,7 +23,6 @@
 	}
 
     .react-logo {
-
         width: 55;
         height: 55;
     }
@@ -74,7 +75,48 @@
         margin: 10px 5px
     }
 	/* End for sign in forms*/
-	
+
+	/* For NavBar*/
+	.navbar {
+		display: flex;
+		flex-direction: row;
+		top: 0;
+		position: fixed;
+		font-size: large;
+		justify-content: space-around;
+		align-items: center;
+		background-color: lightcoral;
+		width: 100%;
+	}
+
+	.navbar a:hover {
+		color: orange;
+	}
+
+	.navbar input:hover {
+		color: orange;
+	}
+
+	.navbar-links input {
+		color: blue;
+		background-color: transparent;
+		border: none;
+	}
+
+	a {
+		color: blue;
+		padding: 0 10px 0 10px;
+		text-decoration: none;
+	}
+
+	.navbar-links a:focus {
+		color: maroon;
+	}
+
+	.navbar-links input:focus {
+		color: maroon;
+	}
+	/* End for NavBar*/
 }
 
 /* Extra small devices (phones, 600px and down) */
@@ -85,6 +127,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
+		width: 100vw;
         margin: 0;
         background-color: #f0f0f0;
         font-family: Arial, sans-serif;
@@ -92,6 +135,7 @@
 
 	/* For sign in forms*/
 	.form-signin {
+		margin-top: -25vh;
 		background-color: aqua;
 		padding: 20px;
 		border-radius: 15px;
@@ -99,7 +143,6 @@
 	}
 
     .react-logo {
-
         width: 55;
         height: 55;
     }
@@ -152,6 +195,48 @@
         margin: 10px 5px
     }
 	/* End for sign in forms*/
+
+	/* For NavBar*/
+	.navbar {
+		display: flex;
+		flex-direction: row;
+		top: 0;
+		position: fixed;
+		font-size: large;
+		justify-content: space-around;
+		align-items: center;
+		background-color: lightcoral;
+		width: 100%;
+	}
+
+	.navbar a:hover {
+		color: orange;
+	}
+
+	.navbar input:hover {
+		color: orange;
+	}
+
+	.navbar-links input {
+		color: blue;
+		background-color: transparent;
+		border: none;
+	}
+
+	a {
+		color: blue;
+		padding: 0 10px 0 10px;
+		text-decoration: none;
+	}
+
+	.navbar-links a:focus {
+		color: maroon;
+	}
+
+	.navbar-links input:focus {
+		color: maroon;
+	}
+	/* End for NavBar */
 }
 
 .bd-placeholder-img {
