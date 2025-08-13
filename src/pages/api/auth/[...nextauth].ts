@@ -5,9 +5,9 @@ import dbConnect from "@/lib/utils/conn/mongoose";
 import Users from "@/lib/utils/models/userModel"
 import bcrypt from 'bcrypt'
 
-if (!process.env.NEXTAUTH_SECRET) {
+if (!process.env.ENV_SEC) {
 	throw new Error(
-		"please provide process.env.NEXTAUTH_SECRET environment variable"
+		"Missing environment variables"
 	);
 }
 

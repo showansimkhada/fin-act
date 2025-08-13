@@ -11,7 +11,6 @@ export const IndexPage: NextPage = () => {
 				<meta charSet='UTF-8'/>
 				<meta name='description' content='WebApp buil with react redux typescript'/>
 				<meta name='author' content='Showan'/>
-				<meta httpEquiv='refresh' content='30'/>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			</Head>
 			<SignIn/>

@@ -23,7 +23,7 @@ export default function Navbars() {
 		<div className="navbar">
 			<div className="navbar-banner">
 				<a href='/dash'>
-					Home
+					Dashboard
 				</a>
 			</div>
 			<div className="navbar-links">

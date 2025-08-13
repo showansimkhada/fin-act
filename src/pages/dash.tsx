@@ -9,8 +9,7 @@ import { formatDate, stringAmt, sumAmt } from '@/lib/funcPage';
 import BS, { IBS } from '@/lib/utils/models/bsModel';
 import { useSelector } from 'react-redux';
 import { lsUser } from '@/lib/redux';
-import { Table } from 'react-bootstrap';
-import Navbars from "@/components/navBar";
+import Navbars from "@/components/nav-bar";
 
 type Props = {
     userData: IUSER[],
@@ -79,113 +78,87 @@ export default function ({ userData, bsData }: Props) {
     }, [fWI, sWI, ret, cB, wSA, wSP])
 
     const tableJSX = (
-        <div className="container-fluid">
-            <Navbars/>
-            <div id="bs">
-                <form action={`api/bs/?username=${username}`} method="POST">
-                    <div className="d-flex mt-5 pt-2">
-                        <Table striped bordered id="bsOutput" responsive="sm">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>{dataUser[0]?.firstname}'s WI</th>
-                                    <th>{dataUser[0]?.sfirstname}'s WI</th>
-                                    <th>Return</th>
-                                    <th>Opening Balance</th>
-                                    <th>Closing Balance</th>
-                                    <th>Weekly Spent</th>
-                                    <th>Weekly Save</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filtData.map((x) => (
-                                    <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}>
-                                        <td>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
-                                        <td>{x.fWI.toString()}</td>
-                                        <td>{x.sWI.toString()}</td>
-                                        <td>{x.return.toString()}</td>
-                                        <td>{x.openingBalance.toString()}</td>
-                                        <td>{x.closingBalance.toString()}</td>
-                                        <td>{x.weeklySpent.toString()}</td>
-                                        <td className="d-flex flex-row justify-content-between">{x.weeklySave.toString()}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td>
-                                        <input type="date" name="bsDate" id="bsDate" className="w-100" value={today} onChange={(event) => {
-                                            setToday(event.target.value)
-                                        }}></input>
-                                    </td>
-                                    <td>
-                                        <input name="fWI" id="fWI" className="w-100" value={fWI} onChange={(event) => {
-                                            let input = event.target.value
-                                            if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setFWI(input);
-                                        }}></input>
-                                    </td>
-                                    <td>
-                                        <input name="sWI" id="sWI" className="w-100" value={sWI} onChange={(event) => {
-                                            let input = event.target.value
-                                            if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setSWI(input);
-                                        }}></input>
-                                    </td>
-                                    <td>
-                                        <input name="ret" id="ret" className="w-100" value={ret} onChange={(event) => {
-                                            let input = event.target.value
-                                            if(input.match(/^-?([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setRET(input);
-                                        }}></input>
-                                    </td>
-                                    <td>
-                                        <input name="oB" id="oB" className="w-100 border-0 p-0" value={oB} readOnly></input>
-                                    </td>
-                                    <td>
-                                        <input name="cB" id="cB" className="w-100 border-0 p-0" value={cB} readOnly></input>
-                                    </td>
-                                    <td>
-                                        <input name="wSp" id="wSp" className="w-100 border-0 p-0" value={wSP} readOnly></input>
-                                    </td>
-                                    <td>
-                                        <input name="wSa" id="wSa" className="w-100 border-0 p-0" value={wSA} readOnly></input>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </Table>
-                    </div>
-                    <div className="d-flex table-responsive-sm pl-5 pr-5">
-                        <table className="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Amount <span style={{fontWeight: 2, fontSize: 12, color: 'red'}}>(separate the amount by ',')</span></th>
-                                    <th>Addition expression</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <input id="amt" value={amt} onChange={(event) => {
-                                            let input = event.target.value;
-                                            if (input) {
-                                                setAmt(input)
-                                                let x = sumAmt(input);
-                                                setCB(x)
-                                            } else {
-                                                setAmt('0')
-                                                setCB('0')
-                                            }
-                                        }}></input>
-                                    </td>
-                                    <td>
-                                        <label>{stringAmt(amt)}</label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <input className="table btn btn-primary w-25" type="submit" value="Submit"></input>
-                    </div>
-                </form>
-            </div>
-        </div>
+		<>
+			<Navbars/>
+			<form action={`api/bs/?username=${username}`} method="POST">
+				<div className='dashboard'>
+					<div className='dash-a'>
+						<div className='label-a'>
+							<label>
+								Date
+							</label>
+							<label>
+								{dataUser[0]?.firstname}'s WI
+							</label>
+							<label>
+								{dataUser[0]?.sfirstname}'s WI
+							</label>
+							<label>
+								Return
+							</label>
+							<label>
+								Opening Balance
+							</label>
+							<label>
+								Closing Balance
+							</label>
+							<label>
+								Weekly Spent
+							</label>
+							<label>
+								Weekly Save
+							</label>
+						</div>
+						<div className='value-a'>
+							<input type="date" name="bsDate" id="bsDate" className="w-100" value={today} onChange={(event) => {
+								setToday(event.target.value)
+							}}/>
+							<input name="fWI" id="fWI" className="w-100" value={fWI} onChange={(event) => {
+								let input = event.target.value
+								if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setFWI(input);
+							}}/>
+							<input name="sWI" id="sWI" className="w-100" value={sWI} onChange={(event) => {
+								let input = event.target.value
+								if(input.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setSWI(input);
+							}}/>
+							<input name="ret" id="ret" className="w-100" value={ret} onChange={(event) => {
+								let input = event.target.value
+								if(input.match(/^-?([0-9]{1,})?(\.)?([0-9]{1,})?$/)) setRET(input);
+							}}/>
+							<input name="oB" id="oB" className="w-100 border-0 p-0" value={oB} readOnly/>
+							<input name="cB" id="cB" className="w-100 border-0 p-0" value={cB} readOnly/>
+							<input name="wSp" id="wSp" className="w-100 border-0 p-0" value={wSP} readOnly/>
+							<input name="wSa" id="wSa" className="w-100 border-0 p-0" value={wSA} readOnly/>
+						</div>
+					</div>
+					<div className='dash-b'>
+						<div className='label-b'>
+							<label>
+								Amount
+							</label>
+							<label>
+								Addition expression
+							</label>
+						</div>
+						<div className='value-b'>
+							<input id="amt" value={amt} onChange={(event) => {
+								let input = event.target.value;
+								if (input) {
+									setAmt(input)
+									let x = sumAmt(input);
+									setCB(x)
+								} else {
+									setAmt('0')
+									setCB('0')
+								}
+							}}/>
+							<label>{stringAmt(amt)}</label>
+						</div>
+					</div>
+					<input className="btn" type="submit" value="Submit"/>
+				</div>
+			</form>
+		</>
     )
 
     return (
@@ -205,8 +178,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   
     /* Ensures all objectIds and nested objectIds are serialized as JSON data */
     const bsData = data.map((doc) => {
-      const bsData = JSON.parse(JSON.stringify(doc))
-      return bsData
+		const bsData = JSON.parse(JSON.stringify(doc))
+		return bsData
     })
 
     /* find all the data in our database */
@@ -214,8 +187,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   
     /* Ensures all objectIds and nested objectIds are serialized as JSON data */
     const userData = findUser.map((doc) => {
-      const userData = JSON.parse(JSON.stringify(doc))
-      return userData
+		const userData = JSON.parse(JSON.stringify(doc))
+		return userData
     })
   
     return { props: { bsData: bsData, userData: userData } }
