@@ -4,11 +4,11 @@ import { Providers } from '@/lib/providers'
 import "@/styles/globals.css"
 
 export default function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
-  return (
-    <Providers>
-      <SessionProvider session={pageProps.session}>
-        <Component {...pageProps} />
-      </SessionProvider>
-    </Providers>
-  )
+	return (
+		<Providers>
+			<SessionProvider session={pageProps.session}>
+				<Component {...pageProps} />
+			</SessionProvider>
+		</Providers>
+	)
 }

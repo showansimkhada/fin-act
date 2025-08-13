@@ -1,6 +1,6 @@
 'use client'
 import { useSession } from "next-auth/react";
-import Navbars from "@/components/navBar"
+import Navbars from "@/components/nav-bar"
 import { useRouter } from "next/navigation";
 import dbConnect from "@/lib/utils/conn/mongoose";
 import User, { IUSER } from '@/lib/utils/models/userModel'
@@ -34,45 +34,41 @@ export default function Profile ({userData}: Props) {
 
     const profileJSX = (
         <>
-        <Navbars />
-            <div className="d-flex flex-column align-items-start justify-content-center mt-5 pt3">
-                <form action={`api/profile/?username=${username}&type=details`} method="post" className="border border-5 w-100">
-                    <div className="d-flex flex-row">
-                        <div className="d-flex flex-column justify-content-between align-content-between w-50">
+        	<Navbars />
+			<div className="profile">
+                <form action={`api/profile/?username=${username}&type=details`} method="post">
+                    <div className="profile-update">
+                        <div className="profile-label">
                             <label>User Name</label>
-                            <label className="mt-1">First Name</label>
-                            <label className="mt-1">Last Name</label>
-                            <label className="mt-1">Partner's First Name</label>
-                            <label className="mt-1">Partner's Last Name</label>
+                            <label>First Name</label>
+                            <label>Last Name</label>
+                            <label>Partner's First Name</label>
+                            <label>Partner's Last Name</label>
                         </div>
-                        <div className="d-flex flex-column align-items-center justify-content-between align-content-between w-50">
-                            <input id="username" className="w-75" name="newUsername" required={true} placeholder={dataUser[0]?.username}></input>
-                            <input type="text" id="firstname" className="w-75" name="firstname" required={true} placeholder={dataUser[0]?.firstname}></input>
-                            <input type="text" id="lastname" className="w-75" name="lastname" required={true} placeholder={dataUser[0]?.lastname}></input>
-                            <input type="text" id="sfirstname" className="w-75" name="sfirstname" required={true} placeholder={dataUser[0]?.sfirstname}></input>
-                            <input type="text" id="slastname" className="w-75" name="slastname" required={true} placeholder={dataUser[0]?.slastname}></input>
+                        <div className="profile-value">
+                            <input id="username" name="newUsername" required={true} placeholder={dataUser[0]?.username}/>
+                            <input type="text" id="firstname" name="firstname" required={true} placeholder={dataUser[0]?.firstname}/>
+                            <input type="text" id="lastname" name="lastname" required={true} placeholder={dataUser[0]?.lastname}/>
+                            <input type="text" id="sfirstname" name="sfirstname" required={true} placeholder={dataUser[0]?.sfirstname}/>
+                            <input type="text" id="slastname" name="slastname" required={true} placeholder={dataUser[0]?.slastname}/>
                         </div>
                     </div>
-                    <div className="d-flex flex-column w-100">
-                        <input type="submit" className="btn btn-primary" value="Update Profile"></input>
-                    </div>
+					<input type="submit" className="btn" value="Update Profile"/>
                 </form>
-                <form action={`api/profile/?username=${username}&type=password`} method="post" className="border border-5 w-100">
-                    <div className="d-flex flex-row">
-                        <div className="d-flex flex-column justify-content-between align-context-between w-50">
-                            <label className="mt-1">Old Password</label>
-                            <label className="mt-1">New Password</label>
-                            <label className="mt-1">Confirm Password</label>
+                <form action={`api/profile/?username=${username}&type=password`} method="post">
+                    <div className="pass-update">
+                        <div className="pass-label">
+                            <label>Old Password</label>
+                            <label>New Password</label>
+                            <label>Confirm Password</label>
                         </div>
-                        <div className="d-flex flex-column align-items-center justify-content-betweeen align-content-between w-50">
-                            <input type="password" id="oldpass" name="oldpass" autoComplete="current-password" required={true} className="mt-2 w-75"></input>
-                            <input type="password" id="newpass" name="newpass" autoComplete="new-password" required={true} className="mt-2 w-75"></input>
-                            <input type="password" id="confirmpass" name="confirmpass" autoComplete="new-password" required={true} className="mt-2 w-75"></input>
+                        <div className="pass-value">
+                            <input type="password" id="oldpass" name="oldpass" autoComplete="current-password" required={true}/>
+                            <input type="password" id="newpass" name="newpass" autoComplete="new-password" required={true}/>
+                            <input type="password" id="confirmpass" name="confirmpass" autoComplete="new-password" required={true}/>
                         </div>
                     </div>
-                    <div className="d-flex flex-column align-content-end w-100">
-                        <input type="submit" id="passup" className="btn btn-primary" value="Update Password"></input>
-                    </div>
+					<input type="submit" id="passup" className="btn" value="Update Password"/>
                 </form>
             </div>
         </>
@@ -80,7 +76,7 @@ export default function Profile ({userData}: Props) {
 
     return (
         <>
-        {isClient? profileJSX : ''}
+        	{isClient? profileJSX : ''}
         </>
     )
 }
@@ -92,8 +88,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   
     /* Ensures all objectIds and nested objectIds are serialized as JSON data */
     const userData = findUser.map((doc) => {
-      const userData = JSON.parse(JSON.stringify(doc))
-      return userData
+		const userData = JSON.parse(JSON.stringify(doc))
+		return userData
     })
   
     return { props: { userData: userData } }
