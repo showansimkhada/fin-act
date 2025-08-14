@@ -5,7 +5,7 @@ import dbConnect from "@/lib/utils/conn/mongoose";
 import Users from "@/lib/utils/models/userModel"
 import bcrypt from 'bcrypt'
 
-if (!process.env.ENV_SEC) {
+if (!process.env.AUTH_SECRET) {
 	throw new Error(
 		"Missing environment variables"
 	);
