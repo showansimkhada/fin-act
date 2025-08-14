@@ -1,24 +1,58 @@
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: grey;
+	font-family: Arial, sans-serif;
+	padding: 0;
+	margin-top: 22px;
+}
+
+#nav-toggle, .hamburger {
+	display: none;
+}
+
+.navbar a:hover {
+	color: orange;
+}
+
+.navbar input:hover {
+	color: orange;
+}
+
+.navbar-links input {
+	color: blue;
+	background-color: transparent;
+	border: 0px solid transparent;
+	font-size: medium;
+}
+
+.navbar a, .navbar input {
+	font-family: Georgia, Times, 'Times New Roman', serif;
+	font-size: 18px;
+	color: blue;
+	padding: 0 10px 0 10px;
+	text-decoration: none;
+}
+
+.navbar-links a:focus {
+	color: maroon;
+}
+
+.navbar-links input:focus {
+	color: maroon;
+}
+
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-    body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-		width: 100vw;
-        background-color: grey;
-        font-family: Arial, sans-serif;
-    }
-
 	/* Begin Sign In */
 	.form-signin {
 		display: flex;
 		flex-direction: column;
-		margin-top: -25vh;
 		background-color: aqua;
 		padding: 10px 5px 5px 5px;
 		border-radius: 15px;
+		margin-top: 200px;
 		width: 230px;
 		height: 240px;
 		align-items: center;
@@ -46,8 +80,9 @@
 	.form-floating input {
 		background-color: rgba(216, 230, 24, 0.534);
 		width: 100%;
-		padding: 0 2px 0 5px;
+		padding: 2px 2px 5px 5px;
 		padding-top: 25px;
+		border-radius: 15px;
 	}
 
 	.form-signin input[type="text"] {
@@ -93,50 +128,152 @@
 		width: 100%;
 	}
 
-	.navbar a:hover {
-		color: orange;
-	}
-
-	.navbar input:hover {
-		color: orange;
-	}
-
-	.navbar-links input {
-		color: blue;
-		background-color: transparent;
-		border: 0px solid transparent;
-		font-size: medium;
-	}
-
-	.navbar a, .navbar input {
-		font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-		font-size: 18px;
-		color: blue;
-		padding: 0 10px 0 10px;
-		text-decoration: none;
-	}
-
-	.navbar-links a:focus {
-		color: maroon;
-	}
-
-	.navbar-links input:focus {
-		color: maroon;
+	.navbar label {
+		display: none;
 	}
 	/* End NavBar*/
 
-	/* Begin Profile */
-	.profile {
+	/* Begin Dashboard */
+	.dashboard {
 		display: flex;
 		flex-direction: column;
 		border: 2px solid tomato;
 		border-radius: 15px;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
 		padding: 20px;
 		background-color: slateblue;
-		width: 70vw;
-		position: absolute;
-		top: 30px;
-		right: 145px;
+		width: 95vw;
+		align-items: center;
+	}
+
+	.dash-a {
+		display: flex;
+		flex-direction: row;
+		padding: 0;
+	}
+
+	.label-a {
+		display: flex;
+		flex-direction: column;
+		line-height: 1.95;
+		width: 35vw;
+	}
+
+	.value-a {
+		display: flex;
+		flex-direction: column;
+		width: 35vw;
+	}
+
+	.dash-b {
+		display: flex;
+		flex-direction: row;
+		padding: 0;
+	}
+
+	.label-b {
+		display: flex;
+		flex-direction: column;
+		line-height: 2;
+		width: 35vw;
+	}
+
+	.value-b {
+		display: flex;
+		flex-direction: column;
+		width: 35vw;
+		justify-content: flex-end;
+	}
+
+	.value-b label {
+		margin-top: 5px;
+		border-radius: 5px;
+	}
+
+	.dashboard input {
+		border-radius: 10px;
+		padding: 5px;
+		width: 50%;
+		text-align: right;
+	}
+
+	.dashboard input[type='submit'] {
+		margin-top: 5px;
+		border-radius: 20px;
+		padding: 20px;
+		width: 130px;
+		height: 75px;
+	}
+	/* End Dashboard */
+
+	/* Begio Balance Sheet */
+	.bs-container {
+		display: flex;
+		flex-direction: column;
+		border: 2px solid tomato;
+		border-radius: 15px;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		padding: 10px;
+		background-color: slateblue;
+		width: 95vw;
+		overflow: scroll;
+	}
+
+	.bs-container th, .bs-container td {
+		border: 1px solid salmon;
+		border-top: none;
+		border-left: none;
+	}
+
+	.bs-container tfoot tr, .bs-container tfoot td {
+		border-bottom: none;
+	}
+
+	.bs-container tfoot td:last-child{
+		border-right: none;
+	}
+
+	.bs-container thead > tr > th:last-child, .bs-container tbody > tr > td:last-child {
+		border-right: none;
+	}
+	/* End Balance Sheet */
+
+	/* Begin Report */
+	.report-container {
+		display: flex;
+		flex-direction: row;
+		background-color: wheat;
+	}
+
+	.report-filter {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.report-filter input {
+		width: 33vw;
+	}
+
+	canvas {
+		height: 95vh;
+		width: 95vw;
+		box-sizing: content-box;
+		display: flex;
+	}
+	/* End Report */
+
+	/* Begin Profile */
+	.profile {
+		flex-direction: column;
+		border: 2px solid tomato;
+		border-radius: 15px;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		padding: 20px;
+		background-color: slateblue;
+		width: 95vw;
 	}
 
 	.profile-update {
@@ -193,22 +330,11 @@
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-	body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-		width: 100vw;
-        background-color: grey;
-        font-family: Arial, sans-serif;
-    }
-
 	/* Begin Sign In */
 	.form-signin {
 		display: flex;
 		flex-direction: column;
-		margin-top: -25vh;
+		margin-top: 70px;
 		background-color: aqua;
 		padding: 10px 5px 5px 5px;
 		border-radius: 15px;
@@ -239,8 +365,9 @@
 	.form-floating input {
 		background-color: rgba(216, 230, 24, 0.534);
 		width: 100%;
-		padding: 0 2px 0 5px;
+		padding: 2px 2px 5px 5px;
 		padding-top: 25px;
+		border-radius: 15px;
 	}
 
 	.form-signin input[type="text"] {
@@ -275,61 +402,208 @@
 	/* Begin NavBar */
 	.navbar {
 		display: flex;
-		flex-direction: row;
+		background-color: coral;
+		justify-content: space-around;
 		top: 0;
 		left: 0;
 		position: fixed;
-		font-size: large;
-		justify-content: space-around;
-		align-items: center;
-		background-color: lightcoral;
 		width: 100%;
 	}
 
-	.navbar a:hover {
-		color: orange;
-	}
-
-	.navbar input:hover {
-		color: orange;
-	}
-
-	.navbar-links input {
-		color: blue;
-		background-color: transparent;
-		border: 0px solid transparent;
-		font-size: medium;
-	}
-
-	.navbar a, .navbar input {
-		font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-		font-size: 18px;
-		color: blue;
+	.navbar-banner {
+		display: flex;
+		align-items: center;
+		/*top: 0;
+		left: 0;
+		position: absolute;
+		float: right;
 		padding: 0 10px 0 10px;
-		text-decoration: none;
+		position: fixed;
+		font-size: large;
+		background-color: lightcoral;
+		width: 100%;
+		justify-content: space-between;*/
 	}
 
-	.navbar-links a:focus {
-		color: maroon;
+	.navbar-links {
+		top: 0;
+		right: 0;
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+		flex-direction: column;
 	}
 
-	.navbar-links input:focus {
-		color: maroon;
+	.navbar-links {
+		display: none;
+	}
+
+	.hamburger {
+		display: flex;
+		margin-top: 3px;
+	}
+
+	#nav-toggle:checked ~ .navbar-links {
+		display: flex;
+		flex-direction: column;
+	}
+
+	#nav-toggle:checked ~ .hamburger {
+		display: none;
 	}
 	/* End NavBar*/
+
+	/* Begin Dashboard */
+	.dashboard {
+		display: flex;
+		flex-direction: column;
+		border: 2px solid tomato;
+		border-radius: 15px;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		background-color: slateblue;
+		width: 95vw;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.dash-a {
+		display: flex;
+		flex-direction: row;
+		padding: 0;
+	}
+
+	.label-a {
+		display: flex;
+		flex-direction: column;
+		line-height: 1.95;
+		width: 35vw;
+	}
+
+	.value-a {
+		display: flex;
+		flex-direction: column;
+		width: 35vw;
+	}
+
+	.dash-b {
+		display: flex;
+		flex-direction: row;
+		padding: 0;
+	}
+
+	.label-b {
+		display: flex;
+		flex-direction: column;
+		line-height: 2;
+		width: 35vw;
+	}
+
+	.value-b {
+		display: flex;
+		flex-direction: column;
+		width: 35vw;
+		justify-content: flex-end;
+	}
+
+	.value-b label {
+		margin-top: 5px;
+		border-radius: 5px;
+	}
+
+	.dash-a input, .dash-b input {
+		border-radius: 10px;
+		padding: 5px;
+		width: 90%;
+		text-align: right;
+	}
+
+	.dashboard input[type='submit'] {
+		margin-top: 5px;
+		border-radius: 20px;
+		padding: 20px;
+		width: 130px;
+		height: 75px;
+	}
+	/* End Dashboard */
+
+	/* Begin Balance Sheet */
+	.bs-container {
+		display: flex;
+		flex-direction: column;
+		border: 2px solid tomato;
+		border-radius: 15px;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		background-color: slateblue;
+		width: 95vw;
+		overflow: scroll;
+	}
+
+	.bs-container table {
+		padding: 0 7px 0 7px;
+	}
+
+	.bs-container th, .bs-container td {
+		border: 1px solid salmon;
+		border-top: none;
+		border-left: none;
+	}
+
+	.bs-container tfoot tr, .bs-container tfoot td {
+		border-bottom: none;
+	}
+
+	.bs-container tfoot td:last-child{
+		border-right: none;
+	}
+
+	.bs-container thead > tr > th:last-child, .bs-container tbody > tr > td:last-child {
+		border-right: none;
+	}
+	/* End Balance Sheet */
+
+	/* Begin Report */
+	.report-container {
+		display: flex;
+		flex-direction: row;
+		border: 2px solid tomato;
+		border-radius: 15px;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		width: 95vw;
+		background-color: wheat;
+		overflow: hidden;
+	}
+
+	.report-filter {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.report-filter input {
+		width: 32vw;
+	}
+
+	.report-container canvas {
+		display: flex;
+		height: 95vh;
+		width: 95vw;
+	}
+	/* End Report */
 
 	/* Begin Profile */
 	.profile {
 		display: flex;
 		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 		border: 2px solid tomato;
 		border-radius: 15px;
-		padding: 20px;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
 		background-color: slateblue;
-		width: 70vw;
-		position: absolute;
-		top: 30px;
-		right: 145px;
+		width: 95vw;
 	}
 
 	.profile-update {
@@ -340,7 +614,7 @@
 	.profile-label {
 		display: flex;
 		flex-direction: column;
-		line-height: 2.5;
+		line-height: 1.9;
 		left: 0;
 		justify-content: flex-start;
 		width: 35vw;
@@ -362,7 +636,7 @@
 	.pass-label {
 		display: flex;
 		flex-direction: column;
-		line-height: 2.5;
+		line-height: 1.9;
 		left: 0;
 		justify-content: flex-start;
 		width: 35vw;
@@ -377,9 +651,17 @@
 	}
 
 	.pass-value input, .profile-value input {
+		border-radius: 10px;
+		padding: 5px;
 		width: 59%;
-		border-radius: 5px;
-		padding: 10px;
+	}
+
+	.profile input[type='submit'] {
+		margin-top: 5px;
+		border-radius: 20px;
+		padding: 20px;
+		width: 145px;
+		height: 60px;
 	}
 	/* End Profile */
 }

@@ -23,9 +23,13 @@ export default function Navbars() {
 		<div className="navbar">
 			<div className="navbar-banner">
 				<a href='/dash'>
-					Dashboard
+					{username}
 				</a>
 			</div>
+			<input type="checkbox" id="nav-toggle"/>
+			<label htmlFor="nav-toggle" className='hamburger'>
+				&#9776;
+			</label>
 			<div className="navbar-links">
 				<a href='/bs'>
 					Balance Sheet
@@ -33,11 +37,11 @@ export default function Navbars() {
 				<a href='/report'>
 					Report
 				</a>
+				<a href="/profile">
+					Profile
+				</a>
 				<a>
 					<input type="button" onClick={handleSignOut} value="Log Out"/>
-				</a>
-				<a href="/profile">
-					{username}
 				</a>
 			</div>
 		</div>

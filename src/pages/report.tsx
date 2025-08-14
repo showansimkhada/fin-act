@@ -1,4 +1,4 @@
-import Navbars from "@/components/navBar"
+import Navbars from "@/components/nav-bar"
 
 import BS, { IBS } from '@/lib/utils/models/bsModel'
 import User, { IUSER } from '@/lib/utils/models/userModel'
@@ -37,9 +37,9 @@ ChartJS.register(
 var options = {
     maintainaspectratio: false,
     plugins: {
-      legend: {
-        position: 'bottom' as const,
-      }
+		legend: {
+			position: 'bottom' as const,
+		}
     },
     scales: {}
   };
@@ -105,7 +105,7 @@ export default function( {bsData, userData}: Props) {
                 borderColor: 'rgba(255, 165, 0, 0.5)'
               },
               {
-                label: 'Yearly Spent',
+				label: 'Yearly Spent',
                 data: arr.map(x => x.yearlySpent),
                 backgroundColor: 'rgb(255, 255, 0)',
                 borderColor: 'rgba(255, 255, 0, 0.5)'
@@ -322,18 +322,18 @@ export default function( {bsData, userData}: Props) {
 
     return (
         <>
-            <div className='container-fluid'>
-                <Navbars/>
-                <div id="chartLine" style={{marginTop: '55px'}}>
+			<Navbars/>
+            <div className='report-container'>
+                <div className="report-chart">
                     {isClient? checkfilter(): ''}
-                    <div className="d-flex align-items-end" style={{marginLeft: '2.5%', marginRight: '2.5%'}}>
-                        <input className="w-50" type='button' value='Monthly' onClick={() => {
+                    <div className="report-filter">
+                        <input className="btn" type='button' value='Monthly' onClick={() => {
                             setFilter(2);
                         }}/>
-                        <input className="w-50" type='button' value='Yearly' onClick={() => {
+                        <input className="btn" type='button' value='Yearly' onClick={() => {
                             setFilter(1);
                         }}/>
-                        <input className="w-50" type='button' value='Fiscal Year' onClick={() => {
+                        <input className="btn" type='button' value='Fiscal Year' onClick={() => {
                             setFilter(3);
                         }}/>
                     </div>
