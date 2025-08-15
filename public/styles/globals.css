@@ -8,8 +8,87 @@ body {
 	margin-top: 22px;
 }
 
-#nav-toggle, .hamburger {
-	display: none;
+/* Begin Sign In */
+.form-signin {
+	display: flex;
+	flex-direction: column;
+	background-color: aqua;
+	padding: 10px 5px 5px 5px;
+	border-radius: 15px;
+	margin-top: 200px;
+	width: 230px;
+	height: 240px;
+	align-items: center;
+	justify-content: center;
+}
+
+.react-logo {
+	width: 55;
+	height: 55;
+	padding-bottom: 5px;
+}
+
+.form-floating {
+	position: relative;
+}
+
+.form-floating label {
+	font-size: smaller;
+	position: absolute;
+	top: 5px;
+	left: 10px;
+	z-index: 1;
+}
+
+.form-floating input {
+	background-color: rgba(216, 230, 24, 0.534);
+	width: 100%;
+	padding: 2px 2px 5px 5px;
+	padding-top: 25px;
+	border-radius: 15px;
+}
+
+.form-signin input[type="text"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.btn {
+	border-radius: 20px;
+	background-color: dodgerblue;
+	width: 100%;
+	height: 30px;
+}
+
+.btn:hover {
+	background-color: aquamarine;
+}
+
+p {
+	color: rgb(8, 8, 22);
+	margin: 10px 5px
+}
+/* End Sign In */
+
+/* Begin NavBar */
+.navbar {
+	display: flex;
+	flex-direction: row;
+	top: 0;
+	left: 0;
+	position: fixed;
+	font-size: large;
+	justify-content: space-around;
+	align-items: center;
+	background-color: lightcoral;
+	width: 100%;
 }
 
 .navbar a:hover {
@@ -42,362 +121,223 @@ body {
 .navbar-links input:focus {
 	color: maroon;
 }
+/* End NavBar*/
+
+/* Begin Dashboard */
+.dashboard {
+	display: flex;
+	flex-direction: column;
+	border: 2px solid tomato;
+	border-radius: 15px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	padding: 20px;
+	background-color: slateblue;
+	width: 95vw;
+	align-items: center;
+}
+
+.dash-a {
+	display: flex;
+	flex-direction: row;
+	padding: 0;
+}
+
+.label-a {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.95;
+	width: 35vw;
+}
+
+.value-a {
+	display: flex;
+	flex-direction: column;
+	width: 35vw;
+}
+
+.dash-b {
+	display: flex;
+	flex-direction: row;
+	padding: 0;
+}
+
+.label-b {
+	display: flex;
+	flex-direction: column;
+	line-height: 2;
+	width: 35vw;
+}
+
+.value-b {
+	display: flex;
+	flex-direction: column;
+	width: 35vw;
+	justify-content: flex-end;
+}
+
+.value-b label {
+	margin-top: 5px;
+	border-radius: 5px;
+}
+
+.dashboard input {
+	border-radius: 10px;
+	padding: 5px;
+	width: 50%;
+	text-align: right;
+}
+
+.dashboard input[type='submit'] {
+	margin-top: 5px;
+	border-radius: 20px;
+	padding: 20px;
+	width: 130px;
+	height: 75px;
+}
+/* End Dashboard */
+
+/* Begio Balance Sheet */
+.bs-container {
+	display: flex;
+	flex-direction: column;
+	border: 2px solid tomato;
+	border-radius: 15px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	padding: 10px;
+	background-color: slateblue;
+	width: 95vw;
+	overflow: scroll;
+}
+
+.bs-container th, .bs-container td {
+	border: 1px solid salmon;
+	border-top: none;
+	border-left: none;
+}
+
+.bs-container tfoot tr, .bs-container tfoot td {
+	border-bottom: none;
+}
+
+.bs-container tfoot td:last-child{
+	border-right: none;
+}
+
+.bs-container thead > tr > th:last-child, .bs-container tbody > tr > td:last-child {
+	border-right: none;
+}
+/* End Balance Sheet */
+
+/* Begin Report */
+.report-container {
+	display: flex;
+	flex-direction: row;
+	background-color: wheat;
+	border: 2px solid tomato;
+	border-radius: 15px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.report-filter {
+	display: flex;
+	flex-direction: row;
+}
+
+.report-filter input {
+	width: 33vw;
+}
+
+canvas {
+	height: 95vh;
+	width: 95vw;
+	box-sizing: content-box;
+	display: flex;
+}
+/* End Report */
+
+/* Begin Profile */
+.profile {
+	flex-direction: column;
+	border: 2px solid tomato;
+	border-radius: 15px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	padding: 20px;
+	background-color: slateblue;
+	width: 95vw;
+}
+
+.profile-update {
+	display: flex;
+	flex-direction: row;
+}
+
+.profile-label {
+	display: flex;
+	flex-direction: column;
+	line-height: 2.5;
+	left: 0;
+	justify-content: flex-start;
+	width: 35vw;
+}
+
+.profile-value {
+	display: flex;
+	flex-direction: column;
+	right: 0;
+	justify-content: flex-end;
+	width: 35vw;
+}
+
+.pass-update {
+	display: flex;
+	flex-direction: row;
+}
+
+.pass-label {
+	display: flex;
+	flex-direction: column;
+	line-height: 2.5;
+	left: 0;
+	justify-content: flex-start;
+	width: 35vw;
+}
+
+.pass-value {
+	display: flex;
+	flex-direction: column;
+	right: 0;
+	justify-content: flex-end;
+	width: 35vw;
+}
+
+.pass-value input, .profile-value input {
+	width: 59%;
+	border-radius: 5px;
+	padding: 10px;
+}
+/* End Profile */
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-	/* Begin Sign In */
-	.form-signin {
-		display: flex;
-		flex-direction: column;
-		background-color: aqua;
-		padding: 10px 5px 5px 5px;
-		border-radius: 15px;
-		margin-top: 200px;
-		width: 230px;
-		height: 240px;
-		align-items: center;
-		justify-content: center;
-	}
-
-    .react-logo {
-        width: 55;
-        height: 55;
-		padding-bottom: 5px;
-    }
-
-	.form-floating {
-		position: relative;
-	}
-
-	.form-floating label {
-		font-size: smaller;
-		position: absolute;
-		top: 5px;
-		left: 10px;
-		z-index: 1;
-	}
-
-	.form-floating input {
-		background-color: rgba(216, 230, 24, 0.534);
-		width: 100%;
-		padding: 2px 2px 5px 5px;
-		padding-top: 25px;
-		border-radius: 15px;
-	}
-
-	.form-signin input[type="text"] {
-		margin-bottom: -1px;
-		border-bottom-right-radius: 0;
-		border-bottom-left-radius: 0;
-	}
-
-	.form-signin input[type="password"] {
-		margin-bottom: 10px;
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-	}
-
-	.btn {
-		border-radius: 20px;
-		background-color: dodgerblue;
-		width: 100%;
-		height: 30px;
-	}
-
-	.btn:hover {
-		background-color: aquamarine;
-	}
-
-    p {
-        color: rgb(8, 8, 22);
-        margin: 10px 5px
-    }
-	/* End Sign In */
-
-	/* Begin NavBar */
-	.navbar {
-		display: flex;
-		flex-direction: row;
-		top: 0;
-		left: 0;
-		position: fixed;
-		font-size: large;
-		justify-content: space-around;
-		align-items: center;
-		background-color: lightcoral;
-		width: 100%;
-	}
-
 	.navbar label {
 		display: none;
 	}
-	/* End NavBar*/
 
-	/* Begin Dashboard */
-	.dashboard {
-		display: flex;
-		flex-direction: column;
-		border: 2px solid tomato;
-		border-radius: 15px;
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-		padding: 20px;
-		background-color: slateblue;
-		width: 95vw;
-		align-items: center;
+	#nav-toggle, .hamburger {
+		display: none;
 	}
-
-	.dash-a {
-		display: flex;
-		flex-direction: row;
-		padding: 0;
-	}
-
-	.label-a {
-		display: flex;
-		flex-direction: column;
-		line-height: 1.95;
-		width: 35vw;
-	}
-
-	.value-a {
-		display: flex;
-		flex-direction: column;
-		width: 35vw;
-	}
-
-	.dash-b {
-		display: flex;
-		flex-direction: row;
-		padding: 0;
-	}
-
-	.label-b {
-		display: flex;
-		flex-direction: column;
-		line-height: 2;
-		width: 35vw;
-	}
-
-	.value-b {
-		display: flex;
-		flex-direction: column;
-		width: 35vw;
-		justify-content: flex-end;
-	}
-
-	.value-b label {
-		margin-top: 5px;
-		border-radius: 5px;
-	}
-
-	.dashboard input {
-		border-radius: 10px;
-		padding: 5px;
-		width: 50%;
-		text-align: right;
-	}
-
-	.dashboard input[type='submit'] {
-		margin-top: 5px;
-		border-radius: 20px;
-		padding: 20px;
-		width: 130px;
-		height: 75px;
-	}
-	/* End Dashboard */
-
-	/* Begio Balance Sheet */
-	.bs-container {
-		display: flex;
-		flex-direction: column;
-		border: 2px solid tomato;
-		border-radius: 15px;
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-		padding: 10px;
-		background-color: slateblue;
-		width: 95vw;
-		overflow: scroll;
-	}
-
-	.bs-container th, .bs-container td {
-		border: 1px solid salmon;
-		border-top: none;
-		border-left: none;
-	}
-
-	.bs-container tfoot tr, .bs-container tfoot td {
-		border-bottom: none;
-	}
-
-	.bs-container tfoot td:last-child{
-		border-right: none;
-	}
-
-	.bs-container thead > tr > th:last-child, .bs-container tbody > tr > td:last-child {
-		border-right: none;
-	}
-	/* End Balance Sheet */
-
-	/* Begin Report */
-	.report-container {
-		display: flex;
-		flex-direction: row;
-		background-color: wheat;
-	}
-
-	.report-filter {
-		display: flex;
-		flex-direction: row;
-	}
-
-	.report-filter input {
-		width: 33vw;
-	}
-
-	canvas {
-		height: 95vh;
-		width: 95vw;
-		box-sizing: content-box;
-		display: flex;
-	}
-	/* End Report */
-
-	/* Begin Profile */
-	.profile {
-		flex-direction: column;
-		border: 2px solid tomato;
-		border-radius: 15px;
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-		padding: 20px;
-		background-color: slateblue;
-		width: 95vw;
-	}
-
-	.profile-update {
-		display: flex;
-		flex-direction: row;
-	}
-
-	.profile-label {
-		display: flex;
-		flex-direction: column;
-		line-height: 2.5;
-		left: 0;
-		justify-content: flex-start;
-		width: 35vw;
-	}
-
-	.profile-value {
-		display: flex;
-		flex-direction: column;
-		right: 0;
-		justify-content: flex-end;
-		width: 35vw;
-	}
-
-	.pass-update {
-		display: flex;
-		flex-direction: row;
-	}
-
-	.pass-label {
-		display: flex;
-		flex-direction: column;
-		line-height: 2.5;
-		left: 0;
-		justify-content: flex-start;
-		width: 35vw;
-	}
-
-	.pass-value {
-		display: flex;
-		flex-direction: column;
-		right: 0;
-		justify-content: flex-end;
-		width: 35vw;
-	}
-
-	.pass-value input, .profile-value input {
-		width: 59%;
-		border-radius: 5px;
-		padding: 10px;
-	}
-	/* End Profile */
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 	/* Begin Sign In */
 	.form-signin {
-		display: flex;
-		flex-direction: column;
 		margin-top: 70px;
-		background-color: aqua;
-		padding: 10px 5px 5px 5px;
-		border-radius: 15px;
-		width: 230px;
-		height: 240px;
-		align-items: center;
-		justify-content: center;
 	}
-
-    .react-logo {
-        width: 55;
-        height: 55;
-		padding-bottom: 5px;
-    }
-
-	.form-floating {
-		position: relative;
-	}
-
-	.form-floating label {
-		font-size: smaller;
-		position: absolute;
-		top: 5px;
-		left: 10px;
-		z-index: 1;
-	}
-
-	.form-floating input {
-		background-color: rgba(216, 230, 24, 0.534);
-		width: 100%;
-		padding: 2px 2px 5px 5px;
-		padding-top: 25px;
-		border-radius: 15px;
-	}
-
-	.form-signin input[type="text"] {
-		margin-bottom: -1px;
-		border-bottom-right-radius: 0;
-		border-bottom-left-radius: 0;
-	}
-
-	.form-signin input[type="password"] {
-		margin-bottom: 10px;
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-	}
-
-	.btn {
-		border-radius: 20px;
-		background-color: dodgerblue;
-		width: 100%;
-		height: 30px;
-	}
-
-	.btn:hover {
-		background-color: aquamarine;
-	}
-
-    p {
-        color: rgb(8, 8, 22);
-        margin: 10px 5px
-    }
-	/* End Sign In */
 
 	/* Begin NavBar */
 	.navbar {
@@ -413,16 +353,6 @@ body {
 	.navbar-banner {
 		display: flex;
 		align-items: center;
-		/*top: 0;
-		left: 0;
-		position: absolute;
-		float: right;
-		padding: 0 10px 0 10px;
-		position: fixed;
-		font-size: large;
-		background-color: lightcoral;
-		width: 100%;
-		justify-content: space-between;*/
 	}
 
 	.navbar-links {
@@ -436,11 +366,16 @@ body {
 
 	.navbar-links {
 		display: none;
+		overflow: hidden;
 	}
 
-	.hamburger {
+	.hamburger label {
 		display: flex;
 		margin-top: 3px;
+	}
+
+	input[type='checkbox'] {
+		display: none;
 	}
 
 	#nav-toggle:checked ~ .navbar-links {
@@ -455,213 +390,26 @@ body {
 
 	/* Begin Dashboard */
 	.dashboard {
-		display: flex;
-		flex-direction: column;
-		border: 2px solid tomato;
-		border-radius: 15px;
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-		background-color: slateblue;
-		width: 95vw;
-		align-items: center;
-		justify-content: center;
+		width: 89vw;
 	}
-
-	.dash-a {
-		display: flex;
-		flex-direction: row;
-		padding: 0;
-	}
-
-	.label-a {
-		display: flex;
-		flex-direction: column;
-		line-height: 1.95;
-		width: 35vw;
-	}
-
-	.value-a {
-		display: flex;
-		flex-direction: column;
-		width: 35vw;
-	}
-
-	.dash-b {
-		display: flex;
-		flex-direction: row;
-		padding: 0;
-	}
-
-	.label-b {
-		display: flex;
-		flex-direction: column;
-		line-height: 2;
-		width: 35vw;
-	}
-
-	.value-b {
-		display: flex;
-		flex-direction: column;
-		width: 35vw;
-		justify-content: flex-end;
-	}
-
-	.value-b label {
-		margin-top: 5px;
-		border-radius: 5px;
-	}
-
-	.dash-a input, .dash-b input {
-		border-radius: 10px;
-		padding: 5px;
-		width: 90%;
-		text-align: right;
-	}
-
-	.dashboard input[type='submit'] {
-		margin-top: 5px;
-		border-radius: 20px;
-		padding: 20px;
-		width: 130px;
-		height: 75px;
-	}
-	/* End Dashboard */
 
 	/* Begin Balance Sheet */
 	.bs-container {
-		display: flex;
-		flex-direction: column;
-		border: 2px solid tomato;
-		border-radius: 15px;
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-		background-color: slateblue;
-		width: 95vw;
+		width: 89vw;
 		overflow: scroll;
 	}
 
-	.bs-container table {
-		padding: 0 7px 0 7px;
-	}
-
-	.bs-container th, .bs-container td {
-		border: 1px solid salmon;
-		border-top: none;
-		border-left: none;
-	}
-
-	.bs-container tfoot tr, .bs-container tfoot td {
-		border-bottom: none;
-	}
-
-	.bs-container tfoot td:last-child{
-		border-right: none;
-	}
-
-	.bs-container thead > tr > th:last-child, .bs-container tbody > tr > td:last-child {
-		border-right: none;
-	}
-	/* End Balance Sheet */
-
 	/* Begin Report */
 	.report-container {
-		display: flex;
-		flex-direction: row;
-		border: 2px solid tomato;
-		border-radius: 15px;
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-		width: 95vw;
-		background-color: wheat;
-		overflow: hidden;
-	}
-
-	.report-filter {
-		display: flex;
-		flex-direction: row;
+		width: 96vw;
 	}
 
 	.report-filter input {
 		width: 32vw;
 	}
 
-	.report-container canvas {
-		display: flex;
-		height: 95vh;
-		width: 95vw;
-	}
-	/* End Report */
-
 	/* Begin Profile */
 	.profile {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		border: 2px solid tomato;
-		border-radius: 15px;
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-		background-color: slateblue;
-		width: 95vw;
+		width: 89vw;
 	}
-
-	.profile-update {
-		display: flex;
-		flex-direction: row;
-	}
-
-	.profile-label {
-		display: flex;
-		flex-direction: column;
-		line-height: 1.9;
-		left: 0;
-		justify-content: flex-start;
-		width: 35vw;
-	}
-
-	.profile-value {
-		display: flex;
-		flex-direction: column;
-		right: 0;
-		justify-content: flex-end;
-		width: 35vw;
-	}
-
-	.pass-update {
-		display: flex;
-		flex-direction: row;
-	}
-
-	.pass-label {
-		display: flex;
-		flex-direction: column;
-		line-height: 1.9;
-		left: 0;
-		justify-content: flex-start;
-		width: 35vw;
-	}
-
-	.pass-value {
-		display: flex;
-		flex-direction: column;
-		right: 0;
-		justify-content: flex-end;
-		width: 35vw;
-	}
-
-	.pass-value input, .profile-value input {
-		border-radius: 10px;
-		padding: 5px;
-		width: 59%;
-	}
-
-	.profile input[type='submit'] {
-		margin-top: 5px;
-		border-radius: 20px;
-		padding: 20px;
-		width: 145px;
-		height: 60px;
-	}
-	/* End Profile */
 }
