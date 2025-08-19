@@ -3,9 +3,8 @@ import { formatDate } from "../lib/utils";
 import { auth } from '../actions/auth';
 
 export default async function Page() {
-  const session = await auth()
-  console.log(session)
-  const user = session?.user?.name
+  const session = await auth();
+  const user = session?.user?.name;
   const me = await fetchUser(user);
   const bs = await fetchBS(user);
   return (

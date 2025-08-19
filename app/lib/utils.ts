@@ -71,3 +71,21 @@ export function stringAmt(str: string) {
   }
   return x
 }
+
+export function weeklySpent(fWI: number, sWI: number, ret: number, oB: number, cB: number): number {
+  const a = (fWI + sWI + ret + oB - cB).toFixed(2)
+  if (parseFloat(a) < 0) {
+    return 0
+  } else {
+    return parseFloat(a)
+  }
+}
+
+export function weeklySave(cB: number, oB: number, ret: number): number {
+  const a = (cB - oB - ret ).toFixed(2)
+  if (parseFloat(a) < 0) {
+    return 0
+  } else {
+    return parseFloat(a)
+  }
+}

@@ -6,9 +6,10 @@ import type { User } from 'next-auth'
 import bcrypt from 'bcrypt'
 import { fetchUser } from '../lib/data';
 
-async function getUser(str: string): Promise<User> {
+async function getUser(str: string): Promise<User | null> {
   try {
     const foundUser = await fetchUser(str);
+    if (!foundUser) return null
     const user: User = {
       name: foundUser.username
     }
@@ -33,8 +34,7 @@ export const { auth, signIn, signOut } = NextAuth({
         
         if (parsedCredentials.success) {
           const { username, password } = parsedCredentials.data;
-          const data = await fetchUser(username)
-          console.log(data)
+          const data = await fetchUser(username);
           const user = await getUser(username);
           if (!user) return null;
           const passMatch = await bcrypt.compareSync(password, data?.password);

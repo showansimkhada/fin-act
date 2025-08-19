@@ -1,5 +1,5 @@
 import { fetchLastBS, fetchUser } from "@/app/lib/data";
-import { formatDate } from "@/app/lib/utils";
+import { formatDate, weeklySave, weeklySpent } from "@/app/lib/utils";
 import { createBS } from "@/app/lib/actions";
 import { Button } from "../ui/button";
 import { auth } from '@/app/actions/auth'
@@ -10,6 +10,10 @@ export default async function Page() {
   const me = await fetchUser(user);
   const bs = await fetchLastBS(user);
   const today = formatDate(Date(), 0);
+  // const wSp = weeklySpent(bs.fWI, bs.sWI, bs.return, bs.openingBalance, bs.closingBalance)
+  // const wSa = weeklySave(bs.closingBalance, bs.openingBalance, bs.return)
+  let amt = 0;
+  let cB = 0;
   return (
     <>
     <form action={createBS}>
@@ -47,7 +51,7 @@ export default async function Page() {
           <input name="sWI" id="sWI" value={bs?.sWI}/>
           <input name="ret" id="ret" value={bs?.return}/>
           <input name="oB" id="oB" value={bs?.openingBalance} readOnly/>
-          <input name="cB" id="cB" value={bs?.closingBalance} readOnly/>
+          <input name="cB" id="cB" value={cB} readOnly/>
           <input name="wSp" id="wSp" value={bs?.weeklySpent} readOnly/>
           <input name="wSa" id="wSa" value={bs?.weeklySave} readOnly/>
         </div>
@@ -62,17 +66,17 @@ export default async function Page() {
           </label>
         </div>
         <div className='value-b'>
-          <input id="amt" /*value={amt} onChange={(event) => {
+          {/* <input id="amt" value={amt} onChange={(event) => {
             let input = event.target.value;
-            // if (input) {
-            //   setAmt(input)
-            //   let x = sumAmt(input);
-            //   setCB(x)
-            // } else {
-            //   setAmt('0')
-            //   setCB('0')
-            // }
-          }}*//>
+            if (input) {
+              amt = parseFloat(input)
+              let x = amt;
+              cB = 0;
+            } else {
+              amt = 0
+              cB = 0
+            }
+          }}/> */}
           <label>amt{/*stringAmt(amt)*/}</label>
         </div>
       </div>
