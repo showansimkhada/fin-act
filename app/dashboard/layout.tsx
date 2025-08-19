@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import NavBar from '../components/nav-bar'
-import { createBS } from '../lib/actions';
 
 export const metadata: Metadata = {
   title: "Dashboard"

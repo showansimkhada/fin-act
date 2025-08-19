@@ -29,7 +29,7 @@ export default function LoginForm() {
 					<input type="password" id="password" name="password" required/>
 				</div>
         <input type="hidden" name="redirectTo" value={callbackUrl} />
-          <Button className="mt-4 w-full" aria-disabled={isPending}>
+          <Button className="" aria-disabled={isPending}>
             Log in
           </Button>
           <div
@@ -39,7 +39,7 @@ export default function LoginForm() {
           >
             {errorMessage && (
               <>
-                <p className="text-sm text-red-500">{errorMessage}</p>
+                <p className="">{errorMessage}</p>
               </>
             )}
           </div>

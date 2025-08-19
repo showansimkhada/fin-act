@@ -3,7 +3,7 @@ import { fetchUser } from "../lib/data";
 
 export default async function Page() {
   const session = await auth()
-  const user = session?.data?.user?.username
+  const user = session?.user?.name;
   const me = await fetchUser(user);
   return (
     <>

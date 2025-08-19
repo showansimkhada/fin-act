@@ -1,5 +1,5 @@
 'use client';
- 
+
 import {
   UserGroupIcon,
   HomeIcon,
@@ -8,7 +8,6 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import clsx from 'clsx';
 
 const links = [
   { 
@@ -49,7 +48,6 @@ export default function NavLinks() {
             href={link.href}
             className={link.class}
           >
-            {/* <LinkIcon className="w-6" /> */}
             <p className="">{link.name}</p>
           </Link>
         );

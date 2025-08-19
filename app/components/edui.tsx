@@ -1,9 +1,8 @@
-import { formatDate } from "@/lib/funcPage";
-import { IBS } from "../lib/definitions";
-import { IUSER } from "../lib/userModel";
-import { ObjectId } from "mongoose";
+import { formatDate } from "../lib/utils";
+import { BS, User } from "../lib/definitions";
+import { ObjectId } from "mongodb";
 
-export default function EDUI(str: ObjectId, data: IBS, dataUser: IUSER[], editInput: boolean) {
+export default function EDUI(str: ObjectId, data: BS, dataUser: User[], editInput: boolean) {
     return (
         <div>
             <form action={`api/bs/?type=deleteD&id=${str}`} method='post'>

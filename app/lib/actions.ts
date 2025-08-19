@@ -4,8 +4,6 @@ import { z } from 'zod';
 
 import { signIn } from '@/app/actions/auth';
 import { AuthError } from 'next-auth';
-import { postBS, updateUser } from './data';
-import bcrypt from 'bcrypt';
 
 //  Begin USERS 
 const UserSchema = z.object({
@@ -34,7 +32,7 @@ export async function updateUN(formData: FormData) {
     username: un
   })
   // check for exisiting users if not then update else ask for different
-  const result = await updateUser(update)
+  // const result = await updateUser(update)
 }
 
 const UpdateProfile = UserSchema.omit({
@@ -64,12 +62,12 @@ const UpdatePass = UserSchema.omit({
 export async function updatePass(formData: FormData) {
   const newpass = formData.get('newpass');
   const confirmpass = formData.get('confirmpass');
-  if ( newpass === confirmpass) {
-    const hash = bcrypt.hashSync(newpass, 12)
-    const parsePass = UpdatePass.parse({
-      password: hash,
-    })
-  }
+  // if ( newpass === confirmpass) {
+  //   const hash = bcrypt.hashSync(newpass, 12)
+  //   const parsePass = UpdatePass.parse({
+  //     password: hash,
+  //   })
+  // }
 }
 // End USERS
 
@@ -108,7 +106,7 @@ export async function createBS(formData: FormData) {
     wSp: Number(formData.get('wSp')),
     wSa: Number(formData.get('wSa')),
   })
-  const result = await postBS(parseBS);
+  // const result = await postBS(parseBS);
 }
 
 export async function authenticate(

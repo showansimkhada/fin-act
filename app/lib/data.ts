@@ -5,7 +5,7 @@ const MONGODB_URI = process.env.MONGO_URI!
 const client = new MongoClient(MONGODB_URI)
 
 // Begin Users
-export async function fetchUser(user: string): Promise<User> {
+export async function fetchUser(user: any): Promise<User> {
   try {
     await client.connect()
     const database = client.db(process.env.DB_NAME!)
@@ -20,7 +20,7 @@ export async function fetchUser(user: string): Promise<User> {
   }
 }
 
-export async function updateUser(user: string, nu: string) {
+export async function updateUser(user: any, nu: string) {
   try {
     await client.connect()
     const database = client.db(process.env.DB_NAME!)
@@ -37,7 +37,7 @@ export async function updateUser(user: string, nu: string) {
 // End Users
 
 // Begin Balance Sheet 
-export async function fetchBS(user: string): Promise<BS[]> {
+export async function fetchBS(user: any): Promise<BS[]> {
   try {
     await client.connect();
     const database = client.db(process.env.DB_NAME!);
@@ -53,7 +53,7 @@ export async function fetchBS(user: string): Promise<BS[]> {
   }
 }
 
-export async function fetchLastBS(user: string): Promise<BS> {
+export async function fetchLastBS(user: any): Promise<BS> {
   try {
     await client.connect();
     const database = client.db(process.env.DB_NAME!);

@@ -6,9 +6,9 @@ import { auth } from '@/app/actions/auth'
 
 export default async function Page() {
   const session = await auth()
-  const user = session?.user?.data?.username;
+  const user = session?.user?.name;
   const me = await fetchUser(user);
-  const bs = await fetchLastBS(me?.username);
+  const bs = await fetchLastBS(user);
   const today = formatDate(Date(), 0);
   return (
     <>

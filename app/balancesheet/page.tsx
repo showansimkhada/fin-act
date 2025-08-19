@@ -4,9 +4,10 @@ import { auth } from '../actions/auth';
 
 export default async function Page() {
   const session = await auth()
-  const user = session?.user?.data?.username;
+  console.log(session)
+  const user = session?.user?.name
   const me = await fetchUser(user);
-  const bs = await fetchBS(me.username);
+  const bs = await fetchBS(user);
   return (
     <>
       <main>
