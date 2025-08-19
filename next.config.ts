@@ -1,5 +1,6 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   webpack: (config) => {
     config.experiments = {
@@ -7,7 +8,7 @@ const nextConfig = {
       layers: true
     };
     return config;
-  },
+  }
 }
 
-export default nextConfig
+export default nextConfig;
