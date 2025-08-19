@@ -91,15 +91,15 @@ p {
 	width: 100%;
 }
 
-.navbar a:hover {
+.navbar p:hover {
 	color: orange;
 }
 
-.navbar input:hover {
+.navbar button:hover {
 	color: orange;
 }
 
-.navbar-links input {
+.navbar button {
 	color: blue;
 	background-color: transparent;
 	border: 0px solid transparent;
@@ -380,11 +380,10 @@ canvas {
 
 	#nav-toggle:checked ~ .navbar-links {
 		display: flex;
-		flex-direction: column;
 	}
 
 	#nav-toggle:checked ~ .hamburger {
-		display: none;
+		display: flex;
 	}
 	/* End NavBar*/
 

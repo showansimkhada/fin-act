@@ -1,6 +1,6 @@
 import NavLinks from '@/app/components/nav-links';
 // import { PowerIcon } from '@heroicons/react/24/outline';
-import { signOut } from '@/auth';
+import { signOut } from '@/app/actions/auth';
  
 export default function NavBar() {
   return (

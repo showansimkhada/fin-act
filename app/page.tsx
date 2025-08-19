@@ -1,11 +1,14 @@
-// import AcmeLogo from '@/app/ui/acme-logo';
+import AcmeLogo from '@/app/ui/acme-logo';
 // import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import Login from './ui/loginin-form';
+import { Suspense } from 'react';
+import LoginForm from '@/app/ui/login-form';
 
-export default function Page() {
+export default async function Page() {
   return (
-    <main className="flex min-h-screen flex-col p-6">
-        <Login/>
+    <main className="">
+      <Suspense>
+        <LoginForm/>
+      </Suspense>
     </main>
   );
 }

@@ -10,7 +10,7 @@ export interface User {
   slastname: string;
 }
 
-export interface IBS {
+export interface BS {
   _id: ObjectId;
   username: string;
   year: number;

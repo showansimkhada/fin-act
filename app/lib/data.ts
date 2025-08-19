@@ -1,52 +1,87 @@
 import { MongoClient } from 'mongodb';
-import { User, IBS } from '@/app/lib/definitions'
+import { User, BS } from '@/app/lib/definitions'
 
 const MONGODB_URI = process.env.MONGO_URI!
 const client = new MongoClient(MONGODB_URI)
 
-export async function fetchUser(user: string): Promise<User | null> {
+// Begin Users
+export async function fetchUser(user: string): Promise<User> {
   try {
     await client.connect()
     const database = client.db(process.env.DB_NAME!)
     const collection = database.collection(process.env.USER_COLLECTION_NAME!);
-    const data = await collection.findOne({username: user})
+    const data = await collection.findOne({username: user});
     return data as User;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch user data');
+    throw new Error('Failed to get users data');
   } finally {
     await client.close();
   }
 }
 
-export async function fetchBS(user: string): Promise<IBS[] | null> {
+export async function updateUser(user: string, nu: string) {
+  try {
+    await client.connect()
+    const database = client.db(process.env.DB_NAME!)
+    const collection = database.collection(process.env.USER_COLLECTION_NAME!);
+    const data = await collection.findOneAndUpdate({username: user}, {username: nu});
+    return 'Success';
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to get users data');
+  } finally {
+    await client.close();
+  }
+}
+// End Users
+
+// Begin Balance Sheet 
+export async function fetchBS(user: string): Promise<BS[]> {
   try {
     await client.connect();
     const database = client.db(process.env.DB_NAME!);
     const collection = database.collection(process.env.BS_COLLECTION_NAME!);
     
     const data = await collection.find({username: user}).toArray();
-    return data as IBS[];
+    return data as BS[];
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch Balance Sheet data');
+    throw new Error('Failed to get Balance Sheet data');
   } finally {
     await client.close()
   }
 }
 
-export async function fetchLastBS(user: string): Promise<IBS | null> {
+export async function fetchLastBS(user: string): Promise<BS> {
   try {
     await client.connect();
     const database = client.db(process.env.DB_NAME!);
     const collection = database.collection(process.env.BS_COLLECTION_NAME!);
     
     const data = await collection.find({username: user}).toArray();
-    return data[0] as IBS;
+    return data[0] as BS;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch Balance Sheet data');
+    throw new Error('Failed to get Balance Sheet data');
   } finally {
     await client.close()
   }
 }
+
+export async function postBS(data: BS) {
+  try {
+    await client.connect();
+    const database = client.db(process.env.DB_NAME!);
+    const collection = database.collection(process.env.BS_COLLECTION_NAME!);
+    
+    const result = await collection.insertOne(data);
+    console.log('successfully saved the data')
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to get Balance Sheet data');
+  } finally {
+    await client.close()
+  }
+}
+// End Balance Sheet
