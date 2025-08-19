@@ -2,15 +2,17 @@ import NextAuth from 'next-auth';
 import { authConfig } from '../../auth.config';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
-import type { User } from '@/app/lib/definitions'
+import type { User } from 'next-auth'
 import bcrypt from 'bcrypt'
 import { fetchUser } from '../lib/data';
 
-
-async function getUser(user: string): Promise<User> {
+async function getUser(str: string): Promise<User> {
   try {
-    const foundUser = await fetchUser(user);
-    return foundUser;
+    const foundUser = await fetchUser(str);
+    const user: User = {
+      name: foundUser.username
+    }
+    return user;
   } catch (error) {
     console.error('Failed to fetch user', error);
     throw new Error('Failed to fetch user');
@@ -31,12 +33,14 @@ export const { auth, signIn, signOut } = NextAuth({
         
         if (parsedCredentials.success) {
           const { username, password } = parsedCredentials.data;
+          const data = await fetchUser(username)
+          console.log(data)
           const user = await getUser(username);
           if (!user) return null;
-          const passMatch = await bcrypt.compareSync(password || "", user.password);
+          const passMatch = await bcrypt.compareSync(password, data?.password);
           if (passMatch) return user;
         }
-        return '';
+        return null
       }
     })
   ],
