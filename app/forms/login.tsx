@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/app/ui/button';
+import { Button } from '@/app/components/button';
 import { useActionState } from 'react';
 import { authenticate } from '@/app/lib/actions';
 import { useSearchParams } from 'next/navigation';
