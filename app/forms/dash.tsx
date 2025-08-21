@@ -77,15 +77,15 @@ export function Dash(data: any) {
             <input type="date" name="bsDate" value={today} onChange={(event) => {
               setToday(event.target.value)
             }}/>
-            <input type="number" name="fWI" value={fWI} onChange={(event) => {
+            <input type="number" name="fWI" value={fWI} onFocus={e => e.target.select()} onChange={(event) => {
               let input = parseFloat(event.target.value);
               setFWI(input);
             }}/>
-            <input type="number" name="sWI" value={sWI} onChange={(event) => {
+            <input type="number" name="sWI" onFocus={e => e.target.select()} value={sWI} onChange={(event) => {
               let input = parseFloat(event.target.value);
               setSWI(input);
             }}/>
-            <input type="number" name="ret" value={ret} onChange={(event) => {
+            <input type="number" name="ret" onFocus={e => e.target.select()} value={ret} onChange={(event) => {
               let input = parseFloat(event.target.value);
               setRET(input);
             }}/>
@@ -105,7 +105,7 @@ export function Dash(data: any) {
             </label>
           </div>
           <div className='value-b'>
-							<input id="amt" value={amt} onChange={(event) => {
+							<input id="amt" value={amt} onFocus={e => e.target.select()} onChange={(event) => {
 								let input = event.target.value;
 								if (input) {
 									setAmt(input)
