@@ -2,8 +2,9 @@ import '../public/styles/globals.css'
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Fin Act"
+  title: "Fin-Act"
 }
+
 export default function RootLayout({
   children,
 }: {

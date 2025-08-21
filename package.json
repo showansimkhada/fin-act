@@ -1,7 +1,7 @@
 {
 	"name": "finact",
 	"description": "<h1>Used Skills</h1> <ul>     <li>React</li>     <li>TypeScript</li>     <li>Passport</li>     <li>MongoDB</li>     <li>NextJS</li>     <li>BootStrap</li>     <li>Bcrypt</li>     <li>NodeJS</li> </ul>",
-	"version": "1.0.0",
+	"version": "1.5.0",
 	"main": "index.js",
 	"directories": {
 		"lib": "lib"
@@ -19,10 +19,13 @@
 	},
 	"dependencies": {
 		"bcrypt": "^6.0.0",
+		"chartjs": "^0.3.24",
+		"jose": "^6.0.12",
 		"mongodb": "^6.18.0",
-		"next": "^15.4.7",
+		"next": "^15.5.0",
 		"next-auth": "^5.0.0-beta.29",
 		"react": "^19.1.1",
+		"react-chartjs-2": "^5.3.0",
 		"react-dom": "^19.1.1",
 		"zod": "^4.0.17"
 	},
@@ -31,7 +34,7 @@
 		"@types/node": "^24.3.0",
 		"@types/react": "^19.1.10",
 		"@types/react-dom": "^19.1.7",
-		"eslint-config-next": "^15.4.7",
+		"eslint-config-next": "^15.5.0",
 		"typescript": "^5.9.2"
 	}
 }

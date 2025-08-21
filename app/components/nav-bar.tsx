@@ -1,5 +1,5 @@
-import NavLinks from '@/app/components/nav-links';
-import { signOut } from '@/app/actions/auth';
+import NavLinks from '@/components/nav-links';
+import { signOut } from '@/actions/auth';
  
 export default function NavBar() {
   return (
@@ -15,7 +15,7 @@ export default function NavBar() {
           await signOut({ redirectTo: '/' });
         }}
       >
-        <button className='navbar-links'>
+        <button className='nav-links'>
           <div>Sign Out</div>
         </button>
       </form>

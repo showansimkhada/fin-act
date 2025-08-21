@@ -197,7 +197,7 @@ p {
 }
 /* End Dashboard */
 
-/* Begio Balance Sheet */
+/* Begin Balance Sheet */
 .bs-container {
 	display: flex;
 	flex-direction: column;
@@ -205,7 +205,7 @@ p {
 	border-radius: 15px;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
-	padding: 10px;
+	padding: 25px;
 	background-color: slateblue;
 	width: 95vw;
 	overflow: scroll;

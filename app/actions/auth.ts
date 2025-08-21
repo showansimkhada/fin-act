@@ -1,12 +1,13 @@
-import NextAuth from 'next-auth';
+'use server'
+import NextAuth, { AuthError } from 'next-auth';
 import { authConfig } from '../../auth.config';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import type { User } from 'next-auth'
 import bcrypt from 'bcrypt'
-import { fetchUser } from '../lib/data';
+import { fetchUser } from './users';
 
-async function getUser(str: string): Promise<User | null> {
+export async function getUser(str: string): Promise<User | null> {
   try {
     const foundUser = await fetchUser(str);
     if (!foundUser) return null
@@ -34,14 +35,34 @@ export const { auth, signIn, signOut } = NextAuth({
         
         if (parsedCredentials.success) {
           const { username, password } = parsedCredentials.data;
-          const data = await fetchUser(username);
-          const user = await getUser(username);
-          if (!user) return null;
-          const passMatch = await bcrypt.compareSync(password, data?.password);
-          if (passMatch) return user;
+          const user = await fetchUser(username);
+          if (user) {
+            const data = await getUser(username);
+            const passMatch = bcrypt.compareSync(password, user.password);
+            if (passMatch) return data;
+          }
         }
         return null
       }
     })
   ],
 });
+
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData,
+) {
+  try {
+    await signIn('credentials', formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Invalid credentials.';
+        default:
+          return 'Something went wrong.';
+      }
+    }
+    throw error;
+  }
+}

@@ -1,22 +1,36 @@
-import { auth } from "../actions/auth";
-import { fetchUser } from "../lib/data";
+import { auth } from '@/actions/auth';
+import { fetchUser } from '@/actions/users';
+// import Testis from '@/charts/line'
+import { fetchBS } from '@/actions/bs';
+import { Suspense } from 'react';
+// import { BS } from '@/lib/definitions';
 
 export default async function Page() {
   const session = await auth()
   const user = session?.user?.name;
-  const me = await fetchUser(user);
+  const dataUser = await fetchUser(user!);
+  const bsData = (await fetchBS(user));
+
+  console.log(typeof(bsData))
+
   return (
     <>
-      <h1>Report</h1>
+      <Suspense>
+        <div className='report-container'>
+          <div className="report-chart">
+            {/* <Testis {...bsData}/> */}
+          </div>
+        </div>
+      </Suspense>
     </>
   )
 }
 
-// import Navbars from "../navbar/nav-bar"
+// import Navbars from "@/components/nav-bar"
 
-// import BS, { IBS } from '../lib/definitions'
-// import User, { IUSER } from '../lib/userModel'
-// import dbConnect from "../lib/data";
+// import BS, { IBS } from '@/lib/utils/models/bsModel'
+// import User, { IUSER } from '@/lib/utils/models/userModel'
+// import dbConnect from "@/lib/utils/conn/mongoose";
 // import { lsUser } from '@/lib/redux';
 
 // import { GetServerSideProps } from "next";

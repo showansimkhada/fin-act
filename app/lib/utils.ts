@@ -62,6 +62,7 @@ export function sumAmt(str: string) {
 
 // Convert the string into addition expression
 export function stringAmt(str: string) {
+  if (!str) return 0
   let sum = sumAmt(str)
   let x = str.replace(/,/g, '+')
   if (x[x.length-1] === '+') {

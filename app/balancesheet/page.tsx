@@ -1,11 +1,12 @@
-import { fetchUser, fetchBS } from '../lib/data'
-import { formatDate } from "../lib/utils";
-import { auth } from '../actions/auth';
+import { fetchBS } from '@/actions/bs'
+import { finUser } from '@/actions/users';
+import { formatDate } from "@/lib/utils";
+import { auth } from '@/actions/auth';
 
 export default async function Page() {
   const session = await auth();
   const user = session?.user?.name;
-  const me = await fetchUser(user);
+  const me = await finUser(user!);
   const bs = await fetchBS(user);
   return (
     <>
@@ -28,17 +29,17 @@ export default async function Page() {
               {bs?.map((x) => (
                 <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}>
                   <td>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
-                  <td>{x.fWI.toString()}</td>
-                  <td>{x.sWI.toString()}</td>
-                  <td>{x.return.toString()}</td>
-                  <td>{x.openingBalance.toString()}</td>
-                  <td>{x.closingBalance.toString()}</td>
-                  <td>{x.weeklySpent.toString()}</td>
-                  <td>{x.weeklySave.toString()}</td>
+                  <td>{x.fWI}</td>
+                  <td>{x.sWI}</td>
+                  <td>{x.return}</td>
+                  <td>{x.openingBalance}</td>
+                  <td>{x.closingBalance}</td>
+                  <td>{x.weeklySpent}</td>
+                  <td>{x.weeklySave}</td>
                 </tr>
               ))}
             </tbody>
-            <tfoot>
+            {/* <tfoot>
               {<tr>
                 <td>{'Total'}</td>
                 <td>{'fweTotal'}</td>
@@ -49,10 +50,142 @@ export default async function Page() {
                 <td>{'wspTotal'}</td>
                 <td>{'wsaTotal'}</td>
               </tr>}
-            </tfoot>
+            </tfoot> */}
           </table>
         </div>
       </main>
     </>
   )
 }
+
+// import Navbars from "@/components/nav-bar"
+
+// import BS, { IBS } from '@/lib/utils/models/bsModel'
+// import User, { IUSER } from '@/lib/utils/models/userModel'
+// import dbConnect from "@/lib/utils/conn/mongoose";
+// import { formatDate } from '@/lib/funcPage';
+// import { lsUser } from '@/lib/redux';
+
+// import { GetServerSideProps } from "next";
+// import React from 'react';
+// import { useSession } from 'next-auth/react';
+// import { useRouter } from 'next/navigation';
+// import { useSelector } from 'react-redux';
+// import { useEffect, useState } from 'react';
+
+// type Props = {
+//     bsData: IBS[] ,
+//     userData: IUSER[]
+// }
+
+// export default function( {bsData, userData}: Props) {
+//     const [isClient, setIsClient] = useState(false);
+//     const router = useRouter()
+//     useSession({
+//         required: true,
+//         onUnauthenticated() {
+//             router.push('/')
+//         }
+//     })
+//     const username = String(useSelector(lsUser))
+//     const dataBS = bsData.filter((x) => {
+//         return x.username === username
+//     })
+//     const dataUser = userData.filter((x) => {
+//         return x.username === username
+//     })
+//     const [data] = useState(dataBS);
+//     const fweTotal = dataBS.reduce((c, x) => c + Number(x.fWI), 0).toFixed(2);
+//     const sweTotal = dataBS.reduce((c, x) => c + Number(x.sWI), 0).toFixed(2);
+//     const wspTotal = dataBS.reduce((c, x) => c + Number(x.weeklySpent), 0).toFixed(2);
+//     const wsaTotal = dataBS.reduce((c, x) => c + Number(x.weeklySave), 0).toFixed(2);
+//     useEffect (() => {
+//         setIsClient(true)
+//     })
+
+//     const dataTable = (
+// 		<>
+// 			<div className="bs-container">
+// 				<table>
+// 					<thead>
+// 						<tr>
+// 							<th>Date</th>
+// 							<th>{isClient? dataUser[0]?.firstname: ''}'s WI</th>
+// 							<th>{isClient? dataUser[0]?.sfirstname: ''}'s WI</th>
+// 							<th>Return</th>
+// 							<th>Opening Balance</th>
+// 							<th>Closing Balance</th>
+// 							<th>Weekly Spent</th>
+// 							<th>Weekly Save</th>
+// 						</tr>
+// 					</thead>
+// 					<tbody>
+// 						{isClient? data.map((x) => (
+// 							<tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}>
+// 								<td>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
+// 								<td>{x.fWI.toString()}</td>
+// 								<td>{x.sWI.toString()}</td>
+// 								<td>{x.return.toString()}</td>
+// 								<td>{x.openingBalance.toString()}</td>
+// 								<td>{x.closingBalance.toString()}</td>
+// 								<td>{x.weeklySpent.toString()}</td>
+// 								<td>{x.weeklySave.toString()}</td>
+// 							</tr>
+//                    		 )): ''}
+// 					</tbody>
+// 					<tfoot>
+// 						{isClient ? 
+// 							<tr>
+// 								<td>{'Total'}</td>
+// 								<td>{fweTotal}</td>
+// 								<td>{sweTotal}</td>
+// 								<td></td>
+// 								<td></td>
+// 								<td></td>
+// 								<td>{wspTotal}</td>
+// 								<td>{wsaTotal}</td>
+// 							</tr>
+// 						: ''}
+// 					</tfoot>
+// 				</table>
+// 			</div>
+// 		</>
+//     )
+
+//     return (
+// 		<>
+//             <Navbars/>
+//             {dataTable}
+//         </>
+//     )
+// }
+
+// export const getServerSideProps: GetServerSideProps<Props> = async () => {
+//     await dbConnect()
+//     /* find all the data in our database */
+//     const findBS = await BS.find({})
+//     const data = findBS.sort((a, b) => {
+//         return new Date(
+// 			a.year.toString() + '-' + a.month.toString() + '-'
+// 			+ a.date.toString()).getTime() - new Date(b.year.toString()
+// 			+ '-' + b.month.toString() + '-' + b.date.toString()
+// 		).getTime()
+//     });
+  
+//     /* Ensures all objectIds and nested objectIds are serialized as JSON data */
+//     const bsData = data.map((doc) => {
+// 		const pet = JSON.parse(JSON.stringify(doc))
+// 		return pet
+//     })
+
+//     /* find all the data in our database */
+//     const results = await User.find({})
+  
+//     /* Ensures all objectIds and nested objectIds are serialized as JSON data */
+//     const userData = results.map((doc) => {
+// 		const pet = JSON.parse(JSON.stringify(doc))
+// 		return pet
+//     })
+  
+//     return { props: { bsData: bsData, userData: userData } }
+// }

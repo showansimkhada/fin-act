@@ -1,8 +1,8 @@
 'use client';
 
-import { Button } from '@/app/components/button';
+import { Button } from '@/components/button';
 import { useActionState } from 'react';
-import { authenticate } from '@/app/lib/actions';
+import { authenticate } from '@/actions/auth';
 import { useSearchParams } from 'next/navigation';
 
 export default function LoginForm() {

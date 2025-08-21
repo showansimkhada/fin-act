@@ -1,5 +1,5 @@
-import { formatDate } from "../lib/utils";
-import { BS, User } from "../lib/definitions";
+import { formatDate } from "@/lib/utils";
+import { BS, User } from "@/lib/definitions";
 import { ObjectId } from "mongodb";
 
 export default function EDUI(str: ObjectId, data: BS, dataUser: User[], editInput: boolean) {
