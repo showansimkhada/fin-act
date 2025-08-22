@@ -2,11 +2,13 @@ import { fetchLastBS } from "@/actions/bs";
 import { auth } from '@/actions/auth'
 import { Dash } from "@/forms/dash";
 import { Suspense } from "react";
+import { findUser } from "@/actions/users";
 
 export default async function Page() {
   const session = await auth()
   const user = session?.user?.name;
   const bs = await fetchLastBS(user);
+  const username = await findUser(user);
   const data = {
     username: bs.username,
     year: bs.year,
@@ -22,7 +24,7 @@ export default async function Page() {
   }
   return (
     <Suspense>
-      <Dash data={{data, user}}/>
+      <Dash data={{data, username}}/>
     </Suspense>
   )
 }

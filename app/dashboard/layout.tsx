@@ -1,15 +1,15 @@
-import { Metadata } from "next";
+import { Metadata } from 'next';
 import NavBar from '@/components/nav-bar'
 
 export const metadata: Metadata = {
-  title: "Dashboard"
+  title: 'Dashboard'
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="">
+    <>
       <NavBar/>
-      <div className="dashboard">{children}</div>
-    </div>
+      <div className='flex flex-col p-0.5 w-screen h-screen content-center text-gray-900 mt-[90px]'>{children}</div>
+    </>
   );
 }

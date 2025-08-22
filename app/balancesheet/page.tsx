@@ -1,72 +1,68 @@
 import { fetchBS } from '@/actions/bs'
-import { finUser } from '@/actions/users';
-import { formatDate } from "@/lib/utils";
+import { findUser } from '@/actions/users';
+import { formatDate } from '@/lib/utils';
 import { auth } from '@/actions/auth';
 
 export default async function Page() {
   const session = await auth();
   const user = session?.user?.name;
-  const me = await finUser(user!);
+  const me = await findUser(user!);
   const bs = await fetchBS(user);
   return (
     <>
-      <main>
-        <div className="bs-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>{me?.firstname}'s WI</th>
-                <th>{me?.sfirstname}'s WI</th>
-                <th>Return</th>
-                <th>Opening Balance</th>
-                <th>Closing Balance</th>
-                <th>Weekly Spent</th>
-                <th>Weekly Save</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bs?.map((x) => (
-                <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}>
-                  <td>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
-                  <td>{x.fWI}</td>
-                  <td>{x.sWI}</td>
-                  <td>{x.return}</td>
-                  <td>{x.openingBalance}</td>
-                  <td>{x.closingBalance}</td>
-                  <td>{x.weeklySpent}</td>
-                  <td>{x.weeklySave}</td>
-                </tr>
-              ))}
-            </tbody>
-            {/* <tfoot>
-              {<tr>
-                <td>{'Total'}</td>
-                <td>{'fweTotal'}</td>
-                <td>{'sweTotal'}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>{'wspTotal'}</td>
-                <td>{'wsaTotal'}</td>
-              </tr>}
-            </tfoot> */}
-          </table>
-        </div>
-      </main>
+      <table>
+        <thead>
+          <tr>
+            <th className='border border-solid border-red-500'>Date</th>
+            <th className='border border-solid border-red-500'>{me?.firstname}'s WI</th>
+            <th className='border border-solid border-red-500'>{me?.sfirstname}'s WI</th>
+            <th className='border border-solid border-red-500'>Return</th>
+            <th className='border border-solid border-red-500'>Opening Balance</th>
+            <th className='border border-solid border-red-500'>Closing Balance</th>
+            <th className='border border-solid border-red-500'>Weekly Spent</th>
+            <th className='border border-solid border-red-500'>Weekly Save</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bs?.map((x) => (
+            <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}>
+              <td className='p-[2px] text-right border border-solid border-orange-500'>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
+              <td className='p-[2px] text-right border border-solid border-orange-500'>{x.fWI}</td>
+              <td className='p-[2px] text-right border border-solid border-orange-500'>{x.sWI}</td>
+              <td className='p-[2px] text-right border border-solid border-orange-500'>{x.return}</td>
+              <td className='p-[2px] text-right border border-solid border-orange-500'>{x.openingBalance}</td>
+              <td className='p-[2px] text-right border border-solid border-orange-500'>{x.closingBalance}</td>
+              <td className='p-[2px] text-right border border-solid border-orange-500'>{x.weeklySpent}</td>
+              <td className='p-[2px] text-right border border-solid border-orange-500'>{x.weeklySave}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot className=''>
+          <tr>
+            <td className='p-[2px] text-right border border-solid border-orange-500'>{'Total'}</td>
+            <td className='p-[2px] text-right border border-solid border-orange-500'>{'fweTotal'}</td>
+            <td className='p-[2px] text-right border border-solid border-orange-500'>{'sweTotal'}</td>
+            <td className='p-[2px] text-right border border-solid border-orange-500'></td>
+            <td className='p-[2px] text-right border border-solid border-orange-500'></td>
+            <td className='p-[2px] text-right border border-solid border-orange-500'></td>
+            <td className='p-[2px] text-right border border-solid border-orange-500'>{'wspTotal'}</td>
+            <td className='p-[2px] text-right border border-solid border-orange-500'>{'wsaTotal'}</td>
+          </tr>
+        </tfoot>
+      </table>
     </>
   )
 }
 
-// import Navbars from "@/components/nav-bar"
+// import Navbars from '@/components/nav-bar'
 
 // import BS, { IBS } from '@/lib/utils/models/bsModel'
 // import User, { IUSER } from '@/lib/utils/models/userModel'
-// import dbConnect from "@/lib/utils/conn/mongoose";
+// import dbConnect from '@/lib/utils/conn/mongoose';
 // import { formatDate } from '@/lib/funcPage';
 // import { lsUser } from '@/lib/redux';
 
-// import { GetServerSideProps } from "next";
+// import { GetServerSideProps } from 'next';
 // import React from 'react';
 // import { useSession } from 'next-auth/react';
 // import { useRouter } from 'next/navigation';
@@ -105,7 +101,7 @@ export default async function Page() {
 
 //     const dataTable = (
 // 		<>
-// 			<div className="bs-container">
+// 			<div className='bs-container'>
 // 				<table>
 // 					<thead>
 // 						<tr>
@@ -122,28 +118,28 @@ export default async function Page() {
 // 					<tbody>
 // 						{isClient? data.map((x) => (
 // 							<tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}>
-// 								<td>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
-// 								<td>{x.fWI.toString()}</td>
-// 								<td>{x.sWI.toString()}</td>
-// 								<td>{x.return.toString()}</td>
-// 								<td>{x.openingBalance.toString()}</td>
-// 								<td>{x.closingBalance.toString()}</td>
-// 								<td>{x.weeklySpent.toString()}</td>
-// 								<td>{x.weeklySave.toString()}</td>
+// 								<td className='border border-solid caret-amber-50'>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
+// 								<td className='border border-solid caret-amber-50'>{x.fWI.toString()}</td>
+// 								<td className='border border-solid caret-amber-50'>{x.sWI.toString()}</td>
+// 								<td className='border border-solid caret-amber-50'>{x.return.toString()}</td>
+// 								<td className='border border-solid caret-amber-50'>{x.openingBalance.toString()}</td>
+// 								<td className='border border-solid caret-amber-50'>{x.closingBalance.toString()}</td>
+// 								<td className='border border-solid caret-amber-50'>{x.weeklySpent.toString()}</td>
+// 								<td className='border border-solid caret-amber-50'>{x.weeklySave.toString()}</td>
 // 							</tr>
 //                    		 )): ''}
 // 					</tbody>
 // 					<tfoot>
 // 						{isClient ? 
 // 							<tr>
-// 								<td>{'Total'}</td>
-// 								<td>{fweTotal}</td>
-// 								<td>{sweTotal}</td>
-// 								<td></td>
-// 								<td></td>
-// 								<td></td>
-// 								<td>{wspTotal}</td>
-// 								<td>{wsaTotal}</td>
+// 								<td className='border border-solid caret-amber-50'>{'Total'}</td>
+// 								<td className='border border-solid caret-amber-50'>{fweTotal}</td>
+// 								<td className='border border-solid caret-amber-50'>{sweTotal}</td>
+// 								<td className='border border-solid caret-amber-50'></td>
+// 								<td className='border border-solid caret-amber-50'></td>
+// 								<td className='border border-solid caret-amber-50'></td>
+// 								<td className='border border-solid caret-amber-50'>{wspTotal}</td>
+// 								<td className='border border-solid caret-amber-50'>{wsaTotal}</td>
 // 							</tr>
 // 						: ''}
 // 					</tfoot>

@@ -39,7 +39,7 @@ export async function fetchUser(user: any): Promise<User | null> {
   }
 }
 
-export async function finUser(user: any): Promise<User | null> {
+export async function findUser(user: any): Promise<User | null> {
   try {
     await client.connect()
     const database = client.db(process.env.DB_NAME!)

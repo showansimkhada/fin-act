@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  webpack: (config, { isServer }) => {
+  webpack: (config) => {
     config.experiments = {
       topLevelAwait: true,
       layers: true

@@ -6,7 +6,7 @@ export function Button({ children, className, ...rest }: ButtonProps) {
   return (
     <button
       {...rest}
-      className='btn'
+      className={className}
     >
       {children}
     </button>

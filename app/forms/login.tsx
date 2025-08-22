@@ -14,32 +14,34 @@ export default function LoginForm() {
   )
 	return (
     <>
-    <div className="form-signin">
+    <div className='flex flex-col bg-amber-50 p-8 rounded-2xl w-2xs h-60 items-center justify-center -mt-[400px]'>
 			<form action={formAction}>
-				<div className="form-floating">
-					<label htmlFor="username">
+				<div className='relative'>
+					<label className='absolute top-1 left-2.5 z-10' htmlFor="username">
 						Username
 					</label>
-					<input type="text" id="username" name="username" autoCapitalize='none' required/>
+					<input className='w-full bg-white p-1.5 pt-6 rounded-2xl mb-0.5 rounded-br-xs rounded-bl-xs'
+            type='text' id='username' name='username' autoCapitalize='none' required/>
 				</div>
-				<div className='form-floating'>
-					<label htmlFor='password'>
+				<div className='relative'>
+					<label className='absolute top-1 left-2.5 z-10' htmlFor='password'>
 						Password
 					</label>
-					<input type="password" id="password" name="password" required/>
+					<input className='w-full bg-white p-1.5 pt-6 rounded-2xl mb-2.5 rounded-tl-xs rounded-tr-xs'
+            type='password' id='password' name='password' required/>
 				</div>
-        <input type="hidden" name="redirectTo" value={callbackUrl} />
-          <Button className="" aria-disabled={isPending}>
+        <input type='hidden' name='redirectTo' value={callbackUrl} />
+          <Button className='rounded-2xl bg-blue-500 w-full h-8 hover:bg-orange-300' aria-disabled={isPending}>
             Log in
           </Button>
           <div
-            className=""
-            aria-live="polite"
-            aria-atomic="true"
+            className=''
+            aria-live='polite'
+            aria-atomic='true'
           >
             {errorMessage && (
               <>
-                <p className="">{errorMessage}</p>
+                <p className='text-red-400 mt-2.5 mb-2.5 mr-1.5 ml-1.5 text-center'>{errorMessage}</p>
               </>
             )}
           </div>

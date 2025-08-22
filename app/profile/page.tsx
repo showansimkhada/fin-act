@@ -1,23 +1,20 @@
 import { auth } from '@/actions/auth';
-import { Profile } from '@/forms/profile'
+import { User } from '@/forms/user'
+import { Details } from '@/forms/details'
 import { Suspense } from 'react';
-import { finUser } from '@/actions/users';
+import { findUser } from '@/actions/users';
+import { Pass } from '@/forms/pass';
 
 export default async function Page() {
   const session = await auth()
   const user = session?.user?.name;
-  const me = await finUser(user!);
-  // const bs = {
-  //   username: me?.username,
-  //   firstname: me?.firstname,
-  //   lastname: me?.lastname,
-  //   sfirstname: me?.sfirstname,
-  //   slastname: me?.slastname,
-  // }
+  const me = await findUser(user!);
   return (
     <>
       <Suspense>
-        <Profile {...me}/>
+        <User {...me}/>
+        <Details {...me}/>
+        <Pass {...me}/>
       </Suspense>
     </>
   )

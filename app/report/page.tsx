@@ -16,24 +16,22 @@ export default async function Page() {
   return (
     <>
       <Suspense>
-        <div className='report-container'>
-          <div className="report-chart">
-            {/* <Testis {...bsData}/> */}
-          </div>
+        <div className='flex flex-col'>
+          {/* <Testis {...bsData}/> */}
         </div>
       </Suspense>
     </>
   )
 }
 
-// import Navbars from "@/components/nav-bar"
+// import Navbars from '@/components/nav-bar'
 
 // import BS, { IBS } from '@/lib/utils/models/bsModel'
 // import User, { IUSER } from '@/lib/utils/models/userModel'
-// import dbConnect from "@/lib/utils/conn/mongoose";
+// import dbConnect from '@/lib/utils/conn/mongoose';
 // import { lsUser } from '@/lib/redux';
 
-// import { GetServerSideProps } from "next";
+// import { GetServerSideProps } from 'next';
 // import React from 'react';
 // import { useSession } from 'next-auth/react';
 // import { useRouter } from 'next/navigation';
@@ -121,13 +119,13 @@ export default async function Page() {
 //             labels,
 //             datasets: [
 //               {
-//                 label: dataUser[0]?.firstname + "'s Yearly Income",
+//                 label: dataUser[0]?.firstname + ''s Yearly Income',
 //                 data: arr.map(x => x.fWI),
 //                 backgroundColor: 'rgb(135, 206, 235)',
 //                 borderColor: 'rgba(135, 206, 235, 0.5)'
 //               },
 //               {
-//                 label: dataUser[0]?.sfirstname + "'s Yearly Income",
+//                 label: dataUser[0]?.sfirstname + ''s Yearly Income',
 //                 data: arr.map(x => x.sWI),
 //                 backgroundColor: 'rgb(255, 165, 0)',
 //                 borderColor: 'rgba(255, 165, 0, 0.5)'
@@ -227,13 +225,13 @@ export default async function Page() {
 //             labels,
 //             datasets: [
 //               {
-//                 label: dataUser[0]?.firstname + "'s Monthly Income",
+//                 label: dataUser[0]?.firstname + ''s Monthly Income',
 //                 data: arr.map(x => x.fWI),
 //                 backgroundColor: 'rgb(135, 206, 235)',
 //                 borderColor: 'rgba(135, 206, 235, 0.5)'
 //               },
 //               {
-//                 label: dataUser[0]?.sfirstname + "'s Monthly Income",
+//                 label: dataUser[0]?.sfirstname + ''s Monthly Income',
 //                 data: arr.map(x => x.sWI),
 //                 backgroundColor: 'rgb(255, 165, 0)',
 //                 borderColor: 'rgba(255, 165, 0, 0.5)'
@@ -287,7 +285,7 @@ export default async function Page() {
 //                 'yearlySave' : Number(dataBS.filter(x => Number(x.year) == Number(yr[i])+1 && Number(x.month) < 4).reduce((a, v) => a + Number(v.weeklySave), 0).toFixed(2))
 //             });
 //             let dataSum = ({
-//                 'year': '01/04/' + dataSum1.year + " to " + '31/03/' + dataSum2.year,
+//                 'year': '01/04/' + dataSum1.year + ' to ' + '31/03/' + dataSum2.year,
 //                 'fWI': dataSum1.fWI + dataSum2.fWI,
 //                 'sWI': dataSum1.sWI + dataSum2.sWI,
 //                 'return': dataSum1.return + dataSum2.return,
@@ -302,13 +300,13 @@ export default async function Page() {
 //             labels,
 //             datasets: [
 //               {
-//                 label: dataUser[0]?.firstname + "'s Ficial Year Income",
+//                 label: dataUser[0]?.firstname + ''s Ficial Year Income',
 //                 data: arr.map(x => x.fWI),
 //                 backgroundColor: 'rgb(135, 206, 235)',
 //                 borderColor: 'rgba(135, 206, 235, 0.5)'
 //               },
 //               {
-//                 label: dataUser[0]?.sfirstname + "'s Ficial Year Income",
+//                 label: dataUser[0]?.sfirstname + ''s Ficial Year Income',
 //                 data: arr.map(x => x.sWI),
 //                 backgroundColor: 'rgb(255, 165, 0)',
 //                 borderColor: 'rgba(255, 165, 0, 0.5)'
@@ -352,16 +350,16 @@ export default async function Page() {
 //         <>
 // 			<Navbars/>
 //             <div className='report-container'>
-//                 <div className="report-chart">
+//                 <div className='report-chart'>
 //                     {isClient? checkfilter(): ''}
-//                     <div className="report-filter">
-//                         <input className="btn" type='button' value='Monthly' onClick={() => {
+//                     <div className='report-filter'>
+//                         <input className='btn' type='button' value='Monthly' onClick={() => {
 //                             setFilter(2);
 //                         }}/>
-//                         <input className="btn" type='button' value='Yearly' onClick={() => {
+//                         <input className='btn' type='button' value='Yearly' onClick={() => {
 //                             setFilter(1);
 //                         }}/>
-//                         <input className="btn" type='button' value='Fiscal Year' onClick={() => {
+//                         <input className='btn' type='button' value='Fiscal Year' onClick={() => {
 //                             setFilter(3);
 //                         }}/>
 //                     </div>

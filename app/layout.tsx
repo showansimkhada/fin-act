@@ -1,8 +1,8 @@
 import '../public/styles/globals.css'
-import { Metadata } from "next";
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Fin-Act"
+  title: 'Fin-Act'
 }
 
 export default function RootLayout({
@@ -11,8 +11,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang='en'>
+      <body className='flex h-screen justify-center items-center bg-cyan-300'>{children}</body>
     </html>
   );
 }

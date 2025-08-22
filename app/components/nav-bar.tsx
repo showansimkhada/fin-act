@@ -3,11 +3,11 @@ import { signOut } from '@/actions/auth';
  
 export default function NavBar() {
   return (
-    <div className="navbar">
-      <input type='checkbox' id='nav-toggle'/>
+    <div className='flex flex-row top-0 left-0 fixed text-2xl justify-around items-center shadow-sm w-full'>
+      {/* <input type='checkbox' id='nav-toggle'/>
       <label htmlFor='nav-toggle' className='hamburger'>
         &#9776;
-      </label>
+      </label> */}
       <NavLinks />
       <form
         action={async () => {
@@ -15,7 +15,7 @@ export default function NavBar() {
           await signOut({ redirectTo: '/' });
         }}
       >
-        <button className='nav-links'>
+        <button className='text-base justify-center bg-transparent border-0 hover:text-orange-200 cursor-pointer'>
           <div>Sign Out</div>
         </button>
       </form>

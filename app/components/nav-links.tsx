@@ -7,22 +7,19 @@ const links = [
   { 
     name: 'Dashboard', 
     href: '/dashboard',
-    class: "navbar-banner",
+    class: 'link text-base-content link-neutral text-xl font-bold no-underline'
   },
   {
     name: 'Balance Sheet',
     href: '/balancesheet',
-    class: "navbar-links",
   },
   { 
     name: 'Report', 
     href: '/report',
-    class: "navbar-links",
   },
   {
     name: 'Profile',
     href: '/profile',
-    class: "navbar-links",
   },
 ];
  
@@ -37,7 +34,7 @@ export default function NavLinks() {
             href={link.href}
             className={link.class}
           >
-            <p className="">{link.name}</p>
+            <p className='hover:text-orange-200 text-base'>{link.name}</p>
           </Link>
         );
       })}
