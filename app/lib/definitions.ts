@@ -12,19 +12,15 @@ export interface User extends AuthUser  {
   slastname: string;
 }
 
-// export interface Details extends AuthUser {
-//   username: string;
-//   firstname: string;
-//   lastname: string;
-//   sfirstname: string;
-//   slastname: string;
-// }
-
-export interface LineProps {
-  data: BS[];
+export type filUser = {
+  username: string;
+  firstname: string;
+  lastname: string;
+  sfirstname: string;
+  slastname: string;
 }
 
-export interface BS {
+export type BS = {
   _id: ObjectId;
   username: string;
   year: number;
@@ -39,22 +35,9 @@ export interface BS {
   weeklySave: number | 0;
 }
 
-// export interface BSM {
-//   username: string;
-//   year: number;
-//   month: number;
-//   date: number;
-//   fWI: number;
-//   sWI: number;
-//   return: number | 0;
-//   openingBalance: number;
-//   closingBalance: number;
-//   weeklySpent: number | 0;
-//   weeklySave: number | 0;
-// }
-
-
-// export interface SessionPayload {
-//   session: string,
-//   data: string,
-// }
+export type LineProps = {
+  data: [
+    BS[],
+    filUser
+  ]
+}

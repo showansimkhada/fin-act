@@ -285,7 +285,6 @@ export function Lines(data: LineProps) {
     } else if (filter === 2) {
       return filterByMonth()
     }
-    console.log('fitered')
     return filterByFiY()
   }
 

@@ -17,7 +17,6 @@ export function Dash(data: any) {
   const [wSP, setWSP] = useState(0)
   const [wSA, setWSA] = useState(0)
   const [oB, setOB] = useState(0)
-  console.log(user)
 
   const closingBalance = bs.closingBalance;
   useEffect(() => {

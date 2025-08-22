@@ -116,11 +116,10 @@ const UpdateBS = BSchema.omit({
 })
 
 export async function updateAll(oU: string, nU: string) {
-  await client.connect();
-  const database = client.db(process.env.DB_NAME!);
-  const collection = database.collection(process.env.BS_COLLECTION_NAME!);
-  console.log(oU, nU)
-  const result = await collection.updateMany({username: oU}, {$set: {'username': nU}})
+  // await client.connect();
+  // const database = client.db(process.env.DB_NAME!);
+  // const collection = database.collection(process.env.BS_COLLECTION_NAME!);
+  // const result = await collection.updateMany({username: oU}, {$set: {'username': nU}})
   // console.log(result)
   // if (!result) {
   //   await collection.updateMany({username: oU}, {$set: {username: nU}});
