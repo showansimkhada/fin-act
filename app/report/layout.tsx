@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <NavBar/>
-      <div className='flex flex-row bg-gray-700'>{children}</div>
+      <div>{children}</div>
     </>
   );
 }
