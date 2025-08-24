@@ -7,6 +7,7 @@ import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import type { User } from 'next-auth'
 import bcrypt from 'bcrypt'
+import { createSession } from './session';
 
 export async function authUser(user: string) {
   const client = await clientPromise;
@@ -48,11 +49,14 @@ export const { auth, signIn, signOut } = NextAuth({
           const { username, password } = parsedCredentials.data;
           const user = await authUser(username);
           if (user) {
+            const name = user.username;
             const data: User = {
               name: user.username
             }
             const passMatch = bcrypt.compareSync(password, user.password);
-            if (passMatch) return data;
+            if (!passMatch) return null;
+            await createSession(name);
+            return data;
           }
         }
         return null

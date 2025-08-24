@@ -41,3 +41,8 @@ export type LineProps = {
     filUser
   ]
 }
+
+export type SessionPayload = {
+  name: string,
+  expiresAt: Date,
+}

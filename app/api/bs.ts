@@ -73,13 +73,12 @@ export async function addBS(formData: FormData) {
     weeklySpent: Number(formData.get('wSp')),
     weeklySave: Number(formData.get('wSa')),
   })
-  console.log(parse);
   const result = await bs.find({username: parse.username, year: parse.year, month: parse.month, date: parse.date}).toArray();
   if (result.length == 0) {
     await bs.insertOne(parse);
     redirect('/balancesheet')
   } else {
-    redirect('Data already exists with the same date')
+    console.log('Data already exists with the same date')
   };
 }
 

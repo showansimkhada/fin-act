@@ -1,5 +1,6 @@
 import NavLinks from '@/components/nav-links';
 import { signOut } from '@/api/auth';
+import { deleteSession } from '@/api/session';
  
 export default function NavBar() {
   return (
@@ -8,6 +9,7 @@ export default function NavBar() {
       <form
         action={async () => {
           'use server';
+          await deleteSession();
           await signOut({ redirectTo: '/' });
         }}
       >
