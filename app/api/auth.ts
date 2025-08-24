@@ -1,24 +1,35 @@
 'use server'
+
+import clientPromise from '@/lib/mongodb';
 import NextAuth, { AuthError } from 'next-auth';
 import { authConfig } from '../../auth.config';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import type { User } from 'next-auth'
 import bcrypt from 'bcrypt'
-import { fetchUser } from './users';
 
-export async function getUser(str: string): Promise<User | null> {
-  try {
-    const foundUser = await fetchUser(str);
-    if (!foundUser) return null
-    const user: User = {
-      name: foundUser.username
+export async function authUser(user: string) {
+  const client = await clientPromise;
+  const database = client.db(process.env.DB_NAME!);
+  const collection = database.collection(process.env.USER_COLLECTION_NAME!);
+  const data = await collection.aggregate([
+    {
+      $match: {
+        username: user,
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        firstname: 0,
+        lastname: 0,
+        sfirstname: 0,
+        slastname: 0
+      }
     }
-    return user;
-  } catch (error) {
-    console.error('Failed to fetch user', error);
-    throw new Error('Failed to fetch user');
-  }
+  ]).toArray()
+  if (data) return data[0];
+  return null;
 }
  
 export const { auth, signIn, signOut } = NextAuth({
@@ -35,9 +46,11 @@ export const { auth, signIn, signOut } = NextAuth({
         
         if (parsedCredentials.success) {
           const { username, password } = parsedCredentials.data;
-          const user = await fetchUser(username);
+          const user = await authUser(username);
           if (user) {
-            const data = await getUser(username);
+            const data: User = {
+              name: user.username
+            }
             const passMatch = bcrypt.compareSync(password, user.password);
             if (passMatch) return data;
           }
