@@ -1,6 +1,6 @@
 'use client';
 
-import { updateUN } from '@/actions/users';
+import { updateUN } from '@/api/actions';
 import { Button } from '@/components/button';
 
 export function User(user: any) {

@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/button';
 import { useActionState } from 'react';
-import { authenticate } from '@/actions/auth';
+import { authenticate } from '@/api/auth';
 import { useSearchParams } from 'next/navigation';
 
 export default function LoginForm() {

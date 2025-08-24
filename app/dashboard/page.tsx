@@ -1,14 +1,14 @@
-import { fetchLastBS } from "@/actions/bs";
-import { auth } from '@/actions/auth'
+import { fetchLastBS } from "@/api/bs";
+import { auth } from '@/api/auth'
 import { Dash } from "@/forms/dash";
 import { Suspense } from "react";
-import { findUser } from "@/actions/users";
+import { fetchDetails } from "@/api/users";
 
 export default async function Page() {
   const session = await auth()
   const user = session?.user?.name;
   const bs = await fetchLastBS(user);
-  const username = await findUser(user);
+  const username = await fetchDetails(user);
   const data = {
     username: bs.username,
     year: bs.year,

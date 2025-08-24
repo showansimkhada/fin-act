@@ -61,13 +61,13 @@ export function Lines(data: LineProps) {
       labels,
       datasets: [
         {
-          label: `${dataUser.firstname} + &apos;s Ficial Year Income'`,
+          label: `${dataUser.firstname}'s Ficial Year Income'`,
           data: arr.map(x => x.fWI),
           backgroundColor: 'rgb(135, 206, 235)',
           borderColor: 'rgba(135, 206, 235, 0.5)',
         },
         {
-          label: `${dataUser.sfirstname} + &apos;s Ficial Year Income'`,
+          label: `${dataUser.sfirstname}'s Ficial Year Income'`,
           data: arr.map(x => x.sWI),
           backgroundColor: 'rgb(255, 165, 0)',
           borderColor: 'rgba(255, 165, 0, 0.5)',
@@ -167,13 +167,13 @@ export function Lines(data: LineProps) {
       labels,
       datasets: [
         {
-          label: `${dataUser.firstname} + &apos;s Ficial Year Income'`,
+          label: `${dataUser.firstname}'s Ficial Year Income'`,
           data: arr.map(x => x.fWI),
           backgroundColor: 'rgb(135, 206, 235)',
           borderColor: 'rgba(135, 206, 235, 0.5)'
         },
         {
-          label: `${dataUser.sfirstname} + &apos;s Ficial Year Income'`,
+          label: `${dataUser.sfirstname}'s Ficial Year Income'`,
           data: arr.map(x => x.sWI),
           backgroundColor: 'rgb(255, 165, 0)',
           borderColor: 'rgba(255, 165, 0, 0.5)'
@@ -242,13 +242,13 @@ export function Lines(data: LineProps) {
       labels,
         datasets: [
         {
-          label: `${dataUser.firstname} + &apos;s Ficial Year Income'`,
+          label: `${dataUser.firstname}'s Ficial Year Income'`,
           data: arr.map(x => x.fWI),
           backgroundColor: 'rgb(135, 206, 235)',
           borderColor: 'rgba(135, 206, 235, 0.5)'
         },
         {
-          label: `${dataUser.sfirstname} + &apos;s Ficial Year Income'`,
+          label: `${dataUser.sfirstname}'s Ficial Year Income'`,
           data: arr.map(x => x.sWI),
           backgroundColor: 'rgb(255, 165, 0)',
           borderColor: 'rgba(255, 165, 0, 0.5)'

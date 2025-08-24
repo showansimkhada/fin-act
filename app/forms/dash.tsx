@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/button';
 import { useEffect, useState } from 'react';
-import { addBS } from '@/actions/bs';
+import { addBS } from '@/api/bs';
 import { formatDate, stringAmt, sumAmt } from '@/lib/utils';
 
 export function Dash(data: any) {
@@ -73,7 +73,7 @@ export function Dash(data: any) {
             </label>
           </div>
           <div className='flex flex-col'>
-            <input name='username' defaultValue={user} readOnly hidden/>
+            <input name='username' defaultValue={user.username} readOnly hidden/>
             <input className='items-end w-[49vw] bg-white rounded-[5px] p-[10px] mb-[2px] text-right'
             type='date' name='bsDate' value={today} onChange={(event) => {
               setToday(event.target.value)

@@ -1,13 +1,13 @@
-import { auth } from '@/actions/auth';
-import { findUser } from '@/actions/users';
+import { auth } from '@/api/auth';
+import { fetchDetails } from '@/api/users';
 import {Lines} from '@/charts/line'
-import { fetchBS } from '@/actions/bs';
+import { fetchBS } from '@/api/bs';
 import { Suspense } from 'react';
 
 export default async function Page() {
   const session = await auth()
   const user = session?.user?.name;
-  const dataUser = await findUser(user!);
+  const dataUser = await fetchDetails(user!);
   const bsData = await fetchBS(user);
 
   return (

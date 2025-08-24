@@ -1,13 +1,9 @@
 import NavLinks from '@/components/nav-links';
-import { signOut } from '@/actions/auth';
+import { signOut } from '@/api/auth';
  
 export default function NavBar() {
   return (
     <div className='flex flex-row top-0 left-0 fixed text-2xl justify-around items-center shadow-sm w-full'>
-      {/* <input type='checkbox' id='nav-toggle'/>
-      <label htmlFor='nav-toggle' className='hamburger'>
-        &#9776;
-      </label> */}
       <NavLinks />
       <form
         action={async () => {

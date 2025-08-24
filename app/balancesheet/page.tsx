@@ -1,12 +1,12 @@
-import { fetchBS } from '@/actions/bs'
-import { findUser } from '@/actions/users';
+import { fetchBS } from '@/api/bs'
+import { fetchUN } from '@/api/users';
 import { formatDate } from '@/lib/utils';
-import { auth } from '@/actions/auth';
+import { auth } from '@/api/auth';
 
 export default async function Page() {
   const session = await auth();
   const user = session?.user?.name;
-  const me = await findUser(user!);
+  const me = await fetchUN(user!);
   const bs = await fetchBS(user);
   return (
     <>
