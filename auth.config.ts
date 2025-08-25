@@ -6,7 +6,7 @@ export const authConfig = {
   },
   callbacks: {
     authorized({ auth }) {
-      return!!auth?.user;
+      return !!auth?.user;
     },
   },
   providers: [],

@@ -7,7 +7,6 @@ const links = [
   { 
     name: 'Dashboard', 
     href: '/dashboard',
-    class: 'link text-base-content link-neutral text-xl font-bold no-underline'
   },
   {
     name: 'Balance Sheet',
@@ -32,7 +31,7 @@ export default function NavLinks() {
           <Link
             key={link.name}
             href={link.href}
-            className={link.class}
+            className='active:outline-black'
           >
             <p className='hover:text-orange-200 text-base'>{link.name}</p>
           </Link>

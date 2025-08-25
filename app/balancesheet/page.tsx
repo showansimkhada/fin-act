@@ -1,18 +1,18 @@
 import { fetchBS } from '@/api/bs'
-import { fetchUN } from '@/api/users';
+import { fetchDetails } from '@/api/users';
 import { formatDate } from '@/lib/utils';
 import { auth } from '@/api/auth';
 
 export default async function Page() {
   const session = await auth();
   const user = session?.user?.name;
-  const me = await fetchUN(user!);
+  const me = await fetchDetails(user!);
   const bs = await fetchBS(user);
   return (
     <>
       <table>
         <thead>
-          <tr>
+          <tr className='bg-amber-200'>
             <th className='border border-solid border-red-500'>Date</th>
             <th className='border border-solid border-red-500'>{me?.firstname}'s WI</th>
             <th className='border border-solid border-red-500'>{me?.sfirstname}'s WI</th>
@@ -23,7 +23,7 @@ export default async function Page() {
             <th className='border border-solid border-red-500'>Weekly Save</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className='[&>*:nth-child(odd)]:bg-white'>
           {bs?.map((x) => (
             <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}>
               <td className='p-[2px] text-right border border-solid border-orange-500'>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
@@ -37,7 +37,7 @@ export default async function Page() {
             </tr>
           ))}
         </tbody>
-        <tfoot className=''>
+        <tfoot>
           <tr>
             <td className='p-[2px] text-right border border-solid border-orange-500'>{'Total'}</td>
             <td className='p-[2px] text-right border border-solid border-orange-500'>{'fweTotal'}</td>

@@ -289,8 +289,8 @@ export function Lines(data: LineProps) {
   }
 
   return (
-    <div className='flex flex-row -mt-[400px]  bg-gray-700'>
-      <div className=''>
+    <div>
+      <div>
         {checkfilter()}
         <div className='flex flex-row'>
           <Button className='rounded-2xl bg-blue-500 w-[33vw] h-8 hover:bg-orange-300 mb-[5px] mt-[3px]' type='button' onClick={() => {

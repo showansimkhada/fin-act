@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <NavBar/>
-      <div className='flex flex-col pt-[25px] pl-[10px] pr-[10px] w-screen h-screen mt-[40px]'>{children}</div>
+      <div className='flex flex-col overflow-scroll w-[1005]'>{children}</div>
     </>
   );
 }

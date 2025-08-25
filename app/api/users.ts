@@ -23,7 +23,6 @@ export async function fetchUN(user: any) {
       }
     }
   ]).toArray()
-  console.log(data[0])
   if (data) return data[0];
   return null;
 }

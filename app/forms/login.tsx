@@ -14,7 +14,7 @@ export default function LoginForm() {
   )
 	return (
     <>
-    <div className='flex flex-col bg-amber-50 p-8 rounded-2xl w-2xs h-60 items-center justify-center -mt-[400px]'>
+    <div className='flex flex-col bg-amber-50 p-8 rounded-2xl w-2xs h-60 items-center justify-center'>
 			<form action={formAction}>
 				<div className='relative'>
 					<label className='absolute top-1 left-2.5 z-10' htmlFor="username">

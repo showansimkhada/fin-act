@@ -45,8 +45,8 @@ export function Dash(data: any) {
   return (
     <>
       <form action={addBS}>
-        <div className='flex flex-row p-0 ml-[10px] mr-[10px] justify-between'>
-          <div className='flex flex-col leading-[2.87] items-start'>
+        <div className='flex flex-row justify-between'>
+          <div className='flex flex-col leading-[2.23em] items-start'>
             <label>
               Date
             </label>
@@ -74,46 +74,46 @@ export function Dash(data: any) {
           </div>
           <div className='flex flex-col'>
             <input name='username' defaultValue={user.username} readOnly hidden/>
-            <input className='items-end w-[49vw] bg-white rounded-[5px] p-[10px] mb-[2px] text-right'
+            <input className='w-[30vw] bg-white rounded-[5px] p-[5px] mb-[2px] text-right'
             type='date' name='bsDate' value={today} onChange={(event) => {
               setToday(event.target.value)
             }}/>
-            <input className='w-[49vw] bg-white rounded-[5px] p-[10px] mb-[2px] text-right'
+            <input className='w-[30vw] bg-white rounded-[5px] p-[5px] mb-[2px] text-right'
             type='number' name='fWI' value={fWI} onFocus={e => e.target.select()} onChange={(event) => {
               let input = parseFloat(event.target.value);
               setFWI(input);
             }}/>
-            <input className='w-[49vw] bg-white rounded-[5px] p-[10px] mb-[2px] text-right'
+            <input className='w-[30vw] bg-white rounded-[5px] p-[5px] mb-[2px] text-right'
             type='number' name='sWI' onFocus={e => e.target.select()} value={sWI} onChange={(event) => {
               let input = parseFloat(event.target.value);
               setSWI(input);
             }}/>
-            <input className='w-[49vw] bg-white rounded-[5px] p-[10px] mb-[2px] text-right'
+            <input className='w-[30vw] bg-white rounded-[5px] p-[5px] mb-[2px] text-right'
             type='number' name='ret' onFocus={e => e.target.select()} value={ret} onChange={(event) => {
               let input = parseFloat(event.target.value);
               setRET(input);
             }}/>
-            <input className='w-[49vw] bg-white rounded-[5px] p-[10px] mb-[2px] text-right'
+            <input className='w-[30vw] bg-white rounded-[5px] p-[5px] mb-[2px] text-right'
             type='number' name='oB' value={oB} readOnly/>
-            <input className='w-[49vw] bg-white rounded-[5px] p-[10px] mb-[2px] text-right'
+            <input className='w-[30vw] bg-white rounded-[5px] p-[5px] mb-[2px] text-right'
             type='number' name='cB' value={cB} readOnly/>
-            <input className='w-[49vw] bg-white rounded-[5px] p-[10px] mb-[2px] text-right'
+            <input className='w-[30vw] bg-white rounded-[5px] p-[5px] mb-[2px] text-right'
             type='number' name='wSp' value={wSP} readOnly/>
-            <input className='w-[49vw] bg-white rounded-[5px] p-[10px] mb-[2px] text-right'
+            <input className='w-[30vw] bg-white rounded-[5px] p-[5px] mb-[2px] text-right'
             type='number' name='wSa' value={wSA} readOnly/>
           </div>
         </div>
-        <div className='flex flex-row p-0 ml-[10px] mr-[10px] justify-between'>
-          <div className='flex flex-col w-[35vw] leading-[2.2]'>
-            <label className='mt-[5px] rounded-[5px]'>
+        <div className='flex flex-row justify-between'>
+          <div className='flex flex-col leading-[2.12em]'>
+            <label>
               Amount
             </label>
-            <label className='mt-[5px] rounded-[5px]'>
+            <label className='mt-[3px] rounded-[5px]'>
               Addition expression
             </label>
           </div>
           <div className='flex flex-col -ml-[11px]'>
-							<input className='w-[49vw] bg-white rounded-[5px] p-[10px] mb-[2px] text-right'
+							<input className='w-[30vw] bg-white rounded-[5px] p-[5px] mb-[2px] text-right'
                 id='amt' value={amt} onFocus={e => e.target.select()} onChange={(event) => {
 								let input = event.target.value;
 								if (input) {
@@ -125,7 +125,7 @@ export function Dash(data: any) {
 									setCB(0)
 								}
 							}}/>
-							<label className='mt-[2px] text-center'>{stringAmt(amt.toString())}</label>
+							<label className='mt-[7px] w-[30vw] text-center wrap-break-word'>{stringAmt(amt.toString())}</label>
 						</div>
         </div>
         <Button type='submit' className='mt-[5px] rounded-[20px] text-black items-center content-center bg-blue-500 w-full h-[40px] hover:bg-orange-300'>Submit</Button>
