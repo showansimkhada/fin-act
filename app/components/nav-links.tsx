@@ -31,9 +31,9 @@ export default function NavLinks() {
           <Link
             key={link.name}
             href={link.href}
-            className='active:outline-black'
+            className=''
           >
-            <p className='hover:text-orange-200 text-base'>{link.name}</p>
+            <p className=''>{link.name}</p>
           </Link>
         );
       })}

@@ -292,14 +292,14 @@ export function Lines(data: LineProps) {
     <div>
       <div>
         {checkfilter()}
-        <div className='flex flex-row'>
-          <Button className='rounded-2xl bg-blue-500 w-[33vw] h-8 hover:bg-orange-300 mb-[5px] mt-[3px]' type='button' onClick={() => {
+        <div className=''>
+          <Button className='' type='button' onClick={() => {
             setFilter(2);
           }}>Monthly</Button>
-          <Button className='rounded-2xl bg-blue-500 w-[33vw] h-8 hover:bg-orange-300 mb-[5px] mt-[3px]' type='button' onClick={() => {
+          <Button className='' type='button' onClick={() => {
             setFilter(1);
           }}>Yearly</Button>
-          <Button className='rounded-2xl bg-blue-500 w-[33vw] h-8 hover:bg-orange-300 mb-[5px] mt-[3px]' type='button' onClick={() => {
+          <Button className='' type='button' onClick={() => {
             setFilter(3);
           }}>Ficial Year</Button>
         </div>

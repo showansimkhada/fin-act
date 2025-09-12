@@ -14,24 +14,24 @@ export default function LoginForm() {
   )
 	return (
     <>
-    <div className='flex flex-col bg-amber-50 p-8 rounded-2xl w-2xs h-60 items-center justify-center'>
+    <div className=''>
 			<form action={formAction}>
-				<div className='relative'>
-					<label className='absolute top-1 left-2.5 z-10' htmlFor="username">
+				<div className=''>
+					<label className='' htmlFor="username">
 						Username
 					</label>
-					<input className='w-full bg-white p-1.5 pt-6 rounded-2xl mb-0.5 rounded-br-xs rounded-bl-xs'
+					<input className=''
             type='text' id='username' name='username' autoCapitalize='none' required/>
 				</div>
 				<div className='relative'>
-					<label className='absolute top-1 left-2.5 z-10' htmlFor='password'>
+					<label className='' htmlFor='password'>
 						Password
 					</label>
-					<input className='w-full bg-white p-1.5 pt-6 rounded-2xl mb-2.5 rounded-tl-xs rounded-tr-xs'
+					<input className=''
             type='password' id='password' name='password' required/>
 				</div>
         <input type='hidden' name='redirectTo' value={callbackUrl} />
-          <Button className='rounded-2xl bg-blue-500 w-full h-8 hover:bg-orange-300' aria-disabled={isPending}>
+          <Button className='' aria-disabled={isPending}>
             Log in
           </Button>
           <div
@@ -41,7 +41,7 @@ export default function LoginForm() {
           >
             {errorMessage && (
               <>
-                <p className='text-red-400 mt-2.5 mb-2.5 mr-1.5 ml-1.5 text-center'>{errorMessage}</p>
+                <p className=''>{errorMessage}</p>
               </>
             )}
           </div>

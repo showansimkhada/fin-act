@@ -12,41 +12,41 @@ export default async function Page() {
     <>
       <table>
         <thead>
-          <tr className='bg-amber-200'>
-            <th className='border border-solid border-red-500'>Date</th>
-            <th className='border border-solid border-red-500'>{me?.firstname}'s WI</th>
-            <th className='border border-solid border-red-500'>{me?.sfirstname}'s WI</th>
-            <th className='border border-solid border-red-500'>Return</th>
-            <th className='border border-solid border-red-500'>Opening Balance</th>
-            <th className='border border-solid border-red-500'>Closing Balance</th>
-            <th className='border border-solid border-red-500'>Weekly Spent</th>
-            <th className='border border-solid border-red-500'>Weekly Save</th>
+          <tr className=''>
+            <th className=''>Date</th>
+            <th className=''>{me?.firstname}'s WI</th>
+            <th className=''>{me?.sfirstname}'s WI</th>
+            <th className=''>Return</th>
+            <th className=''>Opening Balance</th>
+            <th className=''>Closing Balance</th>
+            <th className=''>Weekly Spent</th>
+            <th className=''>Weekly Save</th>
           </tr>
         </thead>
         <tbody className='[&>*:nth-child(odd)]:bg-white'>
           {bs?.map((x) => (
             <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}>
-              <td className='p-[2px] text-right border border-solid border-orange-500'>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
-              <td className='p-[2px] text-right border border-solid border-orange-500'>{x.fWI}</td>
-              <td className='p-[2px] text-right border border-solid border-orange-500'>{x.sWI}</td>
-              <td className='p-[2px] text-right border border-solid border-orange-500'>{x.return}</td>
-              <td className='p-[2px] text-right border border-solid border-orange-500'>{x.openingBalance}</td>
-              <td className='p-[2px] text-right border border-solid border-orange-500'>{x.closingBalance}</td>
-              <td className='p-[2px] text-right border border-solid border-orange-500'>{x.weeklySpent}</td>
-              <td className='p-[2px] text-right border border-solid border-orange-500'>{x.weeklySave}</td>
+              <td className=''>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
+              <td className=''>{x.fWI}</td>
+              <td className=''>{x.sWI}</td>
+              <td className=''>{x.return}</td>
+              <td className=''>{x.openingBalance}</td>
+              <td className=''>{x.closingBalance}</td>
+              <td className=''>{x.weeklySpent}</td>
+              <td className=''>{x.weeklySave}</td>
             </tr>
           ))}
         </tbody>
         <tfoot>
           <tr>
-            <td className='p-[2px] text-right border border-solid border-orange-500'>{'Total'}</td>
-            <td className='p-[2px] text-right border border-solid border-orange-500'>{'fweTotal'}</td>
-            <td className='p-[2px] text-right border border-solid border-orange-500'>{'sweTotal'}</td>
-            <td className='p-[2px] text-right border border-solid border-orange-500'></td>
-            <td className='p-[2px] text-right border border-solid border-orange-500'></td>
-            <td className='p-[2px] text-right border border-solid border-orange-500'></td>
-            <td className='p-[2px] text-right border border-solid border-orange-500'>{'wspTotal'}</td>
-            <td className='p-[2px] text-right border border-solid border-orange-500'>{'wsaTotal'}</td>
+            <td className=''>{'Total'}</td>
+            <td className=''>{'fweTotal'}</td>
+            <td className=''>{'sweTotal'}</td>
+            <td className=''></td>
+            <td className=''></td>
+            <td className=''></td>
+            <td className=''>{'wspTotal'}</td>
+            <td className=''>{'wsaTotal'}</td>
           </tr>
         </tfoot>
       </table>
