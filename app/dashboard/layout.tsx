@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <NavBar/>
-      <div className=''>{children}</div>
+      {children}
     </>
   );
 }

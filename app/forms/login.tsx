@@ -14,24 +14,24 @@ export default function LoginForm() {
   )
 	return (
     <>
-    <div className=''>
+    <div className='loginContainer'>
 			<form action={formAction}>
-				<div className=''>
-					<label className='' htmlFor="username">
+				<div className='relative'>
+					<label className='floatlabel' htmlFor="username">
 						Username
 					</label>
-					<input className=''
+					<input className='floatinput'
             type='text' id='username' name='username' autoCapitalize='none' required/>
 				</div>
 				<div className='relative'>
-					<label className='' htmlFor='password'>
+					<label className='floatlabel' htmlFor='password'>
 						Password
 					</label>
-					<input className=''
+					<input className='floatinput'
             type='password' id='password' name='password' required/>
 				</div>
         <input type='hidden' name='redirectTo' value={callbackUrl} />
-          <Button className='' aria-disabled={isPending}>
+          <Button className='loginBtn' aria-disabled={isPending}>
             Log in
           </Button>
           <div
@@ -41,7 +41,7 @@ export default function LoginForm() {
           >
             {errorMessage && (
               <>
-                <p className=''>{errorMessage}</p>
+                <p className='errorMsg'>{errorMessage}</p>
               </>
             )}
           </div>

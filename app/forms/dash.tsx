@@ -45,8 +45,9 @@ export function Dash(data: any) {
   return (
     <>
       <form action={addBS}>
-        <div className=''>
-          <div className=''>
+        <input name='username' defaultValue={user.username} readOnly hidden/>
+        <div className='dash'>
+          <div className='dashLabel'>
             <label>
               Date
             </label>
@@ -71,9 +72,11 @@ export function Dash(data: any) {
             <label>
               Weekly Save
             </label>
+            <label>
+              Sum of Amounts
+            </label>
           </div>
-          <div className=''>
-            <input name='username' defaultValue={user.username} readOnly hidden/>
+          <div className='dashInput'>
             <input className=''
             type='date' name='bsDate' value={today} onChange={(event) => {
               setToday(event.target.value)
@@ -101,34 +104,33 @@ export function Dash(data: any) {
             type='number' name='wSp' value={wSP} readOnly/>
             <input className=''
             type='number' name='wSa' value={wSA} readOnly/>
-          </div>
-        </div>
-        <div className=''>
-          <div className=''>
-            <label>
-              Amount
-            </label>
-            <label className=''>
-              Addition expression
-            </label>
-          </div>
-          <div className=''>
-							<input className=''
+            <input className=''
                 id='amt' value={amt} onFocus={e => e.target.select()} onChange={(event) => {
-								let input = event.target.value;
-								if (input) {
-									setAmt(input)
-									let x = sumAmt(input);
-									setCB(parseFloat(x))
-								} else {
-									setAmt('0')
-									setCB(0)
-								}
-							}}/>
-							<label className=''>{stringAmt(amt.toString())}</label>
-						</div>
+                let input = event.target.value;
+                if (input) {
+                  setAmt(input)
+                  let x = sumAmt(input);
+                  setCB(parseFloat(x))
+                } else {
+                  setAmt('0')
+                  setCB(0)
+                }
+              }}/>
+          </div>
+          <div className='dashExp'>
+            {/* {stringAmt(amt.toString())} */}
+            {stringAmt(amt.toString()).numbers.map((x) => (
+              <div className="mathExp">
+                <label className='leftExp'>{x.exp}</label>
+                <label className='rightExp'>{x.amt}</label>
+              </div>
+            ))}
+            <label className='sumExp'>{stringAmt(amt.toString()).sum}</label>
+          </div>
+          <div className='dashBtn'>
+            <Button type='submit'>Submit</Button>
+          </div>
         </div>
-        <Button type='submit' className=''>Submit</Button>
       </form>
     </>
   )
