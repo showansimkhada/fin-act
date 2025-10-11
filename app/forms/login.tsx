@@ -17,17 +17,17 @@ export default function LoginForm() {
     <div className='loginContainer'>
 			<form action={formAction}>
 				<div className='relative'>
-					<label className='floatlabel' htmlFor="username">
+					<label className='floatLabel' htmlFor="username">
 						Username
 					</label>
-					<input className='floatinput'
+					<input className='floatInput'
             type='text' id='username' name='username' autoCapitalize='none' required/>
 				</div>
 				<div className='relative'>
-					<label className='floatlabel' htmlFor='password'>
+					<label className='floatLabel' htmlFor='password'>
 						Password
 					</label>
-					<input className='floatinput'
+					<input className='floatInput'
             type='password' id='password' name='password' required/>
 				</div>
         <input type='hidden' name='redirectTo' value={callbackUrl} />

@@ -22,14 +22,14 @@ body {
   position: relative;;
 }
 
-.floatlabel {
+.floatLabel {
   position: absolute;
   top: 0.5;
   z-index: 10;
   left: 0.9em;
 }
 
-.floatinput {
+.floatInput {
   width: 100%;
   padding: 10px;
   border-radius: 15px;
@@ -37,12 +37,12 @@ body {
   height: 40px;
 }
 
-.floatinput[type='text'] {
+.floatInput[type='text'] {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.floatinput[type='password'] {
+.floatInput[type='password'] {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
