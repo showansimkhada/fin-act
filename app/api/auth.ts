@@ -22,10 +22,10 @@ export async function authUser(user: string) {
     {
       $project: {
         _id: 0,
-        firstname: 0,
-        lastname: 0,
-        sfirstname: 0,
-        slastname: 0
+        firstName: 0,
+        lastName: 0,
+        partnerFirstName: 0,
+        partnerLastName: 0
       }
     }
   ]).toArray()

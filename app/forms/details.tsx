@@ -5,25 +5,26 @@ import { Button } from '@/components/button';
 export function Details(user: any) {
   return (
     <form action={''}>
-      <div className=''>
-        <div className=''>
+      <input id='username' name='username' defaultValue={user.username} hidden readOnly/>
+      <div className='profile'>
+        <div className='profileLabel'>
           <label>First Name</label>
           <label>Last Name</label>
           <label>Partner's First Name</label>
           <label>Partner's Last Name</label>
         </div>
-        <div className=''>
+        <div className='profileInput'>
           <input className=''
-            type='text' id='firstname' name='firstname' required={true} placeholder={user.firstname}/>
+            type='text' name='firstName' required={true} placeholder={user.firstname}/>
           <input className=''
-            type='text' id='lastname' name='lastname' required={true} placeholder={user.lastname}/>
+            type='text' name='lastName' required={true} placeholder={user.lastname}/>
           <input className=''
-            type='text' id='sfirstname' name='sfirstname' required={true} placeholder={user.sfirstname}/>
+            type='text' name='partnerFirstName' required={true} placeholder={user.sfirstname}/>
           <input className=''
-            type='text' id='slastname' name='slastname' required={true} placeholder={user.slastname}/>
+            type='text' name='partnerLastName' required={true} placeholder={user.slastname}/>
         </div>
+        <Button type='submit' className='profileSubmit'>Update Details</Button>
       </div>
-      <Button type='submit' className=''>Update Details</Button>
     </form>
   )
 }

@@ -5,22 +5,23 @@ import { Button } from '@/components/button';
 export function Pass(user: any) {
   return (
     <form action={''}>
-      <div className=''>
-        <div className=''>
+      <input id='username' name='username' defaultValue={user.username} hidden readOnly/>
+      <div className='profile'>
+        <div className='profileLabel'>
           <label>Old Password</label>
           <label>New Password</label>
           <label>Confirm Password</label>
         </div>
-        <div className=''>
+        <div className='profileInput'>
           <input className=''
-            type='password' id='oldpass' name='oldpass' autoComplete='current-password' required={true}/>
+            type='password' id='oldPass' name='oldPass' autoComplete='current-password' required={true}/>
           <input className=''
-            type='password' id='newpass' name='newpass' autoComplete='new-password' required={true}/>
+            type='password' id='newPass' name='newPass' autoComplete='new-password' required={true}/>
           <input className=''
-            type='password' id='confirmpass' name='confirmpass' autoComplete='new-password' required={true}/>
-        </div>  
+            type='password' id='confirmPass' name='confirmPass' autoComplete='new-password' required={true}/>
+        </div>
+        <Button type='submit' className='profileSubmit'>Update Password</Button> 
       </div>
-      <Button type='submit' className=''>Update Password</Button> 
     </form>
   )
 }

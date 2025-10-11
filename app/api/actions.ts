@@ -13,18 +13,18 @@ const UserSchema = z.object({
   _id: z.string(),
   username: z.string(),
   password: z.string(),
-  firstname: z.string(),
-  lastname: z.string(),
-  sfirstname: z.string(),
-  slastname: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  partnerFirstName: z.string(),
+  partnerLastName: z.string(),
 })
 const UN = UserSchema.omit({
   _id: true,
   password: true,
-  firstname: true,
-  lastname: true,
-  sfirstname: true,
-  slastname: true,
+  firstName: true,
+  lastName: true,
+  partnerFirstName: true,
+  partnerLastName: true,
 })
 
 export async function updateUN(formData: FormData) {

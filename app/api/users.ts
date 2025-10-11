@@ -15,10 +15,10 @@ export async function fetchUN(user: any) {
       $project: {
         _id: 0,
         password: 0,
-        firstname: 0,
-        lastname: 0,
-        sfirstname: 0,
-        slastname: 0,
+        firstName: 0,
+        lastName: 0,
+        partnerFirstName: 0,
+        partnerLastName: 0,
         __v: 0,
       }
     }
@@ -63,10 +63,10 @@ export async function fetchPass(user: any) {
       $project: {
         _id: 0,
         username: 0,
-        firstname: 0,
-        lastname: 0,
-        sfirstname: 0,
-        slastname: 0,
+        firstName: 0,
+        lastName: 0,
+        partnerFirstName: 0,
+        partnerLastName: 0,
         __v: 0,
       }
     }

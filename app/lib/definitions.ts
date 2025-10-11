@@ -6,18 +6,18 @@ export interface User extends AuthUser  {
   _id: ObjectId;
   username: string;
   password: string;
-  firstname: string;
-  lastname: string;
-  sfirstname: string;
-  slastname: string;
+  firstName: string;
+  lastName: string;
+  partnerFirstName: string;
+  partnerLastName: string;
 }
 
 export type filUser = {
   username: string;
-  firstname: string;
-  lastname: string;
-  sfirstname: string;
-  slastname: string;
+  firstName: string;
+  lastName: string;
+  partnerFirstName: string;
+  partnerLastName: string;
 }
 
 export type BS = {
