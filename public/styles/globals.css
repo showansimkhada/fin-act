@@ -4,7 +4,7 @@
 }
 
 body {
-  margin: 20px auto;
+  margin: 45px auto;
   max-width: 600px;
 }
 
@@ -94,7 +94,6 @@ body {
 }
 
 .dash {
-  margin-top: 45px;
   display: grid;
   grid-template-areas: 
     'label input exp'
@@ -180,4 +179,35 @@ body {
   background-color: blue;
   border-radius: 20px;
   justify-content: center;
+}
+
+.profile {
+  display: grid;
+  padding: 0 20px;
+  grid-template-areas: "label input submit";
+  grid-template-columns: 1fr 1fr 0.5fr;
+}
+
+.profileLabel {
+  grid-area: label;
+}
+
+.profileLabel label {
+  display: block;
+}
+
+.profileInput {
+  grid-area: input;
+}
+
+.profileInput input {
+  display: block;
+}
+
+.profileSubmit {
+  grid-area: submit;
+}
+
+.profileSubmit button {
+  display: block;
 }
