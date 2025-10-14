@@ -10,7 +10,7 @@ const links = [
   },
   {
     name: 'Balance Sheet',
-    href: '/balancesheet',
+    href: '/balanceSheet',
   },
   { 
     name: 'Report', 
@@ -31,9 +31,9 @@ export default function NavLinks() {
           <Link
             key={link.name}
             href={link.href}
-            className=''
+            className='navLinks'
           >
-            <p className=''>{link.name}</p>
+            <p>{link.name}</p>
           </Link>
         );
       })}
