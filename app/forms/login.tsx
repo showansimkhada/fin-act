@@ -14,28 +14,27 @@ export default function LoginForm() {
   )
 	return (
     <>
-    <div className='loginContainer'>
-			<form action={formAction}>
-				<div className='relative'>
-					<label className='floatLabel' htmlFor="username">
-						Username
-					</label>
-					<input className='floatInput'
+    <div className='loginForm'>
+      <form action={formAction}>
+        <div className='inputContainer'>
+          <label htmlFor="username">
+            Username
+          </label>
+          <input
             type='text' id='username' name='username' autoCapitalize='none' required/>
-				</div>
-				<div className='relative'>
-					<label className='floatLabel' htmlFor='password'>
-						Password
-					</label>
-					<input className='floatInput'
+        </div>
+        <div className='inputContainer'>
+          <label htmlFor='password'>
+            Password
+          </label>
+          <input
             type='password' id='password' name='password' required/>
-				</div>
+        </div>
         <input type='hidden' name='redirectTo' value={callbackUrl} />
-          <Button className='loginBtn' aria-disabled={isPending}>
+          <Button aria-disabled={isPending}>
             Log in
           </Button>
           <div
-            className=''
             aria-live='polite'
             aria-atomic='true'
           >
@@ -45,7 +44,7 @@ export default function LoginForm() {
               </>
             )}
           </div>
-			</form>
+      </form>
     </div>
     </>
 	)
