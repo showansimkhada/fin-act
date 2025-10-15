@@ -60,17 +60,31 @@ export function sumAmt(str: string) {
   return sum.toFixed(2).toString();
 }
 
+interface amtSum {
+  sign: string,
+  amt: string,
+}
+
 // Convert the string into addition expression
-export function stringAmt(str: string) {
-  if (!str) return 0
-  let sum = sumAmt(str)
-  let x = str.replace(/,/g, '+')
-  if (x[x.length-1] === '+') {
-    x = x.substring(0, x.length - 1)
-  } else {
-    x = x.substring(0, x.length) + ' = ' + sum
+export function stringAmt(str: string): {numbers: amtSum[]; sum: string}{
+  if (!str) return {numbers: [], sum: '0'}
+  let split = str.split(',');
+  let arr: amtSum[] = [];
+  let sum = 0;
+  for (let i = 0; i < split.length; i++) {
+    if (split[i].match(/\-/)) {
+      let x = Math.abs(parseFloat(split[i]));
+      let data: amtSum = {sign: "-", amt: x.toString()};
+      arr.push(data)
+      sum -= x;
+    } else {
+      let x = Math.abs(parseFloat(split[i]));
+      let data: amtSum = {sign: "+", amt: x.toString()};
+      arr.push(data)
+      sum += x;
+    }
   }
-  return x
+  return { numbers: arr, sum: sum.toFixed(2).toString()}
 }
 
 export function weeklySpent(fWI: number, sWI: number, ret: number, oB: number, cB: number): number {

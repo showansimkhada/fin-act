@@ -114,8 +114,8 @@ export function Dash(data: any) {
           </div>
           <div className='dashExp'>
             {stringAmt(amt.toString()).numbers.map((x) => (
-              <div className="mathExp" key={x.exp + " " + x.amt}>
-                <label className='leftExp'>{x.exp}</label>
+              <div className="mathExp" key={x.sign + " " + x.amt}>
+                <label className='leftExp'>{x.sign}</label>
                 <label className='rightExp'>{x.amt}</label>
               </div>
             ))}

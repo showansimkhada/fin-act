@@ -61,13 +61,13 @@ export function Lines(data: LineProps) {
       labels,
       datasets: [
         {
-          label: `${dataUser.firstname}'s Ficial Year Income'`,
+          label: `${dataUser.firstName}'s Fiscal Year Income'`,
           data: arr.map(x => x.fWI),
           backgroundColor: 'rgb(135, 206, 235)',
           borderColor: 'rgba(135, 206, 235, 0.5)',
         },
         {
-          label: `${dataUser.sfirstname}'s Ficial Year Income'`,
+          label: `${dataUser.partnerFirstName}'s Fiscal Year Income'`,
           data: arr.map(x => x.sWI),
           backgroundColor: 'rgb(255, 165, 0)',
           borderColor: 'rgba(255, 165, 0, 0.5)',
@@ -156,8 +156,8 @@ export function Lines(data: LineProps) {
         'fWI' : Number(bsData.filter(x => x.month === fil[i]).reduce((a, v) => a + Number(v.fWI), 0).toFixed(2)),
         'sWI' : Number(bsData.filter(x => x.month === fil[i]).reduce((a, v) => a + Number(v.sWI), 0).toFixed(2)),
         'return' : Number(bsData.filter(x => x.month === fil[i]).reduce((a, v) => a + Number(v.return), 0).toFixed(2)),
-        'monthlyspent' : Number(bsData.filter(x => x.month === fil[i]).reduce((a, v) => a + Number(v.weeklySpent), 0).toFixed(2)),
-        'monthlysave' : Number(bsData.filter(x => x.month === fil[i]).reduce((a, v) => a + Number(v.weeklySave), 0).toFixed(2))
+        'monthlySpent' : Number(bsData.filter(x => x.month === fil[i]).reduce((a, v) => a + Number(v.weeklySpent), 0).toFixed(2)),
+        'monthlySave' : Number(bsData.filter(x => x.month === fil[i]).reduce((a, v) => a + Number(v.weeklySave), 0).toFixed(2))
       });
     }
     arr.sort((a, b) => Number(a.month) - Number(b.month));
@@ -167,26 +167,26 @@ export function Lines(data: LineProps) {
       labels,
       datasets: [
         {
-          label: `${dataUser.firstname}'s Ficial Year Income'`,
+          label: `${dataUser.firstName}'s Fiscal Year Income'`,
           data: arr.map(x => x.fWI),
           backgroundColor: 'rgb(135, 206, 235)',
           borderColor: 'rgba(135, 206, 235, 0.5)'
         },
         {
-          label: `${dataUser.sfirstname}'s Ficial Year Income'`,
+          label: `${dataUser.partnerFirstName}'s Fiscal Year Income'`,
           data: arr.map(x => x.sWI),
           backgroundColor: 'rgb(255, 165, 0)',
           borderColor: 'rgba(255, 165, 0, 0.5)'
         },
         {
           label: 'Monthly Spent',
-          data: arr.map(x => x.monthlyspent),
+          data: arr.map(x => x.monthlySpent),
           backgroundColor: 'rgb(255, 255, 0)',
           borderColor: 'rgba(255, 255, 0, 0.5)'
         },
         {
           label: 'Monthly Save',
-          data: arr.map(x => x.monthlysave),
+          data: arr.map(x => x.monthlySave),
           backgroundColor: 'rgb(0, 128, 0)',
           borderColor: 'rgba(0, 128, 0, 0.5)'
         }
@@ -215,7 +215,7 @@ export function Lines(data: LineProps) {
         'fWI' : Number(bsData.filter(x => x.year == yr[i] && (Number(x.month) > 3)).reduce((a, v) => a + Number(v.fWI), 0).toFixed(2)),
         'sWI' : Number(bsData.filter(x => x.year == yr[i] && (Number(x.month) > 3)).reduce((a, v) => a + Number(v.sWI), 0).toFixed(2)),
         'return' : Number(bsData.filter(x => x.year == yr[i] && (Number(x.month) > 3)).reduce((a, v) => a + Number(v.return), 0).toFixed(2)),
-        'yeralySpent' : Number(bsData.filter(x => x.year == yr[i] && (Number(x.month) > 3)).reduce((a, v) => a + Number(v.weeklySpent), 0).toFixed(2)),
+        'yearlySpent' : Number(bsData.filter(x => x.year == yr[i] && (Number(x.month) > 3)).reduce((a, v) => a + Number(v.weeklySpent), 0).toFixed(2)),
         'yearlySave' : Number(bsData.filter(x => x.year == yr[i] && (Number(x.month) > 3)).reduce((a, v) => a + Number(v.weeklySave), 0).toFixed(2))
       });
       let dataSum2 = ({
@@ -223,7 +223,7 @@ export function Lines(data: LineProps) {
         'fWI' : Number(bsData.filter(x => Number(x.year) == Number(yr[i])+1 && Number(x.month) < 4).reduce((a, v) => a + Number(v.fWI), 0).toFixed(2)),
         'sWI' : Number(bsData.filter(x => Number(x.year) == Number(yr[i])+1 && Number(x.month) < 4).reduce((a, v) => a + Number(v.sWI), 0).toFixed(2)),
         'return' : Number(bsData.filter(x => Number(x.year) == Number(yr[i])+1 && Number(x.month) < 4).reduce((a, v) => a + Number(v.return), 0).toFixed(2)),
-        'yeralySpent' : Number(bsData.filter(x => Number(x.year) == Number(yr[i])+1 && Number(x.month) < 4).reduce((a, v) => a + Number(v.weeklySpent), 0).toFixed(2)),
+        'yearlySpent' : Number(bsData.filter(x => Number(x.year) == Number(yr[i])+1 && Number(x.month) < 4).reduce((a, v) => a + Number(v.weeklySpent), 0).toFixed(2)),
         'yearlySave' : Number(bsData.filter(x => Number(x.year) == Number(yr[i])+1 && Number(x.month) < 4).reduce((a, v) => a + Number(v.weeklySave), 0).toFixed(2))
       });
       let dataSum = ({
@@ -231,7 +231,7 @@ export function Lines(data: LineProps) {
         'fWI': dataSum1.fWI + dataSum2.fWI,
         'sWI': dataSum1.sWI + dataSum2.sWI,
         'return': dataSum1.return + dataSum2.return,
-        'yeralySpent': dataSum1.yeralySpent + dataSum2.yeralySpent,
+        'yearlySpent': dataSum1.yearlySpent + dataSum2.yearlySpent,
         'yearlySave': dataSum1.yearlySave + dataSum2.yearlySave
       })
       arr.push(dataSum);
@@ -242,25 +242,25 @@ export function Lines(data: LineProps) {
       labels,
         datasets: [
         {
-          label: `${dataUser.firstname}'s Ficial Year Income'`,
+          label: `${dataUser.firstName}'s Fiscal Year Income'`,
           data: arr.map(x => x.fWI),
           backgroundColor: 'rgb(135, 206, 235)',
           borderColor: 'rgba(135, 206, 235, 0.5)'
         },
         {
-          label: `${dataUser.sfirstname}'s Ficial Year Income'`,
+          label: `${dataUser.partnerFirstName}'s Fiscal Year Income'`,
           data: arr.map(x => x.sWI),
           backgroundColor: 'rgb(255, 165, 0)',
           borderColor: 'rgba(255, 165, 0, 0.5)'
         },
         {
-          label: 'Ficial Yearl Spent',
-          data: arr.map(x => x.yeralySpent),
+          label: 'Fiscal Yearly Spent',
+          data: arr.map(x => x.yearlySpent),
           backgroundColor: 'rgb(255, 255, 0)',
           borderColor: 'rgba(255, 255, 0, 0.5)'
         },
         {
-          label: 'Ficial Yearl Saved',
+          label: 'Fiscal Yearly Saved',
           data: arr.map(x => x.yearlySave),
           backgroundColor: 'rgb(0, 128, 0)',
           borderColor: 'rgba(0, 128, 0, 0.5)'
@@ -279,7 +279,7 @@ export function Lines(data: LineProps) {
     )
   }
 
-  function checkfilter() {
+  function checkFilter() {
     if (filter === 1) {
       return filterByYear()
     } else if (filter === 2) {
@@ -291,7 +291,7 @@ export function Lines(data: LineProps) {
   return (
     <div>
       <div>
-        {checkfilter()}
+        {checkFilter()}
         <div className=''>
           <Button className='' type='button' onClick={() => {
             setFilter(2);
@@ -301,7 +301,7 @@ export function Lines(data: LineProps) {
           }}>Yearly</Button>
           <Button className='' type='button' onClick={() => {
             setFilter(3);
-          }}>Ficial Year</Button>
+          }}>Fiscal Year</Button>
         </div>
       </div>
     </div>

@@ -14,8 +14,8 @@ export default async function Page() {
         <thead>
           <tr className=''>
             <th className=''>Date</th>
-            <th className=''>{me?.firstname}'s WI</th>
-            <th className=''>{me?.sfirstname}'s WI</th>
+            <th className=''>{me?.firstName}'s WI</th>
+            <th className=''>{me?.partnerFirstName}'s WI</th>
             <th className=''>Return</th>
             <th className=''>Opening Balance</th>
             <th className=''>Closing Balance</th>

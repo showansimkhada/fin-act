@@ -17,7 +17,7 @@
 body {
   margin: 45px auto;
   max-width: 600px;
-  overflow: hidden;
+  height: 95vh;
   background-color: var(--color-bg);
 }
 
@@ -231,6 +231,10 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   justify-content: center;
 }
 
+.balanceSheet {
+  overflow: scroll;
+}
+
 .profile {
   display: grid;
   padding: 10px 20px;
@@ -242,6 +246,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+  column-gap: 5px;
 }
 
 .profile label {
@@ -251,6 +256,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
 }
 
 .profile input {
+  width: 93%;
   grid-area: input;
   display: block;
   padding: 5px 0;
