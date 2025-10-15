@@ -6,6 +6,7 @@
   --btn-delete: red;
   --btn-confirm: green;
   --btn-edit: yellow;
+  --btn-hover: orange;
 }
 
 * {
@@ -18,6 +19,22 @@ body {
   max-width: 600px;
   overflow: hidden;
   background-color: var(--color-bg);
+}
+
+input {
+  height: 25px;
+}
+
+button[type="submit"] {
+  background-color: var(--btn-submit);
+}
+
+button[type="submit"]:hover {
+  background-color: var(--btn-hover);
+}
+
+input[type="text"], input[type="password"], input[type="number"], input[type="date"] {
+  border-radius: 4px;
 }
 
 .loginForm {
@@ -54,7 +71,6 @@ body {
   padding: 1rem 0.5rem;
   font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
   transition: border-color 0.2s ease-out;
 }
 
@@ -88,7 +104,6 @@ body {
   width: 100%;
   padding: 1rem 0.5rem;
   border-radius: 20px;
-  background-color: var(--btn-submit);
 }
 
 .errorMsg {
@@ -147,7 +162,7 @@ body {
 
 .dashLabel label {
   display: block;
-  padding: 5px 0;
+  padding: 6.5px 0;
 }
 
 .dashInput {
@@ -159,7 +174,7 @@ body {
 .dashInput input {
   display: block;
   width: 100%;
-  line-height: 1.5;
+  padding: 5px 0;
   --webkit-appearance: none;
   margin: 6px 0;
   border: 1px solid black;
@@ -212,38 +227,38 @@ body {
 .dashBtn button {
   width: 100%;
   height: 30px;
-  background-color: blue;
   border-radius: 20px;
   justify-content: center;
 }
 
 .profile {
   display: grid;
-  padding: 0 20px;
+  padding: 10px 20px;
   grid-template-areas: "label input submit";
   grid-template-columns: 1fr 1fr 0.5fr;
+  border: 1px solid magenta;
+  border-radius: 8px;
+  width: 75%;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }
 
-.profileLabel {
+.profile label {
   grid-area: label;
-}
-
-.profileLabel label {
   display: block;
+  margin: 8.85px 0;
 }
 
-.profileInput {
+.profile input {
   grid-area: input;
-}
-
-.profileInput input {
   display: block;
+  padding: 5px 0;
+  margin-bottom: 5px;
 }
 
-.profileSubmit {
+.profile button {
+  display: block;
   grid-area: submit;
-}
-
-.profileSubmit button {
-  display: block;
+  height: fit-content;
 }

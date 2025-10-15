@@ -52,10 +52,10 @@ export function Dash(data: any) {
               Date
             </label>
             <label>
-              {user.firstname}&apos;s WI
+              {user.firstName}&apos;s WI
             </label>
             <label>
-              {user.sfirstname}&apos;s WI
+              {user.partnerFirstName}&apos;s WI
             </label>
             <label>
               Return
@@ -77,35 +77,30 @@ export function Dash(data: any) {
             </label>
           </div>
           <div className='dashInput'>
-            <input className=''
-            type='date' name='bsDate' value={today} onChange={(event) => {
+            <input type='date' name='bsDate' value={today} onChange={(event) => {
               setToday(event.target.value)
             }}/>
-            <input className=''
-            type='number' name='fWI' value={fWI} onFocus={e => e.target.select()} onChange={(event) => {
-              let input = parseFloat(event.target.value);
-              setFWI(input);
-            }}/>
-            <input className=''
-            type='number' name='sWI' onFocus={e => e.target.select()} value={sWI} onChange={(event) => {
-              let input = parseFloat(event.target.value);
-              setSWI(input);
-            }}/>
-            <input className=''
-            type='number' name='ret' onFocus={e => e.target.select()} value={ret} onChange={(event) => {
-              let input = parseFloat(event.target.value);
-              setRET(input);
-            }}/>
-            <input className=''
-            type='number' name='oB' value={oB} readOnly/>
-            <input className=''
-            type='number' name='cB' value={cB} readOnly/>
-            <input className=''
-            type='number' name='wSp' value={wSP} readOnly/>
-            <input className=''
-            type='number' name='wSa' value={wSA} readOnly/>
-            <input className=''
-                id='amt' value={amt} onFocus={e => e.target.select()} onChange={(event) => {
+            <input type='number' name='fWI' value={fWI} 
+              onFocus={e => e.target.select()} onChange={(event) => {
+                let input = parseFloat(event.target.value);
+                setFWI(input);
+              }}/>
+            <input type='number' name='sWI' 
+              onFocus={e => e.target.select()} value={sWI} onChange={(event) => {
+                let input = parseFloat(event.target.value);
+                setSWI(input);
+              }}/>
+            <input type='number' name='ret' 
+              onFocus={e => e.target.select()} value={ret} onChange={(event) => {
+                let input = parseFloat(event.target.value);
+                setRET(input);
+              }}/>
+            <input type='number' name='oB' value={oB} readOnly/>
+            <input type='number' name='cB' value={cB} readOnly/>
+            <input type='number' name='wSp' value={wSP} readOnly/>
+            <input type='number' name='wSa' value={wSA} readOnly/>
+            <input id='amt' value={amt} type="text"
+              onFocus={e => e.target.select()} onChange={(event) => {
                 let input = event.target.value;
                 if (input) {
                   setAmt(input)
@@ -118,9 +113,8 @@ export function Dash(data: any) {
               }}/>
           </div>
           <div className='dashExp'>
-            {/* {stringAmt(amt.toString())} */}
             {stringAmt(amt.toString()).numbers.map((x) => (
-              <div className="mathExp">
+              <div className="mathExp" key={x.exp + " " + x.amt}>
                 <label className='leftExp'>{x.exp}</label>
                 <label className='rightExp'>{x.amt}</label>
               </div>
