@@ -65,7 +65,7 @@ export async function addBS(formData: FormData) {
     year: Number(str?.split('-')[0]),
     month: Number(str?.split('-')[1]),
     date: Number(str?.split('-')[2],),
-    fWI: Number(formData.get('Number(fWI')),
+    fWI: Number(formData.get('fWI')),
     sWI: Number(formData.get('sWI')),
     return: Number(formData.get('ret')),
     openingBalance: Number(formData.get('oB')),
