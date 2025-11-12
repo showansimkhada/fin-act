@@ -10,7 +10,7 @@ const links = [
   },
   {
     name: 'Balance Sheet',
-    href: '/balanceSheet',
+    href: '/balancesheet',
   },
   { 
     name: 'Report', 
