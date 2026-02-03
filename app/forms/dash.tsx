@@ -47,79 +47,86 @@ export function Dash(data: any) {
       <form action={addBS}>
         <input name='username' defaultValue={user.username} readOnly hidden/>
         <div className='dash'>
-          <div className='dashLabel'>
-            <label>
-              Date
-            </label>
-            <label>
-              {user.firstName}&apos;s WI
-            </label>
-            <label>
-              {user.partnerFirstName}&apos;s WI
-            </label>
-            <label>
-              Return
-            </label>
-            <label>
-              Opening Balance
-            </label>
-            <label>
-              Closing Balance
-            </label>
-            <label>
-              Weekly Spent
-            </label>
-            <label>
-              Weekly Save
-            </label>
-            <label>
-              Sum of Amounts
-            </label>
-          </div>
-          <div className='dashInput'>
-            <input type='date' name='bsDate' value={today} onChange={(event) => {
-              setToday(event.target.value)
-            }}/>
-            <input type='number' name='fWI' value={fWI} 
-              onFocus={e => e.target.select()} onChange={(event) => {
-                let input = parseFloat(event.target.value);
-                setFWI(input);
+          <div className='dashL'>
+            <div className='dashH'>
+              <div className='dashT'>Date</div>
+              <input className='dashI' type='date' name='bsDate' value={today} onChange={(event) => {
+                setToday(event.target.value)
               }}/>
-            <input type='number' name='sWI' 
-              onFocus={e => e.target.select()} value={sWI} onChange={(event) => {
-                let input = parseFloat(event.target.value);
-                setSWI(input);
-              }}/>
-            <input type='number' name='ret' 
-              onFocus={e => e.target.select()} value={ret} onChange={(event) => {
-                let input = parseFloat(event.target.value);
-                setRET(input);
-              }}/>
-            <input type='number' name='oB' value={oB} readOnly/>
-            <input type='number' name='cB' value={cB} readOnly/>
-            <input type='number' name='wSp' value={wSP} readOnly/>
-            <input type='number' name='wSa' value={wSA} readOnly/>
-            <input id='amt' value={amt} type="text"
-              onFocus={e => e.target.select()} onChange={(event) => {
-                let input = event.target.value;
-                if (input) {
-                  setAmt(input)
-                  let x = sumAmt(input);
-                  setCB(parseFloat(x))
-                } else {
-                  setAmt('0')
-                  setCB(0)
-                }
-              }}/>
-          </div>
-          <div className='dashExp'>
-            {stringAmt(amt.toString()).numbers.map((x) => (
-              <div className="mathExp" key={x.sign + " " + x.amt}>
-                <label className='leftExp'>{x.sign}</label>
-                <label className='rightExp'>{x.amt}</label>
+            </div>
+            <div className='dashH'>
+              <div className='dashT'>Income</div>
+              <div className='dashLa'>
+                <div>{user.firstName}&apos;s Weekly Income</div>
+                <div>{user.partnerFirstName}&apos;s Weekly Income</div>
               </div>
-            ))}
-            <label className='sumExp'>{stringAmt(amt.toString()).sum}</label>
+              <div className='dashI'>
+                <input type='number' name='fWI' value={fWI} 
+                  onFocus={e => e.target.select()} onChange={(event) => {
+                    const input = parseFloat(event.target.value);
+                    setFWI(input);
+                  }}/>
+                <input type='number' name='sWI' 
+                  onFocus={e => e.target.select()} value={sWI} onChange={(event) => {
+                    const input = parseFloat(event.target.value);
+                    setSWI(input);
+                  }}/>
+              </div>
+            </div>
+            <div className='dashH'>
+              <div className='dashT'>Return</div>
+              <input className='dashI' type='number' name='ret' 
+                onFocus={e => e.target.select()} value={ret} onChange={(event) => {
+                  const input = parseFloat(event.target.value);
+                  setRET(input);
+                }}/>
+            </div>
+            <div className='dashH'>
+              <div className='dashT'>Balance</div>
+              <div className='dashLa'>
+                <div>Opening Balance</div>
+                <div>Closing Balance</div>
+              </div>
+              <div className='dashLa'>
+                <input type='number' name='oB' value={oB} readOnly/>
+                <input type='number' name='cB' value={cB} readOnly/>
+              </div>
+            </div>
+            <div className='dashH'>
+              <div className='dashT'>Summary</div>
+              <div className='dashLa'>
+                <div>Weekly Save</div>
+                <div>Weekly Spent</div>
+              </div>
+              <div className='dashLa'>
+                <input type='number' name='wSp' value={wSP} readOnly/>
+                <input type='number' name='wSa' value={wSA} readOnly/>
+              </div>
+            </div>
+          </div>
+          <div className='dashR'>
+            {stringAmt(amt.toString()).numbers.map((x) => (
+            <div className="mathExp" key={x.sign + " " + x.amt}>
+              <label className='leftExp'>{x.sign}</label>
+              <label className='rightExp'>{x.amt}</label>
+            </div>
+          ))}
+          <input id='amt' value={amt} type="text"
+                onFocus={e => e.target.select()} onChange={(event) => {
+                  let input = event.target.value;
+                  if (input) {
+                    setAmt(input)
+                    let x = sumAmt(input);
+                    setCB(parseFloat(x))
+                  } else {
+                    setAmt('0')
+                    setCB(0)
+                  }
+                }}/>
+          <div className='mathExp'>
+            <div className='leftExp'>=</div>
+            <div className='rightExp'>{stringAmt(amt.toString()).sum}</div>
+          </div>
           </div>
           <div className='dashBtn'>
             <Button type='submit'>Submit</Button>
