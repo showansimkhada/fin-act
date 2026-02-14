@@ -16,41 +16,41 @@ export default async function Page() {
     <>
       <table>
         <thead>
-          <tr className=''>
-            <th className=''>Date</th>
-            <th className=''>{me?.firstName}'s WI</th>
-            <th className=''>{me?.partnerFirstName}'s WI</th>
-            <th className=''>Return</th>
-            <th className=''>Opening Balance</th>
-            <th className=''>Closing Balance</th>
-            <th className=''>Weekly Spent</th>
-            <th className=''>Weekly Save</th>
+          <tr>
+            <th>Date</th>
+            <th>{me?.firstName}&apos;s WI</th>
+            <th>{me?.partnerFirstName}&apos;s WI</th>
+            <th>Return</th>
+            <th>Opening Balance</th>
+            <th>Closing Balance</th>
+            <th>Weekly Spent</th>
+            <th>Weekly Save</th>
           </tr>
         </thead>
         <tbody className='[&>*:nth-child(odd)]:bg-white'>
           {bs?.map((x) => (
             <tr key={formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}>
-              <td className=''>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
-              <td className=''>{x.fWI}</td>
-              <td className=''>{x.sWI}</td>
-              <td className=''>{x.return}</td>
-              <td className=''>{x.openingBalance}</td>
-              <td className=''>{x.closingBalance}</td>
-              <td className=''>{x.weeklySpent}</td>
-              <td className=''>{x.weeklySave}</td>
+              <td>{formatDate(x.year.toString() + '/' + x.month.toString() + '/' + x.date.toString(), 1)}</td>
+              <td>{x.fWI}</td>
+              <td>{x.sWI}</td>
+              <td>{x.return}</td>
+              <td>{x.openingBalance}</td>
+              <td>{x.closingBalance}</td>
+              <td>{x.weeklySpent}</td>
+              <td>{x.weeklySave}</td>
             </tr>
           ))}
         </tbody>
         <tfoot>
           <tr>
-            <td className=''>{'Total'}</td>
-            <td className=''>{fweTotal}</td>
-            <td className=''>{sweTotal}</td>
-            <td className=''></td>
-            <td className=''></td>
-            <td className=''></td>
-            <td className=''>{wspTotal}</td>
-            <td className=''>{wsaTotal}</td>
+            <td>{'Total'}</td>
+            <td>{fweTotal}</td>
+            <td>{sweTotal}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{wspTotal}</td>
+            <td>{wsaTotal}</td>
           </tr>
         </tfoot>
       </table>

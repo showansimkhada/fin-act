@@ -14,38 +14,38 @@ export default function LoginForm() {
   )
 	return (
     <>
-    <div className='loginForm'>
-      <form action={formAction}>
-        <div className='inputContainer'>
-          <label htmlFor="username">
-            Username
-          </label>
-          <input
-            type='text' id='username' name='username' autoCapitalize='none' required/>
-        </div>
-        <div className='inputContainer'>
-          <label htmlFor='password'>
-            Password
-          </label>
-          <input
-            type='password' id='password' name='password' required/>
-        </div>
-        <input type='hidden' name='redirectTo' value={callbackUrl} />
-          <Button aria-disabled={isPending}>
-            Log in
-          </Button>
-          <div
-            aria-live='polite'
-            aria-atomic='true'
-          >
-            {errorMessage && (
-              <>
-                <p className='errorMsg'>{errorMessage}</p>
-              </>
-            )}
+      <div className='loginForm'>
+        <form action={formAction}>
+          <div className='inputContainer'>
+            <label htmlFor="username">
+              Username
+            </label>
+            <input
+              type='text' id='username' name='username' autoCapitalize='none' required/>
           </div>
-      </form>
-    </div>
+          <div className='inputContainer'>
+            <label htmlFor='password'>
+              Password
+            </label>
+            <input
+              type='password' id='password' name='password' required/>
+          </div>
+          <input type='hidden' name='redirectTo' value={callbackUrl} />
+            <Button type="submit" aria-disabled={isPending}>
+              Log in
+            </Button>
+            <div
+              aria-live='polite'
+              aria-atomic='true'
+            >
+              {errorMessage && (
+                <>
+                  <p className='errorMsg'>{errorMessage}</p>
+                </>
+              )}
+            </div>
+        </form>
+      </div>
     </>
 	)
 }

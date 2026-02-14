@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <NavBar/>
-      <div className='main'>{children}</div>
+      {children}
     </>
   );
 }

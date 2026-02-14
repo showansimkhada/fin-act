@@ -26,8 +26,13 @@ export function getWeekNumber(date: string) {
 }
 
 export function getWeekday(date: string) {
-  let weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   return weekDays[new Date(date).getDay()];
+}
+
+export function getMonth(num: number) {
+  const month = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  return month[num - 1];
 }
 
 export function getStartDate(d: string) {

@@ -15,8 +15,8 @@
 }
 
 body {
-  margin: 45px auto;
-  max-width: 600px;
+  margin: 2rem auto;
+  max-width: 590px;
   height: 95vh;
   background-color: var(--color-bg);
 }
@@ -113,25 +113,42 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
 }
 
 .navBar {
-  padding: 10px;
   top: 0;
   left: 0;
   display: flex;
   position: fixed;
-  width: 100%;
+  width: 100vw;
+  height: 2rem;
   background-color: var(--color-nav);
-  justify-content: space-around;
+}
+
+.navWidth {
+  display: flex;
+  width: 590px;
+  margin: 0 auto;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.navWidth p {
+  color: var(--text-nav);
+  margin: 5px 0;
+}
+
+.navWidth button {
+  margin: 0;
+  padding: 0;
 }
 
 .navLinks {
   display: flex;
   flex-direction: column;
-  text-decoration: none;
+  padding: 0 0.2rem;
+  margin: 0;
 }
 
-.navLinks p,
-.navBar p {
-  color: var(--text-nav);
+.navLinks a:active {
+  background-color: var(--btn-hover);
 }
 
 .signOutBtn {
@@ -140,54 +157,110 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   background-color: transparent;
 }
 
+.signOutBtn button {
+  margin-top: -2px;
+  padding: 0;
+}
+
 .signOutBtn p {
   font-size: 0.9rem;
 }
 
 .dash {
   display: grid;
-  grid-template-areas: 
-    'label input exp'
-    'dashBtn dashBtn dashBtn';
-  grid-template-columns: 1fr 1fr 55px;
+  grid-template-areas:
+    'left right'
+    'dashBtn dashBtn';
+  grid-template-columns: 1fr 6rem;
   gap: 10px;
-  padding: 0 15px;
+  padding: 0 5px;
 }
 
-.dashLabel {
-  display: grid;
-  grid-area: label;
-  grid-template-rows: max-content;
-}
-
-.dashLabel label {
-  display: block;
-  padding: 6.5px 0;
-}
-
-.dashInput {
-  grid-area: input;
-  grid-template-rows: auto;
-  column-gap: 10px;
-}
-
-.dashInput input {
-  display: block;
-  width: 100%;
-  padding: 5px 0;
+.dash input {
+  display: flex;
+  width: 40%;
+  text-align: right;
+  padding: 5px 10px;
+  margin: 3px 5px;
   --webkit-appearance: none;
-  margin: 6px 0;
   border: 1px solid black;
 }
 
-.dashInput input::-webkit-outer-spin-button,
-.dashInput input::-webkit-inner-spin-button {
+.dash input::-webkit-outer-spin-button,
+.dash input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.dashExp {
-  grid-area: exp;
+.dashL {
+  display: flex;
+  grid-area: left;
+  flex-direction: column;
+}
+
+.dashH {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid magenta;
+  border-radius: 8px;
+  padding: 5px 5px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.dashT {
+  display: flex;
+  align-self: flex-start;
+  font-size: 1.5rem;
+}
+
+.dashLa {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border: 1px dashed black;
+}
+
+.dashLa div {
+  display: flex;
+  justify-content: space-evenly;
+  width: 55%;
+}
+
+.dashLa input {
+  display: flex;
+  justify-content: space-evenly;
+  width: 55%;
+  background-color: var(--color-bg);
+}
+
+.dashLa div:last-child {
+  border-left: 1px dashed black;
+}
+
+.dashI {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border: 1px dashed black;
+}
+
+.dashI input {
+  display: flex;
+  justify-content: space-evenly;
+  width: 55%;
+}
+
+.dashI input:last-child {
+  display: flex;
+  align-items: flex-end;
+}
+
+.dashR {
+  grid-area: right;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -195,8 +268,13 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   padding-bottom: 5px;
 }
 
-.dashExp label {
+.dashR label {
   line-height: 1.55;
+}
+
+.dashR input {
+  border: none;
+  width: 100%;
 }
 
 .mathExp {
@@ -216,8 +294,8 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
 }
 
 .sumExp {
-  align-self: self-end;
-  justify-self: right;
+  display: flex;
+  align-content: space-evenly;
 }
 
 .dashBtn {
@@ -231,8 +309,21 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   justify-content: center;
 }
 
-.balanceSheet {
-  overflow: scroll;
+.bsPage table {
+  width: 590px;
+}
+
+.bsPage table th, .bsPage table td{
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.bsPage table th:last-child, .bsPage table td:last-child {
+  border-right: 1px solid black;
+}
+
+.bsPage table tfoot td {
+  border-bottom: 1px solid black;
 }
 
 .profile {
@@ -242,7 +333,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   grid-template-columns: 1fr 1fr 0.5fr;
   border: 1px solid magenta;
   border-radius: 8px;
-  width: 75%;
+  width: 100%;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
@@ -267,4 +358,110 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   display: block;
   grid-area: submit;
   height: fit-content;
+}
+
+/* Report page */
+.card {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+
+.card button {
+  width: 5rem;
+  height: 2rem;
+}
+
+.cardYear {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+}
+
+.cardDetail {
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+}
+
+.cardType {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 15%;
+}
+
+.cardList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.cardList .cardName {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-self: center;
+}
+
+.cardBrief {
+  display: flex;
+}
+
+.cardEmployer {
+  display: flex;
+  width: 100%;
+  border: 1px solid magenta;
+}
+
+.cardListD h1 {
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+}
+
+.cardListD {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  border: 1px solid magenta;
+  margin-bottom: 0.5rem;
+}
+
+.cardListDT {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.cardTax {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  border: 1px solid black;
+}
+
+.cardTax p {
+  margin-left: 0.5rem;
+}
+
+.cardMonthIncome {
+  min-width: 25%;
+}
+
+.cardMonthIncome div {
+  padding: 5px 10px;
+  border: 2px solid blue;
+}
+
+.cardMonthIncome :nth-last-child(1) {
+  background-color: white;
+}
+
+.cardMonthIncome :nth-last-child(2) {
+  background-color: green;
 }
