@@ -35,10 +35,22 @@ export type BS = {
   weeklySave: number | 0;
 }
 
-export type LineProps = {
+export type TaxInfo = {
+  _id: ObjectId;
+  username: string;
+  year: number;
+  month: number;
+  date: number;
+  grossAmount: number;
+  payeDeduced: number;
+  employer: string;
+}
+
+export type Props = {
   data: [
     BS[],
-    filUser
+    filUser,
+    TaxInfo[],
   ]
 }
 
