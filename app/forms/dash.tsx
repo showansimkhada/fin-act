@@ -99,8 +99,8 @@ export function Dash(data: any) {
                 <div>Weekly Spent</div>
               </div>
               <div className='dashLa'>
-                <input type='number' name='wSp' value={wSP} readOnly/>
-                <input type='number' name='wSa' value={wSA} readOnly/>
+                <input type='number' name='wSp' value={wSA} readOnly/>
+                <input type='number' name='wSa' value={wSP} readOnly/>
               </div>
             </div>
           </div>
