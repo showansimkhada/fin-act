@@ -120,6 +120,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   width: 100vw;
   height: 2rem;
   background-color: var(--color-nav);
+  padding: 0 1rem
 }
 
 .navWidth {
@@ -366,6 +367,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   flex-direction: row;
   justify-content: center;
   align-content: center;
+  padding: 0 0.2rem;
 }
 
 .card button {
@@ -396,7 +398,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
+  width: 95%;
   flex-wrap: wrap;
   margin: 0 auto;
 }
@@ -450,7 +452,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
 }
 
 .cardMonthIncome {
-  min-width: 25%;
+  min-width: 33.33%;
 }
 
 .cardMonthIncome div {
