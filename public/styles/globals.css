@@ -1,12 +1,42 @@
 :root {
-  --color-bg: aqua;
-  --color-nav: rgb(58, 55, 55);
-  --text-nav: #fff;
-  --btn-submit: rgba(27, 146, 232, 0.972);
-  --btn-delete: red;
-  --btn-confirm: green;
-  --btn-edit: yellow;
-  --btn-hover: orange;
+  /* Text colors */
+  --text-primary: #F7FAFC;
+  --text-secondary: #CBD5E0;
+  --text-muted: #A0AEC0;
+  /* End of text colors */
+
+  /* Background colors */
+  --bg-primary: #2D3748;
+  /* End of background colors */
+
+  /* Button colors */
+  --btn-primary: #2563EB;
+  --btn-secondary: #F56565;
+  --btn-success: #48BB78;
+  --btn-warning: #ED8936;
+  --btn-text: #FFFFFF;
+  --btn-hover: #2B6CB0;
+  /* End of button colors */
+
+  /* Navigation colors */
+  --nav-bg: #1A202C;
+  --nav-text: #F7FAFC;
+  /* End of navigation colors */
+
+  /* Card colors */
+  --card-bg: #3D485A;
+  --card-border: #4A5568;
+  --card-heading: #F7FAFC;
+  --card-text: #E2E8F0;
+  --card-primary: #48BB78;
+  --card-secondary: #ED8936;
+  /* End of card colors */
+  
+  /* Input colors */
+  --input-bg: #1A202C;
+  --input-border: #ED8936;
+  --input-text: #F7FAFC;
+  /* End of input colors */
 }
 
 * {
@@ -18,15 +48,19 @@ body {
   margin: 2rem auto;
   max-width: 590px;
   height: 95vh;
-  background-color: var(--color-bg);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 input {
   height: 25px;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
 }
 
 button[type="submit"] {
-  background-color: var(--btn-submit);
+  background-color: var(--btn-primary);
 }
 
 button[type="submit"]:hover {
@@ -35,6 +69,7 @@ button[type="submit"]:hover {
 
 input[type="text"], input[type="password"], input[type="number"], input[type="date"] {
   border-radius: 4px;
+  border: 1px solid var(--input-border);
 }
 
 .loginForm {
@@ -43,6 +78,14 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   align-items: center;
   height: 100vh;
   margin: 0;
+}
+
+button {
+  color: var(--btn-text);
+}
+
+.loginForm label {
+  color: var(--input-text);
 }
 
 .loginForm form {
@@ -76,7 +119,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
 
 .inputContainer input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: var(--input-border);
 }
 
 .inputContainer input[type="text"] {
@@ -96,8 +139,8 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   transform: translateY(-50%) scale(0.8);
   font-size: 0.9rem;
   padding: 0 5px;
-  background-color: #fff;
-  color: #007bff;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .loginForm button {
@@ -109,7 +152,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
 .errorMsg {
   font-size: 1.5rem;
   text-align: center;
-  color: rgba(230, 0, 0, 1);
+  color: var(--btn-warning);
 }
 
 .navBar {
@@ -119,8 +162,12 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   position: fixed;
   width: 100vw;
   height: 2rem;
-  background-color: var(--color-nav);
+  background-color: var(--nav-bg);
   padding: 0 1rem
+}
+
+.navBar a {
+  border-radius: 8px;
 }
 
 .navWidth {
@@ -132,7 +179,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
 }
 
 .navWidth p {
-  color: var(--text-nav);
+  color: var(--nav-text);
   margin: 5px 0;
 }
 
@@ -184,7 +231,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   padding: 5px 10px;
   margin: 3px 5px;
   --webkit-appearance: none;
-  border: 1px solid black;
+  border: 1px solid var(--input-border);
 }
 
 .dash input::-webkit-outer-spin-button,
@@ -202,7 +249,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
 .dashH {
   display: flex;
   flex-direction: column;
-  border: 1px solid magenta;
+  border: 1px solid var(--btn-warning);
   border-radius: 8px;
   padding: 5px 5px;
   align-items: center;
@@ -221,7 +268,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   width: 100%;
   flex-direction: row;
   justify-content: space-evenly;
-  border: 1px dashed black;
+  border: 1px dashed var(--btn-warning);
 }
 
 .dashLa div {
@@ -238,7 +285,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
 }
 
 .dashLa div:last-child {
-  border-left: 1px dashed black;
+  border-left: 1px dashed var(--btn-warning);
 }
 
 .dashI {
@@ -246,7 +293,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   width: 100%;
   flex-direction: row;
   justify-content: space-evenly;
-  border: 1px dashed black;
+  border: 1px dashed var(--btn-warning);
 }
 
 .dashI input {
@@ -315,16 +362,16 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
 }
 
 .bsPage table th, .bsPage table td{
-  border-top: 1px solid black;
-  border-left: 1px solid black;
+  border-top: 1px solid var(--btn-warning);
+  border-left: 1px solid var(--btn-warning);
 }
 
 .bsPage table th:last-child, .bsPage table td:last-child {
-  border-right: 1px solid black;
+  border-right: 1px solid var(--btn-warning);
 }
 
 .bsPage table tfoot td {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--btn-warning);
 }
 
 .profile {
@@ -332,7 +379,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   padding: 10px 20px;
   grid-template-areas: "label input submit";
   grid-template-columns: 1fr 1fr 0.5fr;
-  border: 1px solid magenta;
+  border: 1px solid var(--btn-warning);
   border-radius: 8px;
   width: 100%;
   align-items: center;
@@ -359,6 +406,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   display: block;
   grid-area: submit;
   height: fit-content;
+  border-radius: 9px;
 }
 
 /* Report page */
@@ -373,6 +421,12 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
 .card button {
   width: 5rem;
   height: 2rem;
+  border-radius: 7px;
+  color: var(--btn-text);
+}
+
+.card button:hover {
+  background-color: var(--btn-hover);
 }
 
 .cardYear {
@@ -385,6 +439,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   display: flex;
   width: 70%;
   flex-direction: column;
+  color: var(--text-primary)
 }
 
 .cardType {
@@ -418,7 +473,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
 .cardEmployer {
   display: flex;
   width: 100%;
-  border: 1px solid magenta;
+  border: 1px solid var(--btn-delete);
 }
 
 .cardListD h1 {
@@ -430,7 +485,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   display: flex;
   width: 100%;
   flex-direction: column;
-  border: 1px solid magenta;
+  border: 1px solid var(--btn-delete);
   margin-bottom: 0.5rem;
 }
 
@@ -444,7 +499,7 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
   display: flex;
   width: 50%;
   flex-direction: column;
-  border: 1px solid black;
+  border: 1px solid var(--btn-delete);
 }
 
 .cardTax p {
@@ -457,13 +512,13 @@ input[type="text"], input[type="password"], input[type="number"], input[type="da
 
 .cardMonthIncome div {
   padding: 5px 10px;
-  border: 2px solid blue;
+  border: 2px solid var(--btn-delete);
 }
 
 .cardMonthIncome :nth-last-child(1) {
-  background-color: white;
+  background-color: var(--card-primary);
 }
 
 .cardMonthIncome :nth-last-child(2) {
-  background-color: green;
+  background-color: var(--card-secondary);
 }

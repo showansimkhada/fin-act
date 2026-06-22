@@ -59,7 +59,7 @@ export default function Card(data: Props) {
               ))}
             </div>
             <div className="cardBrief">
-              <p>Average savings per month {(arr.reduce((a, v) => a + Number(v.monthlySave), 0)/12).toFixed(2)}</p>
+              <p>Average savings per month {(arr.reduce((a, v) => a + Number(v.monthlySave), 0)/arr.length).toFixed(2)}</p>
             </div>
           </div>
         </>
@@ -96,7 +96,7 @@ export default function Card(data: Props) {
               ))}
             </div>
             <div className="cardBrief">
-              <p>Average expenses per month {(arr.reduce((a, v) => a + Number(v.monthlySpent), 0)/12).toFixed(2)}</p>
+              <p>Average expenses per month {(arr.reduce((a, v) => a + Number(v.monthlySpent), 0)/arr.length).toFixed(2)}</p>
             </div>
           </div>
         </>
@@ -228,7 +228,7 @@ export default function Card(data: Props) {
     if (year === 0 || year < years[0]) {
       setActiveBY(years[years.length-1].toString());
       setYear(years[years.length-1]);
-      document.getElementById(activeBY)?.setAttribute('style', `background-color: blue; color: white;`);
+      document.getElementById(activeBY)?.setAttribute('style', `background-color: var(--btn-success); color: var(--text-primary);`);
     }
     return (
       <div className="cardYear"> {
@@ -244,10 +244,20 @@ export default function Card(data: Props) {
   }
 
   function taxYearFilter(arr: number[]) {
+    if (arr.length === 0) {
+      return (
+        <div className="cardYear">
+          <Button id="none" className='btnY' type='button' key="none" onClick={() => {
+            setYea(0)
+            setActiveBY('No data found'.toString())
+          }}>{'No data available'}</Button>
+        </div>
+      )
+    }
     if (yea === 0 || yea < yeas[0]) {
       setActiveBY(yeas[yeas.length-1].toString());
       setYea(yeas[yeas.length-1]);
-      document.getElementById(activeBY)?.setAttribute('style', `background-color: blue; color: white;`);
+      document.getElementById(activeBY)?.setAttribute('style', `background-color: var(--btn-success); color: var(--text-primary);`);
     }
     return (
       <div className="cardYear">{
@@ -264,10 +274,10 @@ export default function Card(data: Props) {
 
   useEffect(() => {
     if (yea > 0 || year > 0) {
-      document.querySelectorAll('.btnT').forEach(x => x.setAttribute('style', `background-color: white; color: black;`));
-      document.querySelectorAll('.btnY').forEach(x => x.setAttribute('style', `background-color: white; color: black;`));
-      document.getElementById(activeBT)?.setAttribute('style', `background-color: blue; color: white;`);
-      document.getElementById(activeBY)?.setAttribute('style', `background-color: blue; color: white;`);
+      document.querySelectorAll('.btnT').forEach(x => x.setAttribute('style', `background-color: var(--btn-secondary); color: black;`));
+      document.querySelectorAll('.btnY').forEach(x => x.setAttribute('style', `background-color: var(--btn-secondary); color: black;`));
+      document.getElementById(activeBT)?.setAttribute('style', `background-color: var(--btn-primary); color: var(--text-primary);`);
+      document.getElementById(activeBY)?.setAttribute('style', `background-color: var(--btn-primary); color: var(--text-primary);`);
     }
   }, [activeBT, activeBY, year, yea, years, yeas]);
 
